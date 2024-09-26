@@ -53,6 +53,24 @@ class PostController extends Controller
         return redirect()->route('post.show', $post->id);
     }
 
+    public function find()
+    {
+        $data = request()->validate([
+            'findRequest' => 'string'
+        ]);
+
+        $findRequest = strtolower($data['findRequest']);
+        $posts = Post::whereRaw('LOWER(name) LIKE ?', ["%$findRequest%"])->get();
+
+        if (count($posts) == 0) {
+            return redirect()->route('post.index');
+        }
+
+        $findName = $data['findRequest'];
+        
+        return view('posts.find', compact('posts', 'findName'));
+    }
+
     public function destroy(Post $post) 
     {
         $post->delete();

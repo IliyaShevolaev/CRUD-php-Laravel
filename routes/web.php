@@ -16,6 +16,7 @@ Route::get('/posts/{post}', "App\Http\Controllers\PostController@show")->name('p
 Route::get('/posts/{post}/edit', "App\Http\Controllers\PostController@edit")->name('post.edit');
 
 Route::post('/posts', 'App\Http\Controllers\PostController@store')->name('post.store');
+Route::post('/posts/find', "App\Http\Controllers\PostController@find")->name('post.find');
 
 Route::patch('/posts/{post}', "App\Http\Controllers\PostController@update")->name('post.update');
 
