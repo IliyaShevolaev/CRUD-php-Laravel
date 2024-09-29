@@ -3,25 +3,24 @@
     <div class="container d-flex align-items-center justify-content-center">
         <div>
             @foreach ($posts as $post)
-                {{ $post->name }} <br>
-                {{ $post->content }} <br>
-                Цена: {{ $post->price }}
-
-                <div>
-                    <a href="{{ route('post.index') }}" class="btn btn-primary mb-3">Назад</a>
+                <div class="mb-3">
+                    <h4>{{ $post->name }}</h4>
+                    <p>{{ $post->content }}</p>
+                    <p>Цена: {{ $post->price }} рублей</p>
                 </div>
 
-                <div>
-                    <a href="#" class="btn btn-success mb-3">Оформить</a>
-                </div>
+                <div class="d-flex flex-wrap mb-4">
+                    <a href="{{ route('post.index') }}" class="btn btn-primary me-2 mb-2">Назад</a>
 
-                <div>
-                    <form action="{{route('post.delete', $post->id)}}" method="POST">
+                    <form action="{{ route('post.delete', $post->id) }}" method="POST" class="me-2 mb-2">
                         @csrf
                         @method('delete')
-                        <input type="submit" value="Удалить" class="btn btn-danger mb-3">
+                        <input type="submit" value="Удалить" class="btn btn-danger">
                     </form>
-                    <a href="{{route('post.edit', $post->id)}}" class="btn btn-warning mb-3">Редактировать</a>
+
+                    <a href="{{ route('post.edit', $post->id) }}" class="btn btn-warning me-2 mb-2">Редактировать</a>
+
+                    <a href="#" class="btn btn-success me-2 mb-2">Оформить</a>
                 </div>
             @endforeach
         </div>

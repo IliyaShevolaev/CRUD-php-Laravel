@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
 
 class PostController extends Controller
@@ -9,12 +10,15 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::all();
+
         return view('posts.index', compact('posts'));
     }
 
     public function create() 
     {
-        return view('posts.create');
+        $categories = Category::all();
+
+        return view('posts.create', compact('categories'));
     }
 
     public function store() 
@@ -22,7 +26,8 @@ class PostController extends Controller
         $data = request()->validate([
             'name' => 'string',
             'content' => 'string',
-            'price' => 'integer'
+            'price' => 'integer',
+            'category_id' => ''
         ]);
 
         Post::create($data);
@@ -38,7 +43,9 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
-        return view('posts.edit', compact('post'));
+        $categories = Category::all();
+
+        return view('posts.edit', compact('post', 'categories'));
     }
 
     public function update(Post $post) 
@@ -46,7 +53,8 @@ class PostController extends Controller
         $data = request()->validate([
             'name' => 'string',
             'content' => 'string',
-            'price' => 'integer'
+            'price' => 'integer',
+            'category_id' => ''
         ]);
 
         $post->update($data);
