@@ -7,21 +7,28 @@ use App\Models\Post;
 
 class PostController extends Controller
 {
+    private function showIndex($posts, $currentSelected = 0)
+    {
+        $categories = Category::all();
+        return view('posts.index', compact('posts', 'categories', 'currentSelected'));
+    }
+
+
     public function index()
     {
         $posts = Post::all();
 
-        return view('posts.index', compact('posts'));
+        return $this->showIndex($posts);
     }
 
-    public function create() 
+    public function create()
     {
         $categories = Category::all();
 
         return view('posts.create', compact('categories'));
     }
 
-    public function store() 
+    public function store()
     {
         $data = request()->validate([
             'name' => 'string',
@@ -48,7 +55,7 @@ class PostController extends Controller
         return view('posts.edit', compact('post', 'categories'));
     }
 
-    public function update(Post $post) 
+    public function update(Post $post)
     {
         $data = request()->validate([
             'name' => 'string',
@@ -70,16 +77,22 @@ class PostController extends Controller
         $findRequest = strtolower($data['findRequest']);
         $posts = Post::whereRaw('LOWER(name) LIKE ?', ["%$findRequest%"])->get();
 
-        if (count($posts) == 0) {
-            return redirect()->route('post.index');
-        }
-
-        $findName = $data['findRequest'];
-        
-        return view('posts.find', compact('posts', 'findName'));
+        return $this->showIndex($posts);
     }
 
-    public function destroy(Post $post) 
+    public function sort($categoryId)
+    {
+        if ($categoryId == 0) {
+            return $this->showIndex(Post::all());
+        }
+
+        $category = Category::find($categoryId);
+        $posts = Post::where('category_id', $categoryId)->get();
+
+        return $this->showIndex($posts, $categoryId);
+    }
+
+    public function destroy(Post $post)
     {
         $post->delete();
         return redirect()->route('post.index');
