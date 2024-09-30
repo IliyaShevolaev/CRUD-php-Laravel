@@ -5,24 +5,38 @@
             @csrf
             <div class="form-group">
                 <label for="name">Название</label>
-                <input name="name" type="text" class="form-control" id="name" placeholder="Введите название">
+                <input value="{{old('name')}}" name="name" type="text" class="form-control" id="name" placeholder="Введите название">
+
+                @error('name')
+                    <p class="text-danger">{{$message}}</p>
+                @enderror
             </div>
 
             <div class="form-group">
                 <label for="content">Описание</label>
-                <textarea name="content" class="form-control" id="content" placeholder="Что вы продаете"></textarea>
+                <textarea name="content" class="form-control" id="content" placeholder="Что вы продаете">{{old('content')}}</textarea>
+
+                @error('content')
+                <p class="text-danger">{{$message}}</p>
+                @enderror
             </div>
 
             <div class="form-group">
                 <label for="price">Цена</label>
-                <input name="price" type="number" class="form-control" id="price" placeholder="Введите цену">
+                <input value="{{old('price')}}" name="price" type="number" class="form-control" id="price" placeholder="Введите цену">
+
+                @error('price')
+                <p class="text-danger">{{$message}}</p>
+                @enderror
             </div>
 
             <div class="form-group mt-3">
                 <label for="category">Категория товара</label>
                 <select class="form-select" id="category", name="category_id">
                     @foreach ($categories as $category)
-                    <option value="{{$category->id}}">{{$category->name}}</option>
+                    <option {{old('category_id') == $category->id ? 'selected' : ''}}
+                     value="{{$category->id}}">{{$category->name}}
+                    </option>
                     @endforeach
                 </select>
             </div>

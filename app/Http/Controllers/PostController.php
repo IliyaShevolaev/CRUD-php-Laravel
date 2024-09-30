@@ -86,7 +86,6 @@ class PostController extends Controller
             return $this->showIndex(Post::all());
         }
 
-        $category = Category::find($categoryId);
         $posts = Post::where('category_id', $categoryId)->get();
 
         return $this->showIndex($posts, $categoryId);
