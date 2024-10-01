@@ -1,20 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Post;
 
-use App\Http\Requests\Post\PostRequest;
-use App\Models\Category;
 use App\Models\Post;
+use App\Models\Category;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Post\FindRequest;
+use App\Http\Requests\Post\PostRequest;
 
-class PostController extends Controller
+class PostController extends BaseController
 {
-    private function showIndex($posts, $currentSelected = 0)
-    {
-        $categories = Category::all();
-        return view('posts.index', compact('posts', 'categories', 'currentSelected'));
-    }
-
-
     public function index()
     {
         $posts = Post::all();
@@ -33,15 +28,14 @@ class PostController extends Controller
     {
         $data = $postRequest->validated();
 
-        Post::create($data);
+        $this->service->storeData($data);
 
         return redirect()->route("post.index");
     }
 
-    public function show($id)
+    public function show(Post $post)
     {
-        $posts = Post::where('id', $id)->get();
-        return view('posts.show', compact('posts'));
+        return view('posts.show', compact('post'));
     }
 
     public function edit(Post $post)
@@ -54,19 +48,17 @@ class PostController extends Controller
     public function update(PostRequest $postRequest, Post $post)
     {
         $data = $postRequest->validated();
-
-        $post->update($data);
+        
+        $this->service->updateData($post, $data);
+        
         return redirect()->route('post.show', $post->id);
     }
 
-    public function find()
+    public function find(FindRequest $findRequest)
     {
-        $data = request()->validate([
-            'findRequest' => 'string'
-        ]);
+        $data = $findRequest->validated();
 
-        $findRequest = strtolower($data['findRequest']);
-        $posts = Post::whereRaw('LOWER(name) LIKE ?', ["%$findRequest%"])->get();
+        $posts = $this->service->findData($data);
 
         return $this->showIndex($posts);
     }

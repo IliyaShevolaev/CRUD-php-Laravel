@@ -19,7 +19,7 @@
             </div>
             <form action="{{route('post.find')}}" method="POST" class="d-flex ms-auto me-5">
               @csrf
-                <input name="findRequest" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <input name="findQuery" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
         </div>
