@@ -4,21 +4,34 @@
         <form action="{{ route('post.update', $post->id) }}" method="POST">
             @csrf
             @method('PATCH')
+
             <div class="form-group">
                 <label for="name">Название</label>
                 <input name="name" type="text" class="form-control" id="name" placeholder="Введите название"
                     value="{{ $post->name }}">
+
+                @error('name')
+                    <p class="text-danger">{{ $message }}</p>
+                @enderror
             </div>
 
             <div class="form-group">
                 <label for="content">Описание</label>
                 <textarea name="content" class="form-control" id="content" placeholder="Что вы продаете">{{ $post->content }}</textarea>
+
+                @error('content')
+                    <p class="text-danger">{{ $message }}</p>
+                @enderror
             </div>
 
             <div class="form-group">
                 <label for="price">Цена</label>
                 <input name="price" type="number" class="form-control" id="price" placeholder="Введите цену"
                     value="{{ $post->price }}">
+
+                @error('price')
+                    <p class="text-danger">{{ $message }}</p>
+                @enderror
             </div>
 
             <div class="form-group mt-3">

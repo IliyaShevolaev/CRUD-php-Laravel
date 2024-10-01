@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Post\PostRequest;
 use App\Models\Category;
 use App\Models\Post;
 
@@ -28,14 +29,9 @@ class PostController extends Controller
         return view('posts.create', compact('categories'));
     }
 
-    public function store()
+    public function store(PostRequest $postRequest)
     {
-        $data = request()->validate([
-            'name' => 'string',
-            'content' => 'string',
-            'price' => 'integer',
-            'category_id' => ''
-        ]);
+        $data = $postRequest->validated();
 
         Post::create($data);
 
@@ -55,14 +51,9 @@ class PostController extends Controller
         return view('posts.edit', compact('post', 'categories'));
     }
 
-    public function update(Post $post)
+    public function update(PostRequest $postRequest, Post $post)
     {
-        $data = request()->validate([
-            'name' => 'string',
-            'content' => 'string',
-            'price' => 'integer',
-            'category_id' => ''
-        ]);
+        $data = $postRequest->validated();
 
         $post->update($data);
         return redirect()->route('post.show', $post->id);
