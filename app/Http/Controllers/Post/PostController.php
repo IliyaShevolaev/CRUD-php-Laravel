@@ -65,11 +65,7 @@ class PostController extends BaseController
 
     public function sort($categoryId)
     {
-        if ($categoryId == 0) {
-            return $this->showIndex(Post::all());
-        }
-
-        $posts = Category::find($categoryId)->posts;
+        $posts = $this->service->sortCategoryData($categoryId);
 
         return $this->showIndex($posts, $categoryId);
     }

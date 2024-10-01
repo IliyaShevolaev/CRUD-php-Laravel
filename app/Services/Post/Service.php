@@ -2,6 +2,7 @@
 
 namespace App\Services\Post;
 
+use App\Models\Category;
 use App\Models\Post;
 
 class Service 
@@ -22,5 +23,14 @@ class Service
         $posts = Post::whereRaw('LOWER(name) LIKE ?', ["%$findValue%"])->get();
 
         return $posts;
+    }
+
+    public function sortCategoryData($categoryId)
+    {
+        if ($categoryId == 0) {
+            return Post::all();
+        }
+
+        return Category::find($categoryId)->posts;
     }
 }
