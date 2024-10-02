@@ -4,8 +4,6 @@
         <h1>Posts</h1>
     </div>
 
-    </div>
-
     <div class="container d-flex align-items-center justify-content-center mb-3">
         <div class="form-group w-30">
             <label for="category">Категория товара</label>
@@ -25,14 +23,17 @@
     </div>
 
     <div class="container d-flex align-items-center justify-content-center">
-
-        <div>
+        <div style="max-width: 400px; word-wrap: break-word;">
             @foreach ($posts as $post)
-                {{ $post->name }} <br>
+                <div class="d-flex justify-content-center">
+                    <strong>{{ $post->name }}</strong>
+                </div>
+                <br>
                 {{ $post->content }} <br>
-                Цена: {{ $post->price }}
-
-                <div><a href="{{ route('post.show', $post->id) }}" class="btn btn-primary mb-3">Перейти</a></div>
+                Цена: {{ $post->price }} <br>
+                <div class="d-flex justify-content-center">
+                    <a href="{{ route('post.show', $post->id) }}" class="btn btn-primary mb-4">Перейти</a>
+                </div>
             @endforeach
         </div>
     </div>

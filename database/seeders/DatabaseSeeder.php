@@ -11,12 +11,13 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        //Post::factory(10)->create();
         
         Category::truncate();
         $categories = ['Покупка', 'Продажа', 'Аренда'];
         foreach($categories as $category) {
             Category::create(['name' => $category]);
         }
+
+        Post::factory(10)->create();
     }
 }
