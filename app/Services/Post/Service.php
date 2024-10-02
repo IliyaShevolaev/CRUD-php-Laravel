@@ -20,7 +20,7 @@ class Service
     public function findData($data)
     {
         $findValue = strtolower($data['findQuery']);
-        $posts = Post::whereRaw('LOWER(name) LIKE ?', ["%$findValue%"])->get();
+        $posts = Post::whereRaw('LOWER(name) LIKE ?', ["%$findValue%"])->paginate(3);
 
         return $posts;
     }
@@ -28,9 +28,9 @@ class Service
     public function sortCategoryData($categoryId)
     {
         if ($categoryId == 0) {
-            return Post::all();
+            return Post::paginate(3);
         }
-
-        return Category::find($categoryId)->posts;
+        
+        return Post::where('category_id', $categoryId)->paginate(3);
     }
 }

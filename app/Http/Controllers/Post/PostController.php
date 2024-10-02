@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Post;
 
 use App\Models\Post;
 use App\Models\Category;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Post\FindRequest;
 use App\Http\Requests\Post\PostRequest;
 
@@ -12,7 +11,7 @@ class PostController extends BaseController
 {
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::paginate(3);
 
         return $this->showIndex($posts);
     }
