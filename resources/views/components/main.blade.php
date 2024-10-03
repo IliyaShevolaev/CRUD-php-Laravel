@@ -17,11 +17,12 @@
                 <a class="nav-item nav-link" href="{{ route('post.create') }}">Создать объявление</a>
                 <a class="nav-item nav-link" href="/about">Про нас</a>
             </div>
-            <form action="{{route('post.find')}}" method="GET" class="d-flex ms-auto me-5">
+            <form action="{{route('post.find')}}" method="GET" class="d-flex ms-auto me-3">
               @csrf
                 <input name="findQuery" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
+            <a href="{{route('auth.login')}}" class="btn btn-outline-danger me-3">Log out</a>
         </div>
     </nav>
 
