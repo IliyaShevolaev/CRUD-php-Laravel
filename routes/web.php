@@ -12,12 +12,12 @@ Route::get('/about', function(){
 
 Route::get('/posts', "App\Http\Controllers\Post\PostController@index")->name('post.index');
 Route::get('/create', "App\Http\Controllers\Post\PostController@create")->name('post.create');
+Route::get('/posts/find', "App\Http\Controllers\Post\PostController@find")->name('post.find');
 Route::get('/posts/{post}', "App\Http\Controllers\Post\PostController@show")->name('post.show');
 Route::get('/posts/{post}/edit', "App\Http\Controllers\Post\PostController@edit")->name('post.edit');
 Route::get('/posts/sort/{category}', "App\Http\Controllers\Post\PostController@sort")->name('post.sort');
 
 Route::post('/posts', 'App\Http\Controllers\Post\PostController@store')->name('post.store');
-Route::post('/posts/find', "App\Http\Controllers\Post\PostController@find")->name('post.find');
 
 Route::patch('/posts/{post}', "App\Http\Controllers\Post\PostController@update")->name('post.update');
 

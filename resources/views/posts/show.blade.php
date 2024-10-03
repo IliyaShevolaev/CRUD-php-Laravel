@@ -6,6 +6,7 @@
                 <h4>{{ $post->name }}</h4>
                 <p>{{ $post->content }}</p>
                 <p>Цена: {{ $post->price }} рублей</p>
+                <p>Тип: {{$category->name}}</p>
                 <p>От: {{$post->updated_at}}</p>
             </div>
 

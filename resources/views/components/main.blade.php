@@ -17,7 +17,7 @@
                 <a class="nav-item nav-link" href="{{ route('post.create') }}">Создать объявление</a>
                 <a class="nav-item nav-link" href="/about">Про нас</a>
             </div>
-            <form action="{{route('post.find')}}" method="POST" class="d-flex ms-auto me-5">
+            <form action="{{route('post.find')}}" method="GET" class="d-flex ms-auto me-5">
               @csrf
                 <input name="findQuery" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>

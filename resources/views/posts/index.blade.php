@@ -39,7 +39,7 @@
         </div>
 
         <div class="d-flex justify-content-center mt-4" style="margin-bottom: 60px;">
-            {{ $posts->onEachSide(1)->links() }}
+            {{ $posts->withQueryString()->onEachSide(1)->links() }}
         </div>
     </div>
 

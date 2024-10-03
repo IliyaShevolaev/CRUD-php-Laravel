@@ -34,7 +34,8 @@ class PostController extends BaseController
 
     public function show(Post $post)
     {
-        return view('posts.show', compact('post'));
+        $category = Category::find($post->category_id);
+        return view('posts.show', compact('post', 'category'));
     }
 
     public function edit(Post $post)
