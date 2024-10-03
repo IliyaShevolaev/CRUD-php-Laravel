@@ -19,21 +19,17 @@ class LoginController extends Controller
     {
         $data = $loginRequest->validated();
 
-        // Проверяем, существует ли email в базе
         $userExists = User::where('email', $data['email'])->exists();
 
         if ($userExists) {
-            // Пытаемся аутентифицировать пользователя
             if (Auth::attempt($data)) {
                 return redirect()->route('post.index');
             }
 
-            // Если email есть, но пароль неверный
-            return redirect()->route('auth.login')->withInput()->withErrors(['wrongPassword' => ' ']);
+            return redirect()->route('login')->withInput()->withErrors(['wrongPassword' => ' ']);
         }
 
-        // Если email не найден в базе данных
-        return redirect()->route('auth.login')->withInput()->withErrors(['incorrectEmail' => ' ']);
+        return redirect()->route('login')->withInput()->withErrors(['incorrectEmail' => ' ']);
     }
 }
 

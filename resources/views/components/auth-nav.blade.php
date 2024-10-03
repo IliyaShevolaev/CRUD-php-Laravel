@@ -12,8 +12,8 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
-        <a href="{{ route('auth.register') }}" class="btn btn-outline-success mx-4">Register</a>
-        <a href="{{ route('auth.login') }}" class="btn btn-outline-success ml-3">Log In</a>
+        <a href="{{ route('register') }}" class="btn btn-outline-success mx-4">Register</a>
+        <a href="{{ route('login') }}" class="btn btn-outline-success ml-3">Log In</a>
 
     </nav>
 

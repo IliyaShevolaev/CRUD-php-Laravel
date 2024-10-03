@@ -22,7 +22,7 @@
                 <input name="findQuery" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
-            <a href="{{route('auth.login')}}" class="btn btn-outline-danger me-3">Log out</a>
+            <a href="{{route('login')}}" class="btn btn-outline-danger me-3">Log out</a>
         </div>
     </nav>
 

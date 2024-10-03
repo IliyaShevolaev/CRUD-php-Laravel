@@ -4,7 +4,7 @@
 
     <div class="d-flex justify-content-center align-items-center vh-100"
         style="background: linear-gradient(135deg, #0a0a0a, #0b1e36); background-size: cover; background-position: center;">
-        <form action="{{ route('auth.login.store') }}" method="POST" NOVALIDATE
+        <form action="{{ route('login.store') }}" method="POST" NOVALIDATE
             style="max-width: 400px; width: 100%; background-color: #1c1c1c; padding: 20px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);">
             @csrf
 
@@ -33,9 +33,6 @@
                 @error('wrongPassword')
                 <p class="text-danger"> Wrong password </p>
                 @enderror
-            </div>
-
-            <div>
             </div>
 
             <button type="submit" class="btn btn-outline-primary w-100">Log in</button>
