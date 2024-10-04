@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Auth\RegisterRequest;
+use App\Services\Auth\Service;
 
-class RegisterController extends Controller
+class RegisterController extends BaseAuthController
 {
     public function index() 
     {
@@ -19,13 +20,7 @@ class RegisterController extends Controller
     {
         $data = $registerRequest->validated();
         
-        $user = User::create([
-            'name' => $data['userName'],
-            'email' => $data['email'],
-            'password' => $data['password'],
-        ]);
-
-        Auth::login($user);
+        $this->service->RegisterStore($data);
         
         return redirect()->route('post.index');
     }

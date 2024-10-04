@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
 
-class LoginController extends Controller
+class LoginController extends BaseAuthController
 {
     public function index()
     {
@@ -19,22 +19,7 @@ class LoginController extends Controller
     {
         $data = $loginRequest->validated();
 
-        $userExists = User::where('email', $data['email'])->exists();
-
-        if ($userExists) {
-            $remember = isset($data['remember']);
-            unset($data['remember']);
-
-
-            if (Auth::attempt($data, $remember)) {
-                $loginRequest->session()->regenerate();
-                return redirect()->route('post.index');
-            }
-
-            return redirect()->route('login')->withInput()->withErrors(['wrongPassword' => ' ']);
-        }
-
-        return redirect()->route('login')->withInput()->withErrors(['incorrectEmail' => ' ']);
+        return $this->service->LoginStore($loginRequest, $data);
     }
 
     public function destroy(Request $request) 
