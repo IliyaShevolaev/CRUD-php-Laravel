@@ -15,6 +15,7 @@ Route::post('/register', 'App\Http\Controllers\Auth\RegisterController@store')->
 
 Route::get('/login', 'App\Http\Controllers\Auth\LoginController@index')->name('login');
 Route::post('/login', 'App\Http\Controllers\Auth\LoginController@store')->name('login.store');
+Route::get('/logout', 'App\Http\Controllers\Auth\LoginController@destroy')->middleware('auth')->name('login.logout');
 
 Route::middleware('auth')->group(function () {
     Route::get('/posts', "App\Http\Controllers\Post\PostController@index")->name('post.index');

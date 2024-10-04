@@ -31,8 +31,13 @@
                 @enderror
 
                 @error('wrongPassword')
-                <p class="text-danger"> Wrong password </p>
+                    <p class="text-danger"> Wrong password </p>
                 @enderror
+            </div>
+
+            <div class="mb-3 form-check">
+                <label class="form-check-label text-light" for="exampleCheck1">Remember me</label>
+                <input name="remember" type="checkbox" class="form-check-input" id="exampleCheck1">
             </div>
 
             <button type="submit" class="btn btn-outline-primary w-100">Log in</button>

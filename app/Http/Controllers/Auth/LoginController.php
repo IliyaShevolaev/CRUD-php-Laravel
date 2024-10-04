@@ -22,7 +22,12 @@ class LoginController extends Controller
         $userExists = User::where('email', $data['email'])->exists();
 
         if ($userExists) {
-            if (Auth::attempt($data)) {
+            $remember = isset($data['remember']);
+            unset($data['remember']);
+
+
+            if (Auth::attempt($data, $remember)) {
+                $loginRequest->session()->regenerate();
                 return redirect()->route('post.index');
             }
 
@@ -30,6 +35,16 @@ class LoginController extends Controller
         }
 
         return redirect()->route('login')->withInput()->withErrors(['incorrectEmail' => ' ']);
+    }
+
+    public function destroy(Request $request) 
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login');
     }
 }
 
