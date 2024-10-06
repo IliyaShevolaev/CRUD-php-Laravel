@@ -16,6 +16,7 @@ class PostFactory extends Factory
             'content' => fake()->paragraph(1),
             'price' => random_int(1, 50000),
             'category_id' => random_int(1, 3),
+            'owner_id' => 0,
         ];
     }
 }

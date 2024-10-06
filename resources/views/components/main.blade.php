@@ -16,6 +16,9 @@
                 <a class="nav-item nav-link" href="{{ route('post.index') }}"> Объявления</a>
                 <a class="nav-item nav-link" href="{{ route('post.create') }}">Создать объявление</a>
                 <a class="nav-item nav-link" href="/about">Про нас</a>
+                @can('view', auth()->user())
+                    <a class="nav-item nav-link text-danger" href="{{route('admin')}}">Admin</a>
+                @endcan
             </div>
             <form action="{{ route('post.find') }}" method="GET" class="d-flex ms-auto me-3">
                 @csrf

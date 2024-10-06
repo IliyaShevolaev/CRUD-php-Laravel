@@ -28,3 +28,5 @@ Route::middleware('auth')->group(function () {
     Route::patch('/posts/{post}', "App\Http\Controllers\Post\PostController@update")->name('post.update');
     Route::delete('/posts/{post}', "App\Http\Controllers\Post\PostController@destroy")->name('post.delete');
 });
+
+Route::get('/admin', 'App\Http\Controllers\Auth\AdminController@index')->name('admin');

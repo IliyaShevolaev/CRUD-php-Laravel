@@ -11,14 +11,11 @@ class PostPolicy
 
     public function update(User $user, Post $post): bool
     {
-        return $post->owner_id == $user->id;
+        return $post->owner_id == $user->id || $user->role == 'admin';
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     */
     public function delete(User $user, Post $post): bool
     {
-        return $post->owner_id == $user->id;
+        return $post->owner_id == $user->id || $user->role == 'admin';
     }
 }

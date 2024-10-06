@@ -18,5 +18,7 @@ class DatabaseSeeder extends Seeder
             Category::create(['name' => $category]);
         }
 
+        Post::factory(20)->create();
+
     }
 }
