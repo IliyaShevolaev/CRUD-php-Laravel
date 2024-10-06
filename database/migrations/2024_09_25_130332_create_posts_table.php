@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('content');
             $table->integer('price');
 
+            $table->integer('owner_id');
+
             $table->foreignId('category_id')->constrained('categories', 'id')->onDelete('cascade');
 
             $table->timestamps();

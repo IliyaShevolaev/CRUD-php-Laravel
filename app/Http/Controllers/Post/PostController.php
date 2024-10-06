@@ -9,6 +9,7 @@ use App\Http\Requests\Post\PostRequest;
 
 class PostController extends BaseController
 {
+
     public function index()
     {
         $posts = Post::paginate(3);
@@ -40,17 +41,15 @@ class PostController extends BaseController
 
     public function edit(Post $post)
     {
-        $categories = Category::all();
-
-        return view('posts.edit', compact('post', 'categories'));
+        return $this->service->AccessToeditData($post);
     }
 
     public function update(PostRequest $postRequest, Post $post)
     {
         $data = $postRequest->validated();
-        
+
         $this->service->updateData($post, $data);
-        
+
         return redirect()->route('post.show', $post->id);
     }
 
@@ -72,7 +71,8 @@ class PostController extends BaseController
 
     public function destroy(Post $post)
     {
-        $post->delete();
+        $this->service->DeleteData($post);
+
         return redirect()->route('post.index');
     }
 }
