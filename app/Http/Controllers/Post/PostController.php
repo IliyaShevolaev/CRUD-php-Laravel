@@ -9,7 +9,6 @@ use App\Http\Requests\Post\PostRequest;
 
 class PostController extends BaseController
 {
-
     public function index()
     {
         $posts = Post::paginate(3);
@@ -67,6 +66,13 @@ class PostController extends BaseController
         $posts = $this->service->sortCategoryData($categoryId);
 
         return $this->showIndex($posts, $categoryId);
+    }
+
+    public function myPosts() 
+    {
+        $posts = $this->service->getUserPosts();
+
+        return $this->showIndex($posts);
     }
 
     public function destroy(Post $post)

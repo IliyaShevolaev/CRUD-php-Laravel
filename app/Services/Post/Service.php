@@ -49,6 +49,13 @@ class Service
         return Post::where('category_id', $categoryId)->paginate(3);
     }
 
+    public function getUserPosts()
+    {
+        $userId = Auth::id();
+
+        return Post::where('owner_id', $userId)->paginate(3);
+    }
+
     public function DeleteData($post) 
     {
         if ($this->authorize('delete', $post)) {
