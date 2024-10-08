@@ -13,7 +13,7 @@ class AdminController extends Controller
     
     public function index() 
     {
-        if ($this->authorize('view', Auth::user())) {
+        if ($this->authorize('viewAdmin', Auth::user())) {
             return view('admin');
         }
     }

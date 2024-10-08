@@ -30,14 +30,23 @@
                 @enderror
             </div>
 
-            {{-- <div class="form-group">
+            <div class="form-group">
                 <label for="inputPassword">Password</label>
                 <input name="password" type="password" class="form-control" id="inputPassword2" placeholder="Password">
 
                 @error('password')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
-            </div> --}}
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleInputPassword2" class="form-label">Confirm Password</label>
+                <input name="password_confirmation" type="password" class="form-control" id="exampleInputPassword2" placeholder="Password">
+
+                @error('password')
+                    <p class="text-danger">{{ $message }}</p>
+                @enderror
+            </div>
 
             <button type="submit" class="m-4 btn btn-primary">Редактировать</button>
 

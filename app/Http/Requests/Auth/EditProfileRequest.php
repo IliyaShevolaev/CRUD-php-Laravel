@@ -17,6 +17,7 @@ class EditProfileRequest extends FormRequest
         return [
             'name' => 'string|required',
             'email' => 'string|required|email',
+            'password' => 'string|required|confirmed'
         ];
     }
 }
