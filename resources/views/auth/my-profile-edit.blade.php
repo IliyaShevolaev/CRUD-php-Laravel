@@ -1,8 +1,9 @@
 @extends('components.main')
 @section('content')
     <div class="container d-flex align-items-center justify-content-center">
-        <form action="#" method="POST">
+        <form action="{{route('profile.update', $owner->id)}}" method="POST">
             @csrf
+            @method('PATCH')
             <div class="form-group">
                 <label for="id">ID</label>
                 <input value="{{ auth()->user()->id }}" type="text" class="form-control" id="id" disabled>
@@ -20,7 +21,7 @@
             </div>
 
             <div class="form-group">
-                <label for="username">Email</label>
+                <label for="email">Email</label>
                 <input value="{{ $owner->email }}" name="email" type="text" class="form-control"
                     id="email">
 

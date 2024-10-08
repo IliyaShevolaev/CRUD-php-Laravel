@@ -20,7 +20,9 @@
                         <div class="text-center">
                             <a href="{{url()->previous()}}" class="btn btn-primary">Назад</a>
                             @can('viewEditProfile', $owner)
-                            <a href="{{route('profile.edit', $owner->id)}}" class="{{auth()->user()->role == 'admin' && $owner->id != auth()->id() ? "btn btn-outline-danger" : "btn btn-primary"}}">Редактировать</a>
+                            <a href="{{route('profile.edit', $owner->id)}}" 
+                                class="{{auth()->user()->role == 'admin' && $owner->id != auth()->id() ? "btn btn-outline-danger" : "btn btn-primary"}}">
+                                Редактировать</a>
                             @endcan
                         </div>
                     </div>

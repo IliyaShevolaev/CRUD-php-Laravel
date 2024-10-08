@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\EditProfileRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,15 +17,18 @@ class ProfileController extends BaseAuthController
         return view('auth.profile', compact('owner'));
     }
 
-    public function edit($userId)
+    public function edit(User $owner)
     {
-        $owner = User::find($userId);
-
         return view('auth.my-profile-edit', compact('owner'));
     }
 
-    public function update()
+    public function update(EditProfileRequest $editProfileRequest, User $owner)
     {
+        $data = $editProfileRequest->validated();
+
+        $owner->update($data);
+
+        return redirect()->route('profile.index');
 
     }
 }
