@@ -15,7 +15,12 @@ Route::post('/register', 'App\Http\Controllers\Auth\RegisterController@store')->
 
 Route::get('/login', 'App\Http\Controllers\Auth\LoginController@index')->name('login');
 Route::post('/login', 'App\Http\Controllers\Auth\LoginController@store')->name('login.store');
-Route::get('/logout', 'App\Http\Controllers\Auth\LoginController@destroy')->middleware('auth')->name('login.logout');
+
+Route::middleware('auth')->group(function() {
+    Route::get('/show-profile', 'App\Http\Controllers\Auth\ProfileController@index')->name('profile.index');
+    Route::get('/edit-profile', 'App\Http\Controllers\Auth\ProfileController@edit')->name('profile.edit');
+    Route::get('/logout', 'App\Http\Controllers\Auth\LoginController@destroy')->name('login.logout');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/posts', "App\Http\Controllers\Post\PostController@index")->name('post.index');
@@ -25,6 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/posts/{post}', "App\Http\Controllers\Post\PostController@show")->name('post.show');
     Route::get('/posts/{post}/edit', "App\Http\Controllers\Post\PostController@edit")->name('post.edit');
     Route::get('/posts/sort/{category}', "App\Http\Controllers\Post\PostController@sort")->name('post.sort');
+    Route::get('/posts/view-owner/{post}', "App\Http\Controllers\Post\PostController@viewOwner")->name('post.view-owner');
     Route::post('/posts', 'App\Http\Controllers\Post\PostController@store')->name('post.store');
     Route::patch('/posts/{post}', "App\Http\Controllers\Post\PostController@update")->name('post.update');
     Route::delete('/posts/{post}', "App\Http\Controllers\Post\PostController@destroy")->name('post.delete');

@@ -25,7 +25,8 @@
                     <a href="{{ route('post.edit', $post->id) }}" class="btn btn-warning me-2 mb-2">Редактировать</a>
                 @endcan
 
-                <a href="#" class="btn btn-success me-2 mb-2">Оформить</a>
+                <a href="{{route('post.view-owner', $post)}}" class="btn btn-success me-2 mb-2">Оформить</a>
+                <a href="#" class="btn btn-outline-success me-2 mb-2">Like: </a>
             </div>
         </div>
     </div>

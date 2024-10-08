@@ -21,8 +21,9 @@
                           {{auth()->user()->name}}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                          <li><a class="dropdown-item" href="#">My profile</a></li>
+                          <li><a class="dropdown-item" href="{{route('profile.index')}}">My profile</a></li>
                           <li><a class="dropdown-item" href="{{route('post.myPosts')}}">My posts</a></li>
+                          <li><a class="dropdown-item" href="#">Favorites</a></li>
                         </ul>
                       </li>
                     </ul>
@@ -31,7 +32,7 @@
                 <a class="nav-item nav-link" href="{{ route('post.index') }}"> Объявления</a>
                 <a class="nav-item nav-link" href="{{ route('post.create') }}">Создать объявление</a>
                 <a class="nav-item nav-link" href="/about">Про нас</a>
-                @can('view', auth()->user())
+                @can('viewAdmin', auth()->user())
                     <a class="nav-item nav-link text-danger" href="{{ route('admin') }}">Admin</a>
                 @endcan
             </div>

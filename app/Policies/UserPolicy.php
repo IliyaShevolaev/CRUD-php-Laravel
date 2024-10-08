@@ -3,14 +3,17 @@
 namespace App\Policies;
 
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Auth;
 
 class UserPolicy
 {
-    
-    public function view(User $user, User $model): bool
+    public function viewAdmin(User $user, User $model): bool
     {
         return $model->role == 'admin';
     }
 
+    public function viewEditProfile(User $user, User $model) 
+    {
+        return $model->id == $user->id;
+    }
 }

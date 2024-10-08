@@ -75,6 +75,13 @@ class PostController extends BaseController
         return $this->showIndex($posts);
     }
 
+    public function viewOwner(Post $post)
+    {
+        $owner = $this->service->getOwerOfPost($post);
+
+        return view('auth.profile', compact('owner'));
+    }
+
     public function destroy(Post $post)
     {
         $this->service->DeleteData($post);

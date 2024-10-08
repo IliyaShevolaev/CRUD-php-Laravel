@@ -4,6 +4,7 @@ namespace App\Services\Post;
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
@@ -54,6 +55,11 @@ class Service
         $userId = Auth::id();
 
         return Post::where('owner_id', $userId)->paginate(3);
+    }
+
+    public function getOwerOfPost($post) 
+    {        
+        return User::find($post->owner_id);
     }
 
     public function DeleteData($post) 
