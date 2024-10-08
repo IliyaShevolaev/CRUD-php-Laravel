@@ -14,6 +14,6 @@ class UserPolicy
 
     public function viewEditProfile(User $user, User $model) 
     {
-        return $model->id == $user->id;
+        return $model->id == $user->id || $user->role == 'admin';
     }
 }

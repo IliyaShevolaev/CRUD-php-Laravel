@@ -10,18 +10,18 @@
             </div>
 
             <div class="form-group">
-                <label for="username">Username</label>
-                <input value="{{ auth()->user()->name }}" name="username" type="text" class="form-control"
-                    id="username">
+                <label for="name">Username</label>
+                <input value="{{ $owner->name }}" name="name" type="text" class="form-control"
+                    id="name">
 
-                @error('username')
+                @error('name')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
             </div>
 
             <div class="form-group">
                 <label for="username">Email</label>
-                <input value="{{ auth()->user()->email }}" name="email" type="text" class="form-control"
+                <input value="{{ $owner->email }}" name="email" type="text" class="form-control"
                     id="email">
 
                 @error('email')
@@ -29,16 +29,16 @@
                 @enderror
             </div>
 
-            <div class="form-group">
+            {{-- <div class="form-group">
                 <label for="inputPassword">Password</label>
                 <input name="password" type="password" class="form-control" id="inputPassword2" placeholder="Password">
 
                 @error('password')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
-            </div>
+            </div> --}}
 
-            <button type="submit" class="m-4 btn btn-primary">Опубликовать</button>
+            <button type="submit" class="m-4 btn btn-primary">Редактировать</button>
 
         </form>
     </div>

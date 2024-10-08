@@ -18,7 +18,7 @@ Route::post('/login', 'App\Http\Controllers\Auth\LoginController@store')->name('
 
 Route::middleware('auth')->group(function() {
     Route::get('/show-profile', 'App\Http\Controllers\Auth\ProfileController@index')->name('profile.index');
-    Route::get('/edit-profile', 'App\Http\Controllers\Auth\ProfileController@edit')->name('profile.edit');
+    Route::get('/edit-profile/{userId}', 'App\Http\Controllers\Auth\ProfileController@edit')->name('profile.edit');
     Route::get('/logout', 'App\Http\Controllers\Auth\LoginController@destroy')->name('login.logout');
 });
 
