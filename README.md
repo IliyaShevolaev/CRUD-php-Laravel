@@ -42,5 +42,19 @@ This is a **CRUD** (Create, Read, Update, Delete) web application built with **P
 Contributing
 Feel free to fork the repo, submit pull requests, and suggest improvements.
 
+![photo_2024-10-10_20-51-24](https://github.com/user-attachments/assets/6b19021a-1e97-4477-870b-87d51589e907)
+
+
 ![photo_2024-10-10_20-49-09](https://github.com/user-attachments/assets/11fef7a9-8c5e-4f89-ba8e-dd977c395616)
+
+
+![photo_2024-10-10_20-50-55](https://github.com/user-attachments/assets/a48958b4-8257-4a66-a56f-aa82c269cda8)
+
+
+![photo_2024-10-10_20-50-08](https://github.com/user-attachments/assets/6c887265-7389-4933-b2b2-c36a16246ebd)
+
+
+![photo_2024-10-10_20-49-09](https://github.com/user-attachments/assets/f01cfa72-0766-470d-8cd3-3562a960275a)
+
+
 
