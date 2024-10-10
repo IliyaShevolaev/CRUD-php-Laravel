@@ -5,9 +5,9 @@
 
             <div class="d-flex align-items-center justify-content-center mb-3">
                 <div class="form-group w-30">
-                    <label for="category">Категория товара</label>
+                    <label for="category">Categories</label>
                     <select class="form-select" id="category" name="category_id">
-                        <option value="0">Все товары</option>
+                        <option value="0">All</option>
                         @foreach ($categories as $category)
                             <option {{ $category->id == $currentSelected ? 'selected' : '' }} value="{{ $category->id }}">
                                 {{ $category->name }}
@@ -15,8 +15,8 @@
                         @endforeach
                     </select>
 
-                    <div>
-                        <a href="{{ route('post.sort', 0) }}" id="sortButton" class="btn btn-secondary mt-2">Сортировать</a>
+                    <div class="d-flex justify-content-center">
+                        <a href="{{ route('post.sort', 0) }}" id="sortButton" class="btn btn-secondary mt-2">Sort</a>
                     </div>
                 </div>
             </div>
@@ -29,9 +29,9 @@
                         </div>
                         <br>
                         {{ $post->content }} <br>
-                        Цена: {{ $post->price }} <br>
+                        Price: {{ $post->price }} <br>
                         <div class="d-flex justify-content-center">
-                            <a href="{{ route('post.show', $post->id) }}" class="btn btn-primary mb-4">Перейти</a>
+                            <a href="{{ route('post.show', $post->id) }}" class="btn btn-primary mb-4">See</a>
                         </div>
                     @endforeach
                 </div>

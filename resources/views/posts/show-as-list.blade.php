@@ -11,9 +11,9 @@
                         </div>
                         <br>
                         {{ $post->content }} <br>
-                        Цена: {{ $post->price }} <br>
+                        Price: {{ $post->price }} <br>
                         <div class="d-flex justify-content-center">
-                            <a href="{{ route('post.show', $post->id) }}" class="btn btn-primary mb-4">Перейти</a>
+                            <a href="{{ route('post.show', $post->id) }}" class="btn btn-primary mb-4">See</a>
                         </div>
                     @endforeach
                 </div>

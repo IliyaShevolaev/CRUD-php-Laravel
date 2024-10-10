@@ -29,9 +29,8 @@
                     </ul>
                   </div>
 
-                <a class="nav-item nav-link" href="{{ route('post.index') }}"> Объявления</a>
-                <a class="nav-item nav-link" href="{{ route('post.create') }}">Создать объявление</a>
-                <a class="nav-item nav-link" href="/about">Про нас</a>
+                <a class="nav-item nav-link" href="{{ route('post.index') }}"> Posts</a>
+                <a class="nav-item nav-link" href="{{ route('post.create') }}">Create post</a>
                 @can('viewAdmin', auth()->user())
                     <a class="nav-item nav-link text-danger" href="{{ route('admin') }}">Admin</a>
                 @endcan

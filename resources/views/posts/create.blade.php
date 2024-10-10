@@ -4,9 +4,9 @@
         <form action="{{ route('post.store') }}" method="POST">
             @csrf
             <div class="form-group">
-                <label for="name">Название</label>
+                <label for="name">Name</label>
                 <input value="{{ old('name') }}" name="name" type="text" class="form-control" id="name"
-                    placeholder="Введите название">
+                    placeholder="Enter name">
 
                 @error('name')
                     <p class="text-danger">{{ $message }}</p>
@@ -14,8 +14,8 @@
             </div>
 
             <div class="form-group">
-                <label for="content">Описание</label>
-                <textarea name="content" class="form-control" id="content" placeholder="Что вы продаете">{{ old('content') }}</textarea>
+                <label for="content">Description</label>
+                <textarea name="content" class="form-control" id="content" placeholder="Enter Description">{{ old('content') }}</textarea>
 
                 @error('content')
                     <p class="text-danger">{{ $message }}</p>
@@ -23,9 +23,9 @@
             </div>
 
             <div class="form-group">
-                <label for="price">Цена</label>
+                <label for="price">Price</label>
                 <input value="{{ old('price') }}" name="price" type="number" class="form-control" id="price"
-                    placeholder="Введите цену">
+                    placeholder="Enter price">
 
                 @error('price')
                     <p class="text-danger">{{ $message }}</p>
@@ -33,7 +33,7 @@
             </div>
 
             <div class="form-group mt-3">
-                <label for="category">Категория товара</label>
+                <label for="category">Category</label>
                 <select class="form-select" id="category", name="category_id">
                     @foreach ($categories as $category)
                         <option {{ old('category_id') == $category->id ? 'selected' : '' }} value="{{ $category->id }}">
@@ -43,7 +43,7 @@
                 </select>
             </div>
 
-            <button type="submit" class="m-4 btn btn-primary">Опубликовать</button>
+            <button type="submit" class="m-4 btn btn-primary">Publish</button>
 
         </form>
     </div>

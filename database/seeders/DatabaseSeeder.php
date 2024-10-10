@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
     {
         
         Category::truncate();
-        $categories = ['Покупка', 'Продажа', 'Аренда'];
+        $categories = ['Buy', 'Sale', 'Rent'];
         foreach($categories as $category) {
             Category::create(['name' => $category]);
         }
