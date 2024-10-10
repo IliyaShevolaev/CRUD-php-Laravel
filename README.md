@@ -41,3 +41,6 @@ This is a **CRUD** (Create, Read, Update, Delete) web application built with **P
 
 Contributing
 Feel free to fork the repo, submit pull requests, and suggest improvements.
+
+![photo_2024-10-10_20-49-09](https://github.com/user-attachments/assets/11fef7a9-8c5e-4f89-ba8e-dd977c395616)
+
