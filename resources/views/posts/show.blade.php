@@ -7,7 +7,7 @@
                 <p>{{ $post->content }}</p>
                 <p>Цена: {{ $post->price }} рублей</p>
                 <p>Тип: {{ $category->name }}</p>
-                <p>От: {{ $post->updated_at }}</p>
+                <p>От: {{ $post->created_at }}</p>
             </div>
 
             <div class="d-flex flex-wrap mb-4">
@@ -32,7 +32,7 @@
                     <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                     <input type="hidden" name="post_id" value="{{ $post->id }}">
                     <button type="submit" class="{{ $liked ? 'btn btn-success' : ' btn btn-outline-success me-2 mb-2' }}">
-                        Like
+                        Likes: {{$post->likes}}
                     </button>
                 </form>
 

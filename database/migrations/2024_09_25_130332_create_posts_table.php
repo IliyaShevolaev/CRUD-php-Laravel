@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('price');
 
             $table->integer('owner_id');
+            $table->integer('likes')->default(0);
 
             $table->foreignId('category_id')->constrained('categories', 'id')->onDelete('cascade');
 
