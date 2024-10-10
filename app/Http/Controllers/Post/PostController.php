@@ -79,7 +79,7 @@ class PostController extends BaseController
     {
         $posts = $this->service->getUserPosts();
 
-        return $this->showIndex($posts);
+        return view('posts.show-as-list', compact('posts'));
     }
 
     public function viewOwner(Post $post)

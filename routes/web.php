@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/create', "App\Http\Controllers\Post\PostController@create")->name('post.create');
     Route::get('/posts/find', "App\Http\Controllers\Post\PostController@find")->name('post.find');
     Route::get('/posts/my-posts', "App\Http\Controllers\Post\PostController@myPosts")->name('post.myPosts');
+    Route::get('/posts/favorites', "App\Http\Controllers\Post\LikeController@show")->name('like.show');
     Route::get('/posts/{post}', "App\Http\Controllers\Post\PostController@show")->name('post.show');
     Route::get('/posts/{post}/edit', "App\Http\Controllers\Post\PostController@edit")->name('post.edit');
     Route::get('/posts/sort/{category}', "App\Http\Controllers\Post\PostController@sort")->name('post.sort');

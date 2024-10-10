@@ -23,7 +23,7 @@
                         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                           <li><a class="dropdown-item" href="{{route('profile.index')}}">My profile</a></li>
                           <li><a class="dropdown-item" href="{{route('post.myPosts')}}">My posts</a></li>
-                          <li><a class="dropdown-item" href="#">Favorites</a></li>
+                          <li><a class="dropdown-item" href="{{route('like.show')}}">Favorites</a></li>
                         </ul>
                       </li>
                     </ul>
