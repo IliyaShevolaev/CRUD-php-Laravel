@@ -24,3 +24,20 @@ This is a **CRUD** (Create, Read, Update, Delete) web application built with **P
    git clone https://github.com/IliyaShevolaev/CRUD-php-Laravel.git
    cd CRUD-php-Laravel
 2. Install dependencies:
+   ```bash
+    composer install
+3. Set up .env:
+   ```bash
+    cp .env.example .env
+4. Generate application key:
+    ```bash
+    php artisan key:generate
+5. Run migrations:
+    ```bash 
+    php artisan migrate
+6. Start the server:
+    ```bash
+    Start the server:
+
+Contributing
+Feel free to fork the repo, submit pull requests, and suggest improvements.
