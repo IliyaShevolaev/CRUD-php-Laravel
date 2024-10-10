@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Post;
 
+use App\Models\Like;
 use App\Models\Post;
 use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Post\FindRequest;
 use App\Http\Requests\Post\PostRequest;
 
@@ -35,7 +37,12 @@ class PostController extends BaseController
     public function show(Post $post)
     {
         $category = Category::find($post->category_id);
-        return view('posts.show', compact('post', 'category'));
+        
+        $liked = Like::where('user_id', Auth::id())
+            ->where('post_id', $post->id)
+            ->exists();
+
+        return view('posts.show', compact('post', 'category', 'liked'));
     }
 
     public function edit(Post $post)
@@ -68,7 +75,7 @@ class PostController extends BaseController
         return $this->showIndex($posts, $categoryId);
     }
 
-    public function myPosts() 
+    public function myPosts()
     {
         $posts = $this->service->getUserPosts();
 

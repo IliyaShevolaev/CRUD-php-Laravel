@@ -25,8 +25,17 @@
                     <a href="{{ route('post.edit', $post->id) }}" class="btn btn-warning me-2 mb-2">Редактировать</a>
                 @endcan
 
-                <a href="{{route('post.view-owner', $post)}}" class="btn btn-success me-2 mb-2">Оформить</a>
-                <a href="#" class="btn btn-outline-success me-2 mb-2">Like: </a>
+                <a href="{{ route('post.view-owner', $post) }}" class="btn btn-success me-2 mb-2">Оформить</a>
+
+                <form action="{{ route('like.create') }}" method="POST" class="d-inline">
+                    @csrf
+                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                    <input type="hidden" name="post_id" value="{{ $post->id }}">
+                    <button type="submit" class="{{ $liked ? 'btn btn-success' : ' btn btn-outline-success me-2 mb-2' }}">
+                        Like
+                    </button>
+                </form>
+
             </div>
         </div>
     </div>

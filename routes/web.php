@@ -32,6 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/posts/{post}/edit', "App\Http\Controllers\Post\PostController@edit")->name('post.edit');
     Route::get('/posts/sort/{category}', "App\Http\Controllers\Post\PostController@sort")->name('post.sort');
     Route::get('/posts/view-owner/{post}', "App\Http\Controllers\Post\PostController@viewOwner")->name('post.view-owner');
+    Route::post('/posts/like', "App\Http\Controllers\Post\LikeController@create")->name('like.create');
     Route::post('/posts', 'App\Http\Controllers\Post\PostController@store')->name('post.store');
     Route::patch('/posts/{post}', "App\Http\Controllers\Post\PostController@update")->name('post.update');
     Route::delete('/posts/{post}', "App\Http\Controllers\Post\PostController@destroy")->name('post.delete');
