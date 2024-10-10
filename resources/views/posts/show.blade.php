@@ -11,7 +11,7 @@
             </div>
 
             <div class="d-flex flex-wrap mb-4">
-                <a href="{{ route('post.index') }}" class="btn btn-primary me-2 mb-2">Назад</a>
+                <a href="{{ url()->previous() }}" class="btn btn-primary me-2 mb-2">Назад</a>
 
                 @can('delete', $post)
                     <form action="{{ route('post.delete', $post->id) }}" method="POST" class="me-2 mb-2">
