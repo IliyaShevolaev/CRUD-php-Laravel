@@ -13,7 +13,7 @@ class PostController extends BaseController
 {
     public function index()
     {
-        $posts = Post::paginate(3);
+        $posts = Post::orderBy('likes', 'desc')->orderBy('created_at', 'asc')->paginate(3);
 
         return $this->showIndex($posts);
     }
