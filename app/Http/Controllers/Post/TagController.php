@@ -6,5 +6,8 @@ use App\Http\Controllers\Post\BaseControllers\BaseTagController;
 
 class TagController extends BaseTagController
 {
-    
+    public function index()
+    {
+        
+    }
 }

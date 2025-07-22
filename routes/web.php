@@ -42,16 +42,7 @@ Route::middleware('auth')->group(function () {
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/', 'App\Http\Controllers\Auth\AdminController@index');
 
-    Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
-        Route::get('/create', 'App\Http\Controllers\User\UserController@create')->name('create');
-        Route::post('/', 'App\Http\Controllers\User\UserController@store')->name('store');
-        Route::get('/{user}', 'App\Http\Controllers\User\UserController@show')->name('show');
-        Route::get('/{user}/edit', 'App\Http\Controllers\User\UserController@edit')->name('edit');
-        Route::patch('/{user}', 'App\Http\Controllers\User\UserController@update')->name('update');
-        Route::delete('/{user}', 'App\Http\Controllers\User\UserController@destroy')->name('destroy');
-        Route::get('/', 'App\Http\Controllers\User\UserController@index')->name('index');
-    });
-    //Route::resource('users', \App\Http\Controllers\User\UserController::class)->parameters(['users' => 'user']);
+    Route::resource('users', \App\Http\Controllers\User\UserController::class);
 
 });
 
