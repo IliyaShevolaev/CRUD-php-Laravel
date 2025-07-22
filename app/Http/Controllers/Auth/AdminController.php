@@ -10,11 +10,11 @@ use Illuminate\Support\Facades\Auth;
 class AdminController extends Controller
 {
     use AuthorizesRequests;
-    
-    public function index() 
+
+    public function index()
     {
         if ($this->authorize('viewAdmin', Auth::user())) {
-            return view('admin');
+            return view('admin.dashboard');
         }
     }
 }

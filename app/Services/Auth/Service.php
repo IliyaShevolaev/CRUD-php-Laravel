@@ -6,9 +6,9 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
-class Service 
+class Service
 {
-    public function RegisterStore($data) 
+    public function RegisterStore($data)
     {
         $user = User::create([
             'name' => $data['userName'],

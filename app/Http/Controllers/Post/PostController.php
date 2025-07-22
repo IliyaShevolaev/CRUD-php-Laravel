@@ -13,7 +13,7 @@ class PostController extends BaseController
 {
     public function index()
     {
-        $posts = Post::orderBy('likes', 'desc')->orderBy('created_at', 'asc')->paginate(3);
+        $posts = Post::orderBy('likes', 'desc')->orderBy('created_at', 'asc')->paginate(4);
 
         return $this->showIndex($posts);
     }
@@ -37,7 +37,7 @@ class PostController extends BaseController
     public function show(Post $post)
     {
         $category = Category::find($post->category_id);
-        
+
         $liked = Like::where('user_id', Auth::id())
             ->where('post_id', $post->id)
             ->exists();

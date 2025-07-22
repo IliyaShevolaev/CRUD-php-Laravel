@@ -9,10 +9,10 @@ class UserPolicy
 {
     public function viewAdmin(User $user, User $model): bool
     {
-        return $model->role == 'admin';
+        return $model->role === 'admin';
     }
 
-    public function viewEditProfile(User $user, User $model) 
+    public function viewEditProfile(User $user, User $model)
     {
         return $model->id == $user->id || $user->role == 'admin';
     }

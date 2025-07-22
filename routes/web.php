@@ -16,7 +16,7 @@ Route::post('/register', 'App\Http\Controllers\Auth\RegisterController@store')->
 Route::get('/login', 'App\Http\Controllers\Auth\LoginController@index')->name('login');
 Route::post('/login', 'App\Http\Controllers\Auth\LoginController@store')->name('login.store');
 
-Route::middleware('auth')->group(function() {
+Route::middleware('auth')->group(function () {
     Route::get('/show-profile', 'App\Http\Controllers\Auth\ProfileController@index')->name('profile.index');
     Route::get('/edit-profile/{owner}', 'App\Http\Controllers\Auth\ProfileController@edit')->name('profile.edit');
     Route::patch('/edit-profile/{owner}', 'App\Http\Controllers\Auth\ProfileController@update')->name('profile.update');
@@ -39,4 +39,20 @@ Route::middleware('auth')->group(function () {
     Route::delete('/posts/{post}', "App\Http\Controllers\Post\PostController@destroy")->name('post.delete');
 });
 
-Route::get('/admin', 'App\Http\Controllers\Auth\AdminController@index')->name('admin');
+Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
+    Route::get('/', 'App\Http\Controllers\Auth\AdminController@index');
+
+    Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
+        Route::get('/create', 'App\Http\Controllers\User\UserController@create')->name('create');
+        Route::post('/', 'App\Http\Controllers\User\UserController@store')->name('store');
+        Route::get('/{user}', 'App\Http\Controllers\User\UserController@show')->name('show');
+        Route::get('/{user}/edit', 'App\Http\Controllers\User\UserController@edit')->name('edit');
+        Route::patch('/{user}', 'App\Http\Controllers\User\UserController@update')->name('update');
+        Route::delete('/{user}', 'App\Http\Controllers\User\UserController@destroy')->name('delete');
+        Route::get('/', 'App\Http\Controllers\User\UserController@index')->name('index');
+    });
+});
+
+Route::get('/admin/test', function () {
+    return view('admin.test');
+});
