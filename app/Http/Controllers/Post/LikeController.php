@@ -12,7 +12,7 @@ class LikeController extends BaseLikeController
     public function create(LikeRequest $likeRequest)
     {
         $data = $likeRequest->validated();
-        
+
         $this->service->LikePost($data);
 
         return redirect()->back();

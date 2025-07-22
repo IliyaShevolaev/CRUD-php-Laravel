@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Post;
+namespace App\Http\Controllers\Post\BaseControllers;
 
 use App\Http\Controllers\Controller;
 use App\Services\Post\LikeService;

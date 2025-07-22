@@ -331,8 +331,6 @@ return [
             'text' => 'Tags',
             'url' => 'admin/pages',
             'icon' => 'fa fa-tag',
-            //'label' => 4,
-            'label_color' => 'success',
         ],
         ['header' => 'Users'],
         [

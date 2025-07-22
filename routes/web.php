@@ -48,9 +48,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/{user}', 'App\Http\Controllers\User\UserController@show')->name('show');
         Route::get('/{user}/edit', 'App\Http\Controllers\User\UserController@edit')->name('edit');
         Route::patch('/{user}', 'App\Http\Controllers\User\UserController@update')->name('update');
-        Route::delete('/{user}', 'App\Http\Controllers\User\UserController@destroy')->name('delete');
+        Route::delete('/{user}', 'App\Http\Controllers\User\UserController@destroy')->name('destroy');
         Route::get('/', 'App\Http\Controllers\User\UserController@index')->name('index');
     });
+    //Route::resource('users', \App\Http\Controllers\User\UserController::class)->parameters(['users' => 'user']);
+
 });
 
 Route::get('/admin/test', function () {

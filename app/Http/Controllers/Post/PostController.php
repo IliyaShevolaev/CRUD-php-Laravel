@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Post;
 
+use App\Http\Controllers\Post\BaseControllers\BasePostController;
 use App\Models\Like;
 use App\Models\Post;
 use App\Models\Category;
@@ -9,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Post\FindRequest;
 use App\Http\Requests\Post\PostRequest;
 
-class PostController extends BaseController
+class PostController extends BasePostController
 {
     public function index()
     {

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Post;
+namespace App\Http\Controllers\Post\BaseControllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\Post\Service;
 
-class BaseController extends Controller
+class BasePostController extends Controller
 {
     protected $service;
 

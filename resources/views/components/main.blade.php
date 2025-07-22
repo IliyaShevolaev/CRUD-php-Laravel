@@ -32,7 +32,7 @@
                 <a class="nav-item nav-link" href="{{ route('post.index') }}"> Posts</a>
                 <a class="nav-item nav-link" href="{{ route('post.create') }}">Create post</a>
                 @can('viewAdmin', auth()->user())
-                    <a class="nav-item nav-link text-danger" href="{{ route('admin') }}">Admin</a>
+                    <a class="nav-item nav-link text-danger" href="{{ route('admin.') }}">Admin</a>
                 @endcan
             </div>
             <form action="{{ route('post.find') }}" method="GET" class="d-flex ms-auto me-3">
