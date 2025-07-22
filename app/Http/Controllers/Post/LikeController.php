@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Post;
 
+use App\Http\Controllers\Post\BaseControllers\BaseLikeController;
 use App\Models\Like;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;

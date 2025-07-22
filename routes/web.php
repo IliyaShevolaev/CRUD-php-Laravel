@@ -44,6 +44,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
     Route::resource('users', \App\Http\Controllers\User\UserController::class);
 
+    Route::resource('categories', \App\Http\Controllers\Post\CategoryController::class);
+
 });
 
 Route::get('/admin/test', function () {

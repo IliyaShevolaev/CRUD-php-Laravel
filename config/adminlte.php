@@ -329,7 +329,7 @@ return [
         ],
         [
             'text' => 'Tags',
-            'url' => 'admin/pages',
+            'url' => 'admin/categories',
             'icon' => 'fa fa-tag',
         ],
         ['header' => 'Users'],
