@@ -7,7 +7,7 @@
         @csrf
 
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Почта</label>
+            <label for="exampleInputEmail1" class="form-label">Email</label>
             <input value="{{ old('email') }}" name="email" type="email" class="form-control" id="exampleInputEmail1"
                 aria-describedby="emailHelp">
 

@@ -21,7 +21,7 @@
                         <div class="form-group w-30">
                             <label for="category">Категории</label>
                             <select class="form-control select2bs4" id="category" name="category_id">
-                                <option value="0">All</option>
+                                <option value="0">Все</option>
                                 @foreach ($categories as $category)
                                     <option {{ $category->id == $currentSelected ? 'selected' : '' }}
                                         value="{{ $category->id }}">

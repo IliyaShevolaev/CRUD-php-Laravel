@@ -20,4 +20,11 @@ class RegisterRequest extends FormRequest
             'password' => 'required|confirmed|string|min:5|max:255',
         ];
     }
+
+    public function attributes(): array
+    {
+        return [
+            'email' => 'email',
+        ];
+    }
 }

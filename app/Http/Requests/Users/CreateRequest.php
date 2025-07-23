@@ -22,9 +22,9 @@ class CreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'string|required|max:255',
-            'email' => 'string|required|email|max:255',
-            'role' => 'string|required|max:255'
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'role' => 'required|string|max:255'
         ];
     }
 }

@@ -19,8 +19,17 @@
                             @csrf
                             <tr>
                                 <td>{!! $row['id'] !!}</td>
-                                <td><input name="email" type="email" class="form-control" value="{{ $row['email'] }}"></td>
-                                <td><input name="name" type="text" class="form-control" value="{{ $row['name'] }}">
+                                <td>
+                                    <input name="email" type="email" class="form-control" value="{{ $row['email'] }}">
+                                    @error('email')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
+                                </td>
+                                <td>
+                                    <input name="name" type="text" class="form-control" value="{{ $row['name'] }}">
+                                    @error('name')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </td>
                                 <td>
                                     <select name="role" class="form-control select2bs4">
@@ -77,8 +86,18 @@
                         @csrf
                         <tr>
                             <td>{{ $users->count() + 1 }}</td>
-                            <td><input name="email" type="email" class="form-control"></td>
-                            <td><input name="name" type="text" class="form-control"></td>
+                            <td>
+                                <input name="email" type="email" class="form-control">
+                                @error('email')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
+                            </td>
+                            <td>
+                                <input name="name" type="text" class="form-control">
+                                @error('name')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
+                            </td>
                             <td>
                                 <select name="role" class="form-control select2bs4">
                                     @foreach ($roles as $role)

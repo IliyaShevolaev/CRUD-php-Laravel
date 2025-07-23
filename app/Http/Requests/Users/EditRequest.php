@@ -22,9 +22,9 @@ class EditRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'string|nullable|max:255',
-            'email' => 'string|nullable|email|max:255',
-            'role' => 'string|nullable|max:255'
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'role' => 'required|string|max:255'
         ];
     }
 }

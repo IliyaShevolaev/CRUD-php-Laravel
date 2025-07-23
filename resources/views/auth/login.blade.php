@@ -14,10 +14,6 @@
             @error('email')
                 <p class="text-danger">{{ $message }}</p>
             @enderror
-
-            @error('incorrectEmail')
-                <p class="text-danger"> Пользователя с такой почтой не существует</p>
-            @enderror
         </div>
 
         <div class="mb-3">
@@ -25,12 +21,12 @@
             <input name="password" type="password" class="form-control" id="exampleInputPassword1">
 
             @error('password')
-                <p class="text-danger">{{$message}}</p>
+                <p class="text-danger">{{ $message }}</p>
+            @enderror
+            @error('failed')
+                <p class="text-danger">{{ $message }}</p>
             @enderror
 
-            @error('wrongPassword')
-                <p class="text-danger"> Неверный пароль </p>
-            @enderror
         </div>
 
         <div class="mb-3 form-check d-flex flex-row">
