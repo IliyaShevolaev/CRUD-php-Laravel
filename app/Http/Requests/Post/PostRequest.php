@@ -16,10 +16,10 @@ class PostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'string',
-            'content' => 'string',
-            'price' => 'integer',
-            'category_id' => ''
+            'name' => 'required|string|max:255',
+            'content' => 'required|string|max:255',
+            'price' => 'required|integer',
+            'category_id' => 'required|'
         ];
     }
 }

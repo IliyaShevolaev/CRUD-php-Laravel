@@ -1,14 +1,4 @@
-@php
-    if (Auth::user()->role === 'admin') {
-        $extendsComponent = 'adminlte::page';
-        $isAdminView = true;
-    } else {
-        $extendsComponent = 'components.main';
-        $isAdminView = false;
-    }
-@endphp
-
-@extends($extendsComponent)
+@extends($adminLteLayout)
 @section('content')
     <div class="card card-primary mt-2">
         <div class="card-header">
@@ -26,7 +16,7 @@
                     </div>
 
                     <div class="d-flex flex-wrap mb-4 gap-3">
-                        <a href="{{ url()->previous() }}" class="btn btn-primary">Назад</a>
+                        <a href="{{ url()->previous() }}" class="btn btn-primary mr-3">Назад</a>
 
                         @can('delete', $post)
                             <form action="{{ route('post.delete', $post->id) }}" method="POST"
@@ -34,16 +24,16 @@
                             @csrf
                             @method('delete')
                             <input type="submit"
-                                value="Удалить" class="btn btn-danger">
+                                value="Удалить" class="btn btn-danger mr-3">
                             </form>
                         @endcan
 
                         @can('update', $post)
-                            <a href="{{ route('post.edit', $post->id) }}" class="btn btn-warning">Редактировать</a>
+                            <a href="{{ route('post.edit', $post->id) }}" class="btn btn-warning mr-3">Редактировать</a>
                         @endcan
 
                         @if (!$isAdminView)
-                            <a href="{{ route('post.view-owner', $post) }}" class="btn btn-success">Заказать</a>
+                            <a href="{{ route('post.view-owner', $post) }}" class="btn btn-success mr-3">Заказать</a>
 
                             <form action="{{ route('like.create') }}" method="POST" class="d-inline">
                                 @csrf

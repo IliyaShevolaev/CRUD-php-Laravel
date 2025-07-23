@@ -1,14 +1,4 @@
-@php
-    if (Auth::user()->role === 'admin') {
-        $extendsComponent = 'adminlte::page';
-        $isAdminView = true;
-    } else {
-        $extendsComponent = 'components.main';
-        $isAdminView = false;
-    }
-@endphp
-
-@extends($extendsComponent)
+@extends($adminLteLayout)
 @section('content')
     <div class="card card-primary mt-2">
         <div class="card-header">
@@ -38,16 +28,20 @@
                     </div>
 
                     <div class="d-flex align-items-center justify-content-center">
-                        <div style="max-width: 400px; word-wrap: break-word;">
+                        <div style="width: 700px">
                             @foreach ($posts as $post)
-                                <div class="d-flex justify-content-center">
-                                    <strong>{{ $post->name }}</strong>
-                                </div>
-                                <br>
-                                {{ $post->content }} <br>
-                                Цена: {{ $post->price }} <br>
-                                <div class="d-flex justify-content-center">
-                                    <a href="{{ route('post.show', $post->id) }}" class="btn btn-primary mb-4">Перейти</a>
+                                <div class="card card-primary mt-2">
+                                    <div class="card-header">
+                                        <strong>{{ $post->name }}</strong>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>{{ $post->content }}</p>
+                                        <p>Цена: {{ $post->price }}</p>
+                                        <div class="d-flex justify-content-center">
+                                            <a href="{{ route('post.show', $post->id) }}"
+                                                class="btn btn-primary">Перейти</a>
+                                        </div>
+                                    </div>
                                 </div>
                             @endforeach
                         </div>

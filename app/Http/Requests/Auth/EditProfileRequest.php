@@ -15,9 +15,9 @@ class EditProfileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'string|required',
-            'email' => 'string|required|email',
-            'password' => 'string|required|confirmed'
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'password' => 'required|string|confirmed|max:255'
         ];
     }
 }
