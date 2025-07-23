@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+@extends('components.admin-layout')
 
 @section('title', 'Admin panel')
 

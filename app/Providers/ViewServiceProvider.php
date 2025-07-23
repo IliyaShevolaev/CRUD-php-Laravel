@@ -24,7 +24,7 @@ class ViewServiceProvider extends ServiceProvider
             if (auth()->check()) {
                 $view->with([
                     'isAdminView' => auth()->user()->role === 'admin',
-                    'adminLteLayout' => auth()->user()->role === 'admin' ? 'adminlte::page' : 'components.main'
+                    'adminLteLayout' => auth()->user()->role === 'admin' ? 'components.admin-layout' : 'components.main'
                 ]);
             }
         });

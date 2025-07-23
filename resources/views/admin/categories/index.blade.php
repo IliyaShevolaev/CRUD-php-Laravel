@@ -1,6 +1,4 @@
-@extends('adminlte::page')
-
-@section('title', 'Admin panel')
+@extends('components.admin-layout')
 
 @section('content_header')
 
