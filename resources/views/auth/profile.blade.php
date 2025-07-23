@@ -10,19 +10,19 @@
                             <p class="form-control-plaintext">{{ $owner->id }}</p>
                         </div>
                         <div class="form-group mb-3">
-                            <label class="fw-bold">Username:</label>
+                            <label class="fw-bold">Имя:</label>
                             <p class="form-control-plaintext">{{ $owner->name }}</p>
                         </div>
                         <div class="form-group mb-3">
-                            <label class="fw-bold">Email:</label>
+                            <label class="fw-bold">Почта:</label>
                             <p class="form-control-plaintext">{{ $owner->email }}</p>
                         </div>
                         <div class="text-center">
-                            <a href="{{url()->previous()}}" class="btn btn-primary">Back</a>
+                            <a href="{{url()->previous()}}" class="btn btn-primary">Назад</a>
                             @can('viewEditProfile', $owner)
-                            <a href="{{route('profile.edit', $owner->id)}}" 
+                            <a href="{{route('profile.edit', $owner->id)}}"
                                 class="{{auth()->user()->role == 'admin' && $owner->id != auth()->id() ? "btn btn-outline-danger" : "btn btn-primary"}}">
-                                Edit</a>
+                                Изменить</a>
                             @endcan
                         </div>
                     </div>

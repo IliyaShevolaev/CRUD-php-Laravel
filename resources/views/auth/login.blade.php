@@ -1,49 +1,47 @@
-@extends('components.auth-nav')
-@section('content')
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+@extends('adminlte::auth.login')
 
-    <div class="d-flex justify-content-center align-items-center vh-100"
-        style="background: linear-gradient(135deg, #0a0a0a, #0b1e36); background-size: cover; background-position: center;">
-        <form action="{{ route('login.store') }}" method="POST" NOVALIDATE
-            style="max-width: 400px; width: 100%; background-color: #1c1c1c; padding: 20px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);">
-            @csrf
+@section('auth_header', 'Вход')
 
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label text-light">Email address</label>
-                <input value="{{ old('email') }}" name="email" type="email" class="form-control" id="exampleInputEmail1"
-                    aria-describedby="emailHelp">
+@section('auth_body')
+    <form action="{{ route('login.store') }}" method="POST" NOVALIDATE>
+        @csrf
 
-                @error('email')
-                    <p class="text-danger">{{ $message }}</p>
-                @enderror
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Почта</label>
+            <input value="{{ old('email') }}" name="email" type="email" class="form-control" id="exampleInputEmail1"
+                aria-describedby="emailHelp">
 
-                @error('incorrectEmail')
-                    <p class="text-danger"> User with this email does not exist</p>
-                @enderror
-            </div>
+            @error('email')
+                <p class="text-danger">{{ $message }}</p>
+            @enderror
 
-            <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label text-light">Password</label>
-                <input name="password" type="password" class="form-control" id="exampleInputPassword1">
+            @error('incorrectEmail')
+                <p class="text-danger"> Пользователя с такой почтой не существует</p>
+            @enderror
+        </div>
 
-                @error('password')
-                    <p class="text-danger">{{ $message }}</p>
-                @enderror
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Пароль</label>
+            <input name="password" type="password" class="form-control" id="exampleInputPassword1">
 
-                @error('wrongPassword')
-                    <p class="text-danger"> Wrong password </p>
-                @enderror
-            </div>
+            @error('password')
+                <p class="text-danger">{{$message}}</p>
+            @enderror
 
-            <div class="mb-3 form-check">
-                <label class="form-check-label text-light" for="exampleCheck1">Remember me</label>
-                <input name="remember" type="checkbox" class="form-check-input" id="exampleCheck1">
-            </div>
+            @error('wrongPassword')
+                <p class="text-danger"> Неверный пароль </p>
+            @enderror
+        </div>
 
-            <button type="submit" class="btn btn-outline-primary w-100">Log in</button>
-        </form>
-    </div>
+        <div class="mb-3 form-check d-flex flex-row">
+            <label class="form-check-label" for="exampleCheck1">Запомнить меня</label>
+            <input name="remember" type="checkbox" class="form-check-input" id="exampleCheck1">
+        </div>
+
+        <button type="submit" class="btn btn-outline-primary w-100">Войти</button>
+    </form>
 @endsection
 
-
-{{-- @extends('adminlte::auth.login') --}}
+@section('auth_footer')
+    <a href="{{ route('register') }}">Регистрация</a>
+@endsection

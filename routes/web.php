@@ -2,9 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('auth.login');
-});
+// Route::get('/', function () {
+//     return view('auth.login');
+// });
 
 Route::get('/about', function () {
     return view('about');
@@ -20,11 +20,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/show-profile', 'App\Http\Controllers\Auth\ProfileController@index')->name('profile.index');
     Route::get('/edit-profile/{owner}', 'App\Http\Controllers\Auth\ProfileController@edit')->name('profile.edit');
     Route::patch('/edit-profile/{owner}', 'App\Http\Controllers\Auth\ProfileController@update')->name('profile.update');
-    Route::get('/logout', 'App\Http\Controllers\Auth\LoginController@destroy')->name('login.logout');
+    Route::post('/logout', 'App\Http\Controllers\Auth\LoginController@destroy')->name('login.logout');
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/posts', "App\Http\Controllers\Post\PostController@index")->name('post.index');
+    Route::get('/', "App\Http\Controllers\Post\PostController@index")->name('post.index');
     Route::get('/create', "App\Http\Controllers\Post\PostController@create")->name('post.create');
     Route::get('/posts/find', "App\Http\Controllers\Post\PostController@find")->name('post.find');
     Route::get('/posts/my-posts', "App\Http\Controllers\Post\PostController@myPosts")->name('post.myPosts');
@@ -46,8 +46,4 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
     Route::resource('categories', \App\Http\Controllers\Post\CategoryController::class);
 
-});
-
-Route::get('/admin/test', function () {
-    return view('admin.test');
 });

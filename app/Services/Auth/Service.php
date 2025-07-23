@@ -30,7 +30,12 @@ class Service
 
             if (Auth::attempt($data, $remember)) {
                 $loginRequest->session()->regenerate();
-                return redirect()->route('post.index');
+                
+                if (Auth::user()->role === 'admin') {
+                    return redirect()->route('admin.');
+                } else {
+                    return redirect()->route('post.index');
+                }
             }
 
             return redirect()->route('login')->withInput()->withErrors(['wrongPassword' => ' ']);

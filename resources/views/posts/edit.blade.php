@@ -1,4 +1,14 @@
-@extends('components.main')
+@php
+    if (Auth::user()->role === 'admin') {
+        $extendsComponent = 'adminlte::page';
+        $isAdminView = true;
+    } else {
+        $extendsComponent = 'components.main';
+        $isAdminView = false;
+    }
+@endphp
+
+@extends($extendsComponent)
 @section('content')
     <div class="container d-flex align-items-center justify-content-center">
         <form action="{{ route('post.update', $post->id) }}" method="POST">
@@ -36,7 +46,7 @@
 
             <div class="form-group mt-3">
                 <label for="category">Категория товара</label>
-                <select class="form-select" id="category", name="category_id">
+                <select class="form-control select2bs4" id="category", name="category_id">
                     @foreach ($categories as $category)
                         <option {{ $category->id == $post->category_id ? 'selected' : '' }} value="{{ $category->id }}">
                             {{ $category->name }}
@@ -45,7 +55,7 @@
                 </select>
             </div>
 
-            <button type="submit" class="m-4 btn btn-primary">Edit</button>
+            <button type="submit" class="m-4 btn btn-warning">Edit</button>
             <a class="btn btn-primary" href="{{ route('post.show', $post->id) }}">Back</a>
 
         </form>
