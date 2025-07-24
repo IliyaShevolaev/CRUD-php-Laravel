@@ -45,7 +45,7 @@ class UserController extends BaseUserController
 
         $roles = config('roles.roles');
 
-        return view('admin.users.create', compact('roles'));
+        return view('admin.users.change-user-table', compact('roles'));
     }
 
     public function store(CreateRequest $createRequest): RedirectResponse
@@ -65,7 +65,7 @@ class UserController extends BaseUserController
 
         $roles = config('roles.roles');
 
-        return view('admin.users.edit', compact('user', 'roles'));
+        return view('admin.users.change-user-table', compact('user', 'roles'));
     }
 
     public function update(EditRequest $editRequest, User $user): RedirectResponse

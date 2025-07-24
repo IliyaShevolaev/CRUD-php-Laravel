@@ -61,14 +61,14 @@ class UsersDataTable extends DataTable
     {
         return [
             Column::make('id')->title('ID'),
-            Column::make('name')->title('Имя'),
-            Column::make('email')->title('Почта'),
-            Column::make('role')->title('Роль'),
-            Column::make('created_at')->title('Создан'),
-            Column::make('updated_at')->title('Обновлен'),
+            Column::make('name')->title(str(trans('main.users.name'))->ucfirst()),
+            Column::make('email')->title(str(trans('main.users.email'))->ucfirst()),
+            Column::make('role')->title(str(trans('main.users.role'))->ucfirst()),
+            Column::make('created_at')->title(str(trans('main.users.created'))->ucfirst()),
+            Column::make('updated_at')->title(str(trans('main.users.updated'))->ucfirst()),
 
             Column::computed('actions')
-                ->title('Действия')
+                ->title(str(trans('main.users.actions'))->ucfirst())
                 ->exportable(false)
                 ->printable(false)
                 ->width(120)

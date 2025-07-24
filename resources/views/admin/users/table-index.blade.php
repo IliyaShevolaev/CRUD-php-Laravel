@@ -2,7 +2,7 @@
 @section('content')
     <div class="card card-primary mt-3">
         <div class="card-header">
-            <h3>Список пользователей</h3>
+            <h3>{{trans('main.users.list_header')}}</h3>
         </div>
         <div class="card-body">
             <div class="card-body">

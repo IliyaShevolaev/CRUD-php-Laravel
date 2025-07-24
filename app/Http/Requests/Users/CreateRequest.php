@@ -32,7 +32,7 @@ class CreateRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'name' => 'имя',
+            'name' => trans('main.users.name'),
         ];
     }
 }
