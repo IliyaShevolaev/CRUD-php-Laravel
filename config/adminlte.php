@@ -257,13 +257,14 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'admin',
+    //'dashboard_url' => 'admin',
+    'dashboard_url' => '/',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
     'password_reset_url' => 'password/reset',
     'password_email_url' => 'password/email',
-    'profile_url' => false,
+    'profile_url' => 'show-profile',
     'disable_darkmode_routes' => false,
 
     /*
@@ -300,11 +301,14 @@ return [
 
     'menu' => [
         // Navbar items:
-        // [
-        //     'type' => 'navbar-search',
-        //     'text' => 'search',
-        //     'topnav_right' => true,
-        // ],
+        [
+            'type' => 'navbar-search',
+            'text' => 'search',
+            'topnav_right' => true,
+            'method' => 'GET',
+            'url' => 'posts/find',
+            'input_name' => 'findQuery',
+        ],
         [
             'type' => 'fullscreen-widget',
             'topnav_right' => true,
@@ -322,21 +326,44 @@ return [
         // ],
         ['header' => 'Посты'],
         [
-            'text' => 'Пользовательские посты',
+            'text' => 'Посты',
             'url' => '/',
             'icon' => 'fas fa-file-alt',
             'label_color' => 'success',
         ],
         [
+            'text' => 'Создать пост',
+            'url' => 'create',
+            'icon' => 'fas fa-plus',
+            'label_color' => 'success',
+            'can' => 'isUserRole'
+        ],
+        [
+            'text' => 'Избранное',
+            'url' => 'posts/favorites',
+            'icon' => 'fas fa-heart',
+            'label_color' => 'success',
+            'can' => 'isUserRole'
+        ],
+        [
+            'text' => 'Мои посты',
+            'url' => 'posts/my-posts',
+            'icon' => 'fas fa-eye',
+            'label_color' => 'success',
+            'can' => 'isUserRole'
+        ],
+        [
             'text' => 'Категории',
             'url' => 'admin/categories',
             'icon' => 'fa fa-tag',
+            'can' => 'isAdminRole'
         ],
-        ['header' => 'Пользователи'],
+        ['header' => 'Пользователи', 'can' => 'isAdminRole'],
         [
             'text' => 'Список пользователей',
             'url' => 'admin/users',
             'icon' => 'fas fa-users',
+            'can' => 'isAdminRole'
         ],
         // [
         //     'text' => 'change_password',

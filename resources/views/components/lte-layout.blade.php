@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'CRUD Laravel')
+@section('title', config('app.name', 'CRUD Laravel'))
 
 @section('content')
     @yield('content')
@@ -9,8 +9,12 @@
 @section('css')
     {{-- Add here extra stylesheets --}}
     {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
+    @vite(['resources/sass/app.scss'])
 @stop
 
 @section('js')
-    <script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
+    @vite(['resources/js/app.js'])
+    <script>
+        console.log("Hi, I'm using the Laravel-AdminLTE package!");
+    </script>
 @stop

@@ -1,4 +1,4 @@
-@extends('components.admin-layout')
+@extends('components.lte-layout')
 
 @section('content_header')
 

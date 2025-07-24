@@ -1,4 +1,4 @@
-@extends('components.main')
+@extends('components.lte-layout')
 @section('content')
     <div class="card card-primary mt-2">
         <div class="card-header">
