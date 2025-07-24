@@ -11,4 +11,13 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+
+    server: {
+        cors: {
+            origin: ['https://cruid-php-laravel.local'],
+            methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+            allowedHeaders: ['Content-Type', 'Authorization'],
+            credentials: true,
+        },
+    },
 });

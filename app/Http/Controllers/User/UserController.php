@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\DataTables\UsersDataTable;
 use App\Http\Requests\Users\CreateRequest;
 use App\Http\Requests\Users\EditRequest;
 use App\Models\User;
@@ -14,13 +15,20 @@ class UserController extends BaseUserController
 {
     use AuthorizesRequests;
 
-    public function index(): View
+    // public function index(): View
+    // {
+    //     $this->authorize('viewAdmin', Auth::user());
+
+    //     $users = User::all();
+
+    //     return view('admin.users.index', compact('users'));
+    // }
+
+    public function index(UsersDataTable $usersDataTable)
     {
         $this->authorize('viewAdmin', Auth::user());
 
-        $users = User::all();
-
-        return view('admin.users.index', compact('users'));
+        return $usersDataTable->render('admin.users.table-index');
     }
 
     public function show(User $user): View

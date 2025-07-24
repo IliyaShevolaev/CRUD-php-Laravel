@@ -1,3 +1,3 @@
 import './bootstrap';
 
-console.log(1212121);
+import 'laravel-datatables-vite';

@@ -4,6 +4,7 @@
 
 @section('content')
     @yield('content')
+
 @stop
 
 @section('css')
@@ -14,7 +15,5 @@
 
 @section('js')
     @vite(['resources/js/app.js'])
-    <script>
-        console.log("Hi, I'm using the Laravel-AdminLTE package!");
-    </script>
+    @stack('scripts')
 @stop
