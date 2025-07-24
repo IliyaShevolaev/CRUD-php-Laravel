@@ -17,24 +17,6 @@ class UsersDataTable extends DataTable
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
-        $editButton = function ($user) {
-            return
-                '<a class="btn btn-sm btn-warning" href="' . route('admin.users.edit', $user->id) . '">
-                    <i class="fa fa-lg fa-fw fa-pen"></i>
-                </a>';
-        };
-
-        $deleteButton = function ($user) {
-            return
-                '<form action="' . route('admin.users.destroy', $user->id) . '" method="POST"">
-                        ' . csrf_field() . '
-                        ' . method_field('DELETE') . '
-                        <button type="submit" class="btn btn-sm btn-danger delete-btn">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                </form>';
-        };
-
         return (new EloquentDataTable($query))
             ->editColumn('created_at', function ($user) {
                 return $user->created_at->format('d.m.Y H:i');
@@ -42,9 +24,10 @@ class UsersDataTable extends DataTable
             ->editColumn('updated_at', function ($user) {
                 return $user->updated_at->format('d.m.Y H:i');
             })
-            ->addColumn('edit', $editButton)
-            ->addColumn('delete', $deleteButton)
-            ->rawColumns(['edit', 'delete'])
+            ->addColumn('actions', function ($user) {
+                return view('admin.users.actions', compact('user'))->render();
+            })
+            ->rawColumns(['actions'])
             ->setRowId('id');
     }
 
@@ -61,24 +44,14 @@ class UsersDataTable extends DataTable
      */
     public function html(): HtmlBuilder
     {
-        $createButton = [
-            'text' => '<i class="fas fa-plus mr-1"></i> Создать',
-            'className' => 'btn btn-success',
-            'action' => 'function(e, dt, node, config) {
-                window.location.href = "' . route('admin.users.create') . '";
-            }'
-        ];
+        $this->builder()->language(['url' => 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/ru.json']);
 
         return $this->builder()
             ->setTableId('users-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(1)
-            ->selectStyleSingle()
-            ->parameters([
-                'dom' => 'Bfrtip',
-                'buttons' => [$createButton],
-            ]);
+            ->selectStyleSingle();
     }
 
     /**
@@ -93,26 +66,13 @@ class UsersDataTable extends DataTable
             Column::make('role')->title('Роль'),
             Column::make('created_at')->title('Создан'),
             Column::make('updated_at')->title('Обновлен'),
-            Column::computed('edit')
-                ->title('Изменить')
+
+            Column::computed('actions')
+                ->title('Действия')
                 ->exportable(false)
                 ->printable(false)
-                ->width(80)
-                ->addClass('text-center'),
-            Column::computed('delete')
-                ->title('Удалить')
-                ->exportable(false)
-                ->printable(false)
-                ->width(80)
+                ->width(120)
                 ->addClass('text-center'),
         ];
-    }
-
-    /**
-     * Get the filename for export.
-     */
-    protected function filename(): string
-    {
-        return 'Users_' . date('YmdHis');
     }
 }

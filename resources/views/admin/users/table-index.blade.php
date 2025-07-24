@@ -6,7 +6,12 @@
         </div>
         <div class="card-body">
             <div class="card-body">
-                {{ $dataTable->table() }}
+                <a class="btn btn-success" href="{{ route('admin.users.create') }}">
+                    <i class="fas fa-plus mr-1"></i>
+                </a>
+                <div class="mt-3">
+                    {{ $dataTable->table() }}
+                </div>
             </div>
         </div>
     @endsection

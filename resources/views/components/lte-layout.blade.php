@@ -9,11 +9,16 @@
 
 @section('css')
     {{-- Add here extra stylesheets --}}
-    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
-    @vite(['resources/sass/app.scss'])
+    @vite(['resources/sass/app.scss', 'resources/css/table-custom-style.css'])
+
+    <style>
+    </style>
+
 @stop
 
 @section('js')
+    <script>
+    </script>
     @vite(['resources/js/app.js'])
     @stack('scripts')
 @stop

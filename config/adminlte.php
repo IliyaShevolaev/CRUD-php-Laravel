@@ -358,7 +358,10 @@ return [
             'icon' => 'fa fa-tag',
             'can' => 'isAdminRole'
         ],
-        ['header' => 'Пользователи', 'can' => 'isAdminRole'],
+        [
+            'header' => 'Пользователи',
+            'can' => 'isAdminRole'
+        ],
         [
             'text' => 'Список пользователей',
             'url' => 'admin/users',

@@ -7,6 +7,7 @@ use App\Http\Requests\Users\CreateRequest;
 use App\Http\Requests\Users\EditRequest;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -42,7 +43,9 @@ class UserController extends BaseUserController
     {
         $this->authorize('viewAdmin', Auth::user());
 
-        return $this->service->indexViewInCreateMode();
+        $roles = config('roles.roles');
+
+        return view('admin.users.create', compact('roles'));
     }
 
     public function store(CreateRequest $createRequest): RedirectResponse
@@ -60,7 +63,9 @@ class UserController extends BaseUserController
     {
         $this->authorize('viewAdmin', Auth::user());
 
-        return $this->service->indexViewInEditMode($user);
+        $roles = config('roles.roles');
+
+        return view('admin.users.edit', compact('user', 'roles'));
     }
 
     public function update(EditRequest $editRequest, User $user): RedirectResponse
@@ -74,12 +79,14 @@ class UserController extends BaseUserController
         return redirect()->route('admin.users.index');
     }
 
-    public function destroy(User $user): RedirectResponse
+    public function destroy(User $user): JsonResponse
     {
         $this->authorize('viewAdmin', Auth::user());
 
         $this->service->delete($user);
 
-        return redirect()->route('admin.users.index');
+        return response()->json([
+            'message' => 'success',
+        ]);
     }
 }

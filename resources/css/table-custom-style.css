@@ -1,0 +1,8 @@
+.dt-info > span.select-info {
+    display: none;
+}
+
+#users-table tbody tr.selected td {
+    color: inherit !important;
+    box-shadow: none !important;
+}

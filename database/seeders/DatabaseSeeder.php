@@ -13,13 +13,15 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        DB::table('categories')->delete();
-        $categories = ['Buy', 'Sale', 'Rent'];
-        foreach($categories as $category) {
-            Category::create(['name' => $category]);
-        }
+        // DB::table('categories')->delete();
+        // $categories = ['Buy', 'Sale', 'Rent'];
+        // foreach($categories as $category) {
+        //     Category::create(['name' => $category]);
+        // }
 
-        Post::factory(20)->create();
+        // Post::factory(20)->create();
+
+        //User::factory(120)->create();
 
     }
 }
