@@ -32,7 +32,7 @@
                             <a href="{{ route('post.edit', $post->id) }}" class="btn btn-warning mr-3">Редактировать</a>
                         @endcan
 
-                        @if (!$isAdminView)
+                        @can ('isUerRole')
                             <a href="{{ route('post.view-owner', $post) }}" class="btn btn-success mr-3">Заказать</a>
 
                             <form action="{{ route('like.create') }}" method="POST" class="d-inline">
@@ -44,7 +44,7 @@
                                     Избаранное: {{ $post->likes }}
                                 </button>
                             </form>
-                        @endif
+                        @endcan
 
                     </div>
                 </div>
