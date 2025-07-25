@@ -6,7 +6,7 @@
                 <h3>{{ isset($user) ? trans('main.users.edit_header') : trans('main.users.add_header') }}</h3>
             </div>
             <div class="card-body">
-                <form action="{{ isset($user) ? route('admin.users.update', $user->id) : route('admin.users.store') }}"
+                <form action="{{ isset($user) ? route('users.update', $user->id) : route('users.store') }}"
                     method="POST">
                     @csrf
                     @isset($user)
@@ -55,22 +55,10 @@
                         @enderror
                     </div>
 
-                    <div class="form-group mt-3">
-                        <label for="role">{{ str(trans('main.users.role'))->ucfirst() }}</label>
-                        <select class="form-control select2bs4" id="role" name="role">
-                            @foreach ($roles as $role)
-                                <option value="{{ $role }}"
-                                    {{ isset($user) && $user->role == $role ? 'selected' : '' }}>
-                                    {{ $role }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-
                     <div class="d-flex gap-1">
                         <button type="submit"
                             class="btn btn-success w-50">{{ isset($user) ? trans('main.users.edit_user_button') : trans('main.users.create_user_button') }}</button>
-                        <a href="{{ route('admin.users.index') }}" type="submit"
+                        <a href="{{ route('users.index') }}" type="submit"
                             class="btn btn-danger w-50">{{ trans('main.users.go_back_button') }}</a>
                     </div>
                 </form>

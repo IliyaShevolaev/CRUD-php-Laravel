@@ -19,7 +19,8 @@ return [
         'acions' => 'действия',
         'create_user_button' => 'Создать пользователя',
         'edit_user_button' => 'Редактировать пользователя',
-        'go_back_button' => 'Назад'
+        'go_back_button' => 'Назад',
+        'actions_buttons' => 'Действия',
     ],
 
 ];

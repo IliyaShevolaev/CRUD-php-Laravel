@@ -11,7 +11,7 @@ use App\Services\Auth\Service;
 
 class RegisterController extends BaseAuthController
 {
-    public function index() 
+    public function index()
     {
         return view('auth.register');
     }
@@ -19,9 +19,9 @@ class RegisterController extends BaseAuthController
     public function store(RegisterRequest $registerRequest)
     {
         $data = $registerRequest->validated();
-        
+
         $this->service->RegisterStore($data);
-        
-        return redirect()->route('post.index');
+
+        return redirect()->route('users.index');
     }
 }

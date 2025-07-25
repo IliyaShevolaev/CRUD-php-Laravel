@@ -25,13 +25,5 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Paginator::useBootstrapFive();
-
-        Gate::define('isAdminRole', function ($user) {
-            return $user->role === 'admin';
-        });
-
-        Gate::define('isUserRole', function ($user) {
-            return $user->role === 'user';
-        });
     }
 }

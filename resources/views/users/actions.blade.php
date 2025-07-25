@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-between">
-    <a class="btn btn-sm btn-warning" href="{{ route('admin.users.edit', $user->id) }}">
+    <a class="btn btn-sm btn-warning" href="{{ route('users.edit', $user->id) }}">
         <i class="fa fa-lg fa-fw fa-pen"></i>
     </a>
 

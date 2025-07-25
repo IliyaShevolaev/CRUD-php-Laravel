@@ -324,49 +324,13 @@ return [
         //     'url' => 'admin/blog',
         //     'can' => 'manage-blog',
         // ],
-        ['header' => 'Посты'],
-        [
-            'text' => 'Посты',
-            'url' => '/',
-            'icon' => 'fas fa-file-alt',
-            'label_color' => 'success',
-        ],
-        [
-            'text' => 'Создать пост',
-            'url' => 'create',
-            'icon' => 'fas fa-plus',
-            'label_color' => 'success',
-            'can' => 'isUserRole'
-        ],
-        [
-            'text' => 'Избранное',
-            'url' => 'posts/favorites',
-            'icon' => 'fas fa-heart',
-            'label_color' => 'success',
-            'can' => 'isUserRole'
-        ],
-        [
-            'text' => 'Мои посты',
-            'url' => 'posts/my-posts',
-            'icon' => 'fas fa-eye',
-            'label_color' => 'success',
-            'can' => 'isUserRole'
-        ],
-        [
-            'text' => 'Категории',
-            'url' => 'admin/categories',
-            'icon' => 'fa fa-tag',
-            'can' => 'isAdminRole'
-        ],
         [
             'header' => 'Пользователи',
-            'can' => 'isAdminRole'
         ],
         [
             'text' => 'Список пользователей',
             'url' => 'admin/users',
             'icon' => 'fas fa-users',
-            'can' => 'isAdminRole'
         ],
         // [
         //     'text' => 'change_password',

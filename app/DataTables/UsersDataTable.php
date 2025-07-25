@@ -25,7 +25,7 @@ class UsersDataTable extends DataTable
                 return $user->updated_at->format('d.m.Y H:i');
             })
             ->addColumn('actions', function ($user) {
-                return view('admin.users.actions', compact('user'))->render();
+                return view('users.actions', compact('user'))->render();
             })
             ->rawColumns(['actions'])
             ->setRowId('id');
@@ -63,12 +63,11 @@ class UsersDataTable extends DataTable
             Column::make('id')->title('ID'),
             Column::make('name')->title(str(trans('main.users.name'))->ucfirst()),
             Column::make('email')->title(str(trans('main.users.email'))->ucfirst()),
-            Column::make('role')->title(str(trans('main.users.role'))->ucfirst()),
             Column::make('created_at')->title(str(trans('main.users.created'))->ucfirst()),
             Column::make('updated_at')->title(str(trans('main.users.updated'))->ucfirst()),
 
             Column::computed('actions')
-                ->title(str(trans('main.users.actions'))->ucfirst())
+                ->title(str(trans('main.users.actions_buttons'))->ucfirst())
                 ->exportable(false)
                 ->printable(false)
                 ->width(120)
