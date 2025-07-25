@@ -1,4 +1,4 @@
-@extends('components.lte-layout')
+@extends('layouts.lte-layout')
 
 @section('title', 'Admin panel')
 

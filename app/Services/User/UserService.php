@@ -3,6 +3,8 @@
 namespace App\Services\User;
 
 use App\Models\User;
+use App\Models\User\Position;
+use App\Models\User\Department;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,5 +29,15 @@ class UserService
         if (Auth::id() !== $user->id) {
             $user->delete();
         }
+    }
+
+    public function prepareViewData(User $user = null): array
+    {
+        $departments = Department::all();
+        $positions = Position::all();
+        $statuses = config('user.statuses');
+        $genders = config('user.genders');
+
+        return compact('user', 'departments', 'positions', 'genders', 'statuses');
     }
 }

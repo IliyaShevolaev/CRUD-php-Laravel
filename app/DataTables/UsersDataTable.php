@@ -18,6 +18,18 @@ class UsersDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
+            ->editColumn('department_id', function ($user) {
+                return $user->department->name ?? trans('main.users.without_department');
+            })
+            ->editColumn('position_id', function ($user) {
+                return $user->position->name ?? trans('main.users.without_position');
+            })
+            ->editColumn('gender', function ($user) {
+                return trans('main.users.genders.' . $user->gender);
+            })
+            ->editColumn('status', function ($user) {
+                return trans('main.users.statuses.' . $user->status);
+            })
             ->editColumn('created_at', function ($user) {
                 return $user->created_at->format('d.m.Y H:i');
             })
@@ -27,7 +39,7 @@ class UsersDataTable extends DataTable
             ->addColumn('actions', function ($user) {
                 return view('users.actions', compact('user'))->render();
             })
-            ->rawColumns(['actions'])
+            ->rawColumns(['department_name', 'position_name', 'actions'])
             ->setRowId('id');
     }
 
@@ -63,15 +75,13 @@ class UsersDataTable extends DataTable
             Column::make('id')->title('ID'),
             Column::make('name')->title(str(trans('main.users.name'))->ucfirst()),
             Column::make('email')->title(str(trans('main.users.email'))->ucfirst()),
+            Column::make('department_id')->title(str(trans('main.users.department'))->ucfirst()),
+            Column::make('position_id')->title(str(trans('main.users.position'))->ucfirst()),
+            Column::make('gender')->title(str(trans('main.users.gender'))->ucfirst()),
+            Column::make('status')->title(str(trans('main.users.status'))->ucfirst()),
             Column::make('created_at')->title(str(trans('main.users.created'))->ucfirst()),
             Column::make('updated_at')->title(str(trans('main.users.updated'))->ucfirst()),
-
-            Column::computed('actions')
-                ->title(str(trans('main.users.actions_buttons'))->ucfirst())
-                ->exportable(false)
-                ->printable(false)
-                ->width(120)
-                ->addClass('text-center'),
+            Column::computed('actions')->title(str(trans('main.users.actions_buttons'))->ucfirst())->printable(false)->width(120)->addClass('text-center'),
         ];
     }
 }

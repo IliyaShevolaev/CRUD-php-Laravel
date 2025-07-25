@@ -28,8 +28,9 @@ class UserController extends BaseUserController
 
     public function create(): View
     {
+        $data = $this->service->prepareViewData();
 
-        return view('users.change-user-table');
+        return view('users.change-user-table', $data);
     }
 
     public function store(CreateRequest $createRequest): RedirectResponse
@@ -43,7 +44,9 @@ class UserController extends BaseUserController
 
     public function edit(User $user): View
     {
-        return view('users.change-user-table', compact('user'));
+        $data = $this->service->prepareViewData($user);
+
+        return view('users.change-user-table', $data);
     }
 
     public function update(EditRequest $editRequest, User $user): RedirectResponse

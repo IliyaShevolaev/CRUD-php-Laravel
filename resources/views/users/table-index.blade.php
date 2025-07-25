@@ -1,4 +1,4 @@
-@extends('components.lte-layout')
+@extends('layouts.lte-layout')
 @section('content')
     <div class="card card-primary mt-3">
         <div class="card-header">
@@ -10,16 +10,21 @@
                     <i class="fas fa-plus mr-1"></i>
                 </a>
 
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                    Launch demo modal
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addDepartmentModal">
+                    {{ trans('main.users.departments') }}
                 </button>
-                @include('users.modal-test')
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addPositionModal">
+                    {{ trans('main.users.positions') }}
+                </button>
+
                 <div class="mt-3">
                     {{ $dataTable->table() }}
                 </div>
             </div>
         </div>
     </div>
+    @include('departments.add-modal')
+    @include('positions.add-modal')
 @endsection
 
 @push('scripts')

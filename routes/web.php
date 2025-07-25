@@ -15,8 +15,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', 'App\Http\Controllers\Auth\LoginController@destroy')->name('login.logout');
 });
 
+Route::middleware('auth')->group(function () {
+    Route::get('/', 'App\Http\Controllers\User\UserController@index');
 
-Route::get('/', 'App\Http\Controllers\User\UserController@index');
+    Route::resource('users', \App\Http\Controllers\User\UserController::class);
+    Route::resource('departments', \App\Http\Controllers\User\DepartmentController::class);
+    Route::resource('positions', \App\Http\Controllers\User\PositionController::class);
 
-Route::resource('users', \App\Http\Controllers\User\UserController::class);
+});
 

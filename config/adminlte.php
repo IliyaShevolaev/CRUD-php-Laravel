@@ -329,7 +329,7 @@ return [
         ],
         [
             'text' => 'Список пользователей',
-            'url' => 'admin/users',
+            'url' => 'users',
             'icon' => 'fas fa-users',
         ],
         // [

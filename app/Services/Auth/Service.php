@@ -14,6 +14,7 @@ class Service
             'name' => $data['userName'],
             'email' => $data['email'],
             'password' => $data['password'],
+            'gender' => 'male'
         ]);
 
         Auth::login($user);
@@ -29,6 +30,10 @@ class Service
 
 
             if (Auth::attempt($data, $remember)) {
+                if (Auth::user()->status === 'unactive') {
+                    return redirect()->route('login')->withInput()->withErrors(['failed' => __('auth.unactive')]);
+                }
+
                 $loginRequest->session()->regenerate();
 
                 return redirect()->route('users.index');
