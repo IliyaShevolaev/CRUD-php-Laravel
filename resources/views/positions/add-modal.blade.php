@@ -95,7 +95,7 @@
             })
         }).then(response => {
             if (response.status === 200) {
-                loadPositions();
+                loadPositions ();
                 document.getElementById('positionNameInput').value = '';
                 document.getElementById('positionNameError').textContent = '';
             } else if (response.status === 422) {

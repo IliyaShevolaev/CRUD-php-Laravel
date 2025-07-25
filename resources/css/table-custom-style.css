@@ -6,3 +6,8 @@
     color: inherit !important;
     box-shadow: none !important;
 }
+
+#departments-table tbody tr.selected td {
+    color: inherit !important;
+    box-shadow: none !important;
+}

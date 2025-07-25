@@ -332,6 +332,11 @@ return [
             'url' => 'users',
             'icon' => 'fas fa-users',
         ],
+        [
+            'text' => 'Отделы',
+            'url' => 'departments',
+            'icon' => 'fas fa-users',
+        ],
         // [
         //     'text' => 'change_password',
         //     'url' => 'admin/settings',
