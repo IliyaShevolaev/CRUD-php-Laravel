@@ -6,8 +6,7 @@
         </div>
         <div class="card-body">
             <div class="card-body">
-                <button onclick="createDepartment()" type="button" class="btn btn-success" data-toggle="modal"
-                    data-target="#addDepartmentModal">
+                <button onclick="createDepartment()" type="button" class="btn btn-success">
                     <i class="fas fa-plus mr-1"></i>
                 </button>
 
@@ -17,19 +16,25 @@
             </div>
         </div>
     </div>
+
     @include('departments.change')
 @endsection
 
 @push('scripts')
     {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
-@endpush
 
-<script>
-    function createDepartment() {
-        document.getElementById('departmentNameInput').value = '';
-        document.getElementById('departmentMethodInput').value = 'POST';
-        document.getElementById('departmentNameError').textContent = '';
-        document.getElementById('confirmChangeDepartmentButton').textContent = '{{ trans('main.add_button') }}';
-        document.getElementById('departmentsModalHeader').textContent = '{{ trans('main.users.add_department_header') }}';
-    }
-</script>
+    <script>
+        function createDepartment() {
+            $.ajax({
+                method: 'GET',
+                url: "{{ route('departments.create') }}",
+                dataType: 'json',
+                success: function(data) {
+                    $('#addDepartmentModal').find('.form-group').empty().append(data)
+                    new bootstrap.Modal($('#addDepartmentModal')).show();
+                    //$('#addDepartmentModal').show()
+                }
+            });
+        }
+    </script>
+@endpush

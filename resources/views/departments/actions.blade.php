@@ -1,6 +1,5 @@
 <div class="d-flex justify-content-between">
-    <button onclick="editDepartment({{ $department->id }}, '{{ $department->name }}')" class="btn btn-sm btn-warning"
-        data-toggle="modal" data-target="#addDepartmentModal">
+    <button onclick="editDepartment({{ $department->id }}, '{{ $department->name }}')" class="btn btn-sm btn-warning">
         <i class="fa fa-lg fa-fw fa-pen"></i>
     </button>
 
@@ -12,12 +11,15 @@
 
 <script>
     function editDepartment(id, name) {
-        document.getElementById('departmentNameInput').value = name;
-        document.getElementById('departmentMethodInput').value = 'PATCH';
-        document.getElementById('departmentIdInput').value = id;
-        document.getElementById('departmentNameError').textContent = '';
-        document.getElementById('confirmChangeDepartmentButton').textContent = '{{ trans('main.edit_button') }}';
-        document.getElementById('departmentsModalHeader').textContent = '{{ trans('main.users.edit_department_header') }}';
+        $.ajax({
+            method: 'GET',
+            url: '{{ route("departments.edit", ":id") }}'.replace(':id', id),
+            dataType: 'json',
+            success: function(data) {
+                $('#addDepartmentModal').find('.form-group').empty().append(data)
+                new bootstrap.Modal($('#addDepartmentModal')).show();
+            }
+        });
     }
 
     function deleteRow(id, name) {

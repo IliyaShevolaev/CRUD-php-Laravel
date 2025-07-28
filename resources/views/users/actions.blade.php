@@ -13,7 +13,7 @@
         let confirmed = confirm(`Удалить пользователя ${name}?`);
 
         if (confirmed) {
-            fetch(`/admin/users/${id}`, {
+            fetch(`/users/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}',

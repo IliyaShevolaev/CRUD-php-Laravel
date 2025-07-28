@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\DataTables\UsersDataTable;
 use App\Http\Requests\Users\CreateRequest;
 use App\Http\Requests\Users\EditRequest;
+use App\Models\Scopes\ActiveUserScope;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
@@ -18,11 +19,6 @@ class UserController extends BaseUserController
     public function index(UsersDataTable $usersDataTable)
     {
         return $usersDataTable->render('users.table-index');
-    }
-
-    public function show(User $user): View
-    {
-        return view('users.show', compact('user'));
     }
 
     public function create(): View
@@ -41,15 +37,19 @@ class UserController extends BaseUserController
         return redirect()->route('users.index');
     }
 
-    public function edit(User $user): View
+    public function edit(int $user_id): View
     {
+        $user = User::withoutScopeFind($user_id);
+
         $data = $this->service->prepareViewData($user);
 
         return view('users.change-user-table', $data);
     }
 
-    public function update(EditRequest $editRequest, User $user): RedirectResponse
+    public function update(EditRequest $editRequest, int $user_id): RedirectResponse
     {
+        $user = User::withoutScopeFind($user_id);
+
         $editedData = $editRequest->validated();
 
         $this->service->update($editedData, $user);
@@ -57,8 +57,10 @@ class UserController extends BaseUserController
         return redirect()->route('users.index');
     }
 
-    public function destroy(User $user): JsonResponse
+    public function destroy(int $user_id): JsonResponse
     {
+        $user = User::withoutScopeFind($user_id);
+
         $this->service->delete($user);
 
         return response()->json([

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Http\Resources\User\DepartmentResource;
 use App\Models\User\Department;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
@@ -15,6 +16,13 @@ class DepartmentController extends Controller
         return $departmentsDataTable->render('departments.index');
     }
 
+    public function create()
+    {
+        return response()->json(view('departments.form')
+            ->with(['route' => route('departments.store')])
+            ->render());
+    }
+
     public function store(DepartmentRequest $departmentRequest): JsonResponse
     {
         $data = $departmentRequest->validated();
@@ -22,6 +30,15 @@ class DepartmentController extends Controller
         Department::create($data);
 
         return response()->json(['message' => 'success']);
+    }
+
+    public function edit(Department $department)
+    {
+        return response()->json(view('departments.form')
+            ->with([
+                'route' => route('departments.update', $department),
+                'element' => $department
+            ])->render());
     }
 
     public function update(DepartmentRequest $departmentRequest, Department $department): JsonResponse

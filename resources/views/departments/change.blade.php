@@ -8,24 +8,11 @@
 
     <div>
         <div class="form-group">
-            <form id="changeDepartmentForm">
-                <input name="name" type="text" class="form-control" id="departmentNameInput"
-                    placeholder="{{ trans('main.title_placeholder') }}">
-                <input name="method" type="hidden" id="departmentMethodInput">
-                <input name="department_id" type="hidden" id="departmentIdInput">
-                <p class="text-danger" id="departmentNameError"></p>
-            </form>
         </div>
     </div>
-
-    @slot('footer')
-        <button id="confirmChangeDepartmentButton" type="button" class="btn btn-primary w-100">
-            {{ trans('main.add_button') }}
-        </button>
-    @endslot
 @endcomponent
 
-<script>
+{{-- <script>
     document.getElementById('confirmChangeDepartmentButton').addEventListener('click', function() {
         const form = document.getElementById('changeDepartmentForm');
         const formBody = new FormData(form);
@@ -60,4 +47,4 @@
             }
         });
     });
-</script>
+</script> --}}

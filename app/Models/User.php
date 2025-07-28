@@ -48,6 +48,11 @@ class User extends Authenticatable
         'status' => Status::class
     ];
 
+    public static function withoutScopeFind(int $id): User
+    {
+        return static::withoutGlobalScope(ActiveUserScope::class)->findOrFail($id);
+    }
+
     /**
      * Get the attributes that should be cast.
      *

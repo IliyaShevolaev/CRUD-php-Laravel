@@ -4,7 +4,6 @@
 
 @section('content')
     @yield('content')
-
 @stop
 
 @section('css')
@@ -17,8 +16,6 @@
 @stop
 
 @section('js')
-    <script>
-    </script>
     @vite(['resources/js/app.js'])
     @stack('scripts')
 @stop
