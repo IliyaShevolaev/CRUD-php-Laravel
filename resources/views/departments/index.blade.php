@@ -27,33 +27,9 @@
 <script>
     function createDepartment() {
         document.getElementById('departmentNameInput').value = '';
+        document.getElementById('departmentMethodInput').value = 'POST';
         document.getElementById('departmentNameError').textContent = '';
         document.getElementById('confirmChangeDepartmentButton').textContent = '{{ trans('main.add_button') }}';
-        document.getElementById('departmentsModalHeader').textContent =
-            '{{ trans('main.users.add_department_header') }}';
-        document.getElementById('confirmChangeDepartmentButton').onclick = function() {
-            fetch(`/departments`, {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                },
-                body: JSON.stringify({
-                    name: document.getElementById('departmentNameInput').value.trim()
-                })
-            }).then(response => {
-                if (response.status === 200) {
-                    document.getElementById('departmentNameInput').value = '';
-                    document.getElementById('departmentNameError').textContent = '';
-                    const table = window.LaravelDataTables['departments-table'];
-                    table.ajax.reload();
-                } else if (response.status === 422) {
-                    return response.json().then(data => {
-                        document.getElementById('departmentNameError').textContent = data.message;
-                    });
-                }
-            });
-        };
+        document.getElementById('departmentsModalHeader').textContent = '{{ trans('main.users.add_department_header') }}';
     }
 </script>

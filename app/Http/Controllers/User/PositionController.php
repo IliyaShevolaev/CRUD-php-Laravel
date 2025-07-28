@@ -36,8 +36,11 @@ class PositionController extends Controller
 
     public function destroy(Position $position): JsonResponse
     {
-        $position->delete();
+        if ($position->users()->get()->isEmpty()) {
+            $position->delete();
+            return response()->json(['message' => 'success']);
+        }
 
-        return response()->json(['message' => 'success']);
+        return response()->json(['message' => 'delete not allowed'], 409);
     }
 }

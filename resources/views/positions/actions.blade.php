@@ -13,34 +13,11 @@
 <script>
     function editPosition(id, name) {
         document.getElementById('positionNameInput').value = name;
+        document.getElementById('positionMethodInput').value = 'PATCH';
+        document.getElementById('positionIdInput').value = id;
         document.getElementById('positionNameError').textContent = '';
         document.getElementById('confirmChangePositionButton').textContent = '{{trans('main.edit_button')}}';
         document.getElementById('positionsModalHeader').textContent = '{{trans('main.users.edit_position_header')}}';
-        document.getElementById('confirmChangePositionButton').onclick = function() {
-            fetch(`/positions/${id}`, {
-                method: 'PATCH',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                },
-                body: JSON.stringify({
-                    name: document.getElementById('positionNameInput').value.trim()
-                })
-            }).then(response => {
-                if (response.status === 200) {
-                    const table = window.LaravelDataTables['positions-table'];
-                    table.ajax.reload();
-
-                    document.getElementById('positionNameError').textContent = '';
-
-                } else if (response.status === 422) {
-                    return response.json().then(data => {
-                        document.getElementById('positionNameError').textContent = data.message;
-                    });
-                }
-            });
-        };
     }
 
     function deleteRow(id, name) {
@@ -51,13 +28,16 @@
                 method: 'DELETE',
                 headers: {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    'Content-Type': 'application/json',
                     'Accept': 'application/json',
                 }
             }).then(response => {
                 if (response.status === 200) {
                     const table = window.LaravelDataTables['positions-table'];
                     table.ajax.reload();
+                } else if (response.status === 409) {
+                    alert('{{trans('main.users.not_allowed_to_delete_position_alert')}}');
+                } else if (response.status === 404) {
+                    alert('{{ trans('main.id_not_found') }}');
                 }
             });
         }

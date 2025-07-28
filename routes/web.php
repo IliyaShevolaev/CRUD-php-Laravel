@@ -2,10 +2,11 @@
 
 // только активные Users:all (scope)
 // enum genders
+// запрет удаления при связях
 // form ajax
 // soft delete
-// запрет удаления при связях
 
+use App\Models\User\Department;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -31,5 +32,5 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/test', function() {
-    dd(Auth::user()->gender->value);
+
 });
