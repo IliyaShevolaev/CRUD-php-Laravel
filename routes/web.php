@@ -6,6 +6,7 @@
 // soft delete
 // запрет удаления при связях
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/register', 'App\Http\Controllers\Auth\RegisterController@index')->name('register');
@@ -27,6 +28,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('users', \App\Http\Controllers\User\UserController::class);
     Route::resource('departments', \App\Http\Controllers\User\DepartmentController::class);
     Route::resource('positions', \App\Http\Controllers\User\PositionController::class);
-
 });
 
+Route::get('/test', function() {
+    dd(Auth::user()->gender->value);
+});

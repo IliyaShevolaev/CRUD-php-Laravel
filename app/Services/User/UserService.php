@@ -35,9 +35,7 @@ class UserService
     {
         $departments = Department::all();
         $positions = Position::all();
-        $statuses = config('user.statuses');
-        $genders = config('user.genders');
 
-        return compact('user', 'departments', 'positions', 'genders', 'statuses');
+        return compact('user', 'departments', 'positions');
     }
 }

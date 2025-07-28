@@ -2,6 +2,7 @@
 
 namespace App\DataTables;
 
+use App\Models\Scopes\ActiveUserScope;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
@@ -25,10 +26,10 @@ class UsersDataTable extends DataTable
                 return $user->position->name ?? trans('main.users.without_position');
             })
             ->editColumn('gender', function ($user) {
-                return trans('main.users.genders.' . $user->gender);
+                return trans('main.users.genders.' . $user->gender->value);
             })
             ->editColumn('status', function ($user) {
-                return trans('main.users.statuses.' . $user->status);
+                return trans('main.users.statuses.' . $user->status->value);
             })
             ->editColumn('created_at', function ($user) {
                 return $user->created_at->format('d.m.Y H:i');
@@ -48,7 +49,7 @@ class UsersDataTable extends DataTable
      */
     public function query(User $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->newQuery()->withoutGlobalScope(ActiveUserScope::class);
     }
 
     /**

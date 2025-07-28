@@ -2,13 +2,18 @@
 
 namespace App\Models;
 
-use App\Models\User\Department;
+use App\Enums\User\Gender;
+use App\Enums\User\Status;
 use App\Models\User\Position;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\User\Department;
+use App\Models\Scopes\ActiveUserScope;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Attributes\ScopedBy;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
+#[ScopedBy([ActiveUserScope::class])]
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
@@ -36,6 +41,11 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+    ];
+
+    protected $casts = [
+        'gender' => Gender::class,
+        'status' => Status::class
     ];
 
     /**
