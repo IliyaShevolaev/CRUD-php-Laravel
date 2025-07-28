@@ -18,6 +18,7 @@ class RegisterRequest extends FormRequest
             'email' => 'required|string|email|unique:users|max:255',
             'userName' => 'required|string|max:255',
             'password' => 'required|confirmed|string|min:5|max:255',
+            'gender' => 'required|string',
         ];
     }
 

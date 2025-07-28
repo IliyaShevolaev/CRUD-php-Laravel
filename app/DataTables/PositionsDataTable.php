@@ -2,14 +2,14 @@
 
 namespace App\DataTables;
 
-use App\Models\User\Department;
-use Illuminate\Database\Eloquent\Builder as QueryBuilder;
-use Yajra\DataTables\EloquentDataTable;
-use Yajra\DataTables\Html\Builder as HtmlBuilder;
+use App\Models\User\Position;
 use Yajra\DataTables\Html\Column;
+use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Services\DataTable;
+use Yajra\DataTables\Html\Builder as HtmlBuilder;
+use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 
-class DepartmentsDataTable extends DataTable
+class PositionsDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -19,14 +19,14 @@ class DepartmentsDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->editColumn('created_at', function ($department) {
-                return $department->created_at->format('d.m.Y H:i');
+            ->editColumn('created_at', function ($position) {
+                return $position->created_at->format('d.m.Y H:i');
             })
-            ->editColumn('updated_at', function ($department) {
-                return $department->updated_at->format('d.m.Y H:i');
+            ->editColumn('updated_at', function ($position) {
+                return $position->updated_at->format('d.m.Y H:i');
             })
-            ->addColumn('actions', function ($department) {
-                return view('departments.actions', compact('department'))->render();
+            ->addColumn('actions', function ($position) {
+                return view('positions.actions', compact('position'))->render();
             })
             ->rawColumns(['actions'])
             ->setRowId('id');
@@ -35,7 +35,7 @@ class DepartmentsDataTable extends DataTable
     /**
      * Get the query source of dataTable.
      */
-    public function query(Department $model): QueryBuilder
+    public function query(Position $model): QueryBuilder
     {
         return $model->newQuery();
     }
@@ -48,7 +48,7 @@ class DepartmentsDataTable extends DataTable
         $this->builder()->language(['url' => 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/ru.json']);
 
         return $this->builder()
-            ->setTableId('departments-table')
+            ->setTableId('positions-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(1)

@@ -14,7 +14,7 @@ class Service
             'name' => $data['userName'],
             'email' => $data['email'],
             'password' => $data['password'],
-            'gender' => 'male'
+            'gender' => $data['gender']
         ]);
 
         Auth::login($user);

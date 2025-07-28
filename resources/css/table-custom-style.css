@@ -11,3 +11,8 @@
     color: inherit !important;
     box-shadow: none !important;
 }
+
+#positions-table tbody tr.selected td {
+    color: inherit !important;
+    box-shadow: none !important;
+}

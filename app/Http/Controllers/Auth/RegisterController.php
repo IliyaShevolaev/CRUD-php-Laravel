@@ -13,7 +13,9 @@ class RegisterController extends BaseAuthController
 {
     public function index()
     {
-        return view('auth.register');
+        $genders = config('user.genders');
+
+        return view('auth.register', compact('genders'));
     }
 
     public function store(RegisterRequest $registerRequest)

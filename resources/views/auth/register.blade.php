@@ -12,7 +12,7 @@
                 aria-describedby="emailHelp">
 
             @error('email')
-                <p class="text-danger">{{$message}}</p>
+                <p class="text-danger">{{ $message }}</p>
             @enderror
         </div>
         <div class="mb-3">
@@ -20,15 +20,27 @@
             <input value="{{ old('userName') }}" name="userName" type="text" class="form-control" id="exampleInputName">
 
             @error('userName')
-                <p class="text-danger">{{$message}}</p>
+                <p class="text-danger">{{ $message }}</p>
             @enderror
         </div>
+
+        <div class="form-group mt-3">
+            <label for="gender">{{ str(trans('main.users.gender'))->ucfirst() }}</label>
+            <select class="form-control select2bs4" id="gender" name="gender">
+                @foreach ($genders as $gender)
+                    <option value="{{ $gender }}">
+                        {{ trans('main.users.genders.' . $gender) }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Пароль</label>
             <input name="password" type="password" class="form-control" id="exampleInputPassword1">
 
             @error('password')
-                <p class="text-danger">{{$message}}</p>
+                <p class="text-danger">{{ $message }}</p>
             @enderror
         </div>
 
@@ -37,7 +49,7 @@
             <input name="password_confirmation" type="password" class="form-control" id="exampleInputPassword2">
 
             @error('password')
-                <p class="text-danger">{{$message}}</p>
+                <p class="text-danger">{{ $message }}</p>
             @enderror
         </div>
 

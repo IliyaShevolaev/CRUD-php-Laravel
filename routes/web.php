@@ -1,5 +1,11 @@
 <?php
 
+// только активные Users:all (scope)
+// enum genders
+// form ajax
+// soft delete
+// запрет удаления при связях
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/register', 'App\Http\Controllers\Auth\RegisterController@index')->name('register');

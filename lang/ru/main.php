@@ -30,6 +30,8 @@ return [
         'position' => 'должность',
         'positions' => 'Должности',
         'add_position_header' => 'Добавить новую должность',
+        'edit_position_header' => 'Изменить должность',
+        'delete_position_alert' => 'Удалить должность',
         'without_position' => 'Без должности',
         'gender' => 'Пол',
         'genders' => [

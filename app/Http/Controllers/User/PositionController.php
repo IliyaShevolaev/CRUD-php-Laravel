@@ -2,21 +2,17 @@
 
 namespace App\Http\Controllers\User;
 
+use App\DataTables\PositionsDataTable;
 use App\Http\Requests\Users\Position\PositionRequest;
 use App\Models\User\Position;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\User\PositionResource;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 class PositionController extends Controller
 {
-    public function index(): JsonResource
+    public function index(PositionsDataTable $positionsDataTable)
     {
-        $departments = Position::all();
-
-        return PositionResource::collection($departments);
+        return $positionsDataTable->render('positions.index');
     }
 
     public function store(PositionRequest $positionRequest): JsonResponse

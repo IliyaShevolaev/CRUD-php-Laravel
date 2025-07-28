@@ -335,7 +335,12 @@ return [
         [
             'text' => 'Отделы',
             'url' => 'departments',
-            'icon' => 'fas fa-users',
+            'icon' => 'fas fa-building',
+        ],
+        [
+            'text' => 'Должности',
+            'url' => 'positions',
+            'icon' => 'fas fa-briefcase',
         ],
         // [
         //     'text' => 'change_password',
