@@ -25,6 +25,8 @@ return [
         'without_department' => 'Без отдела',
         'departments' => 'Отделы',
         'add_department_header' => 'Добавить новый отдел',
+        'edit_department_header' => 'Изменить отдел',
+        'delete_department_alert' => 'Удалить отдел',
         'position' => 'должность',
         'positions' => 'Должности',
         'add_position_header' => 'Добавить новую должность',
@@ -44,4 +46,5 @@ return [
     'title' => 'название',
     'title_placeholder' => 'Введите название',
     'add_button' => 'Добавить',
+    'edit_button' => 'Изменить',
 ];

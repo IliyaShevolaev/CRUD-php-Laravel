@@ -3,7 +3,7 @@
 return [
     'genders' => [
         'male',
-        'female'
+        'female',
     ],
 
     'statuses' => [

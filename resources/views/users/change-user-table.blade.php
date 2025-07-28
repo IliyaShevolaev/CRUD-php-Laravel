@@ -75,11 +75,11 @@
                         <select class="form-control select2bs4" id="position" name="position_id">
                             @foreach ($positions as $position)
                                 <option value="{{ $position->id }}"
-                                    {{ isset($user)  && $user->position == $position->id ? 'selected' : '' }}>
+                                    {{ isset($user)  && $user->position_id == $position->id ? 'selected' : '' }}>
                                     {{ $position->name }}
                                 </option>
                             @endforeach
-                            <option {{!isset($user) || $user->position === null ? 'selected' : ''}} value="{{null}}">
+                            <option {{!isset($user) || $user->position_id === null ? 'selected' : ''}} value="{{null}}">
                                 {{trans('main.users.without_position')}}
                             </option>
                         </select>

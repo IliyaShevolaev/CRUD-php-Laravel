@@ -11,10 +11,11 @@
 </div>
 
 <script>
-    //с add надо так же по onclick
     function editDepartment(id, name) {
         document.getElementById('departmentNameInput').value = name;
-        document.getElementById('confirmChangeDepartmentButton').textContent = 'Изменить'; //RU
+        document.getElementById('departmentNameError').textContent = '';
+        document.getElementById('confirmChangeDepartmentButton').textContent = '{{trans('main.edit_button')}}';
+        document.getElementById('departmentsModalHeader').textContent = '{{trans('main.users.edit_department_header')}}';
         document.getElementById('confirmChangeDepartmentButton').onclick = function() {
             fetch(`/departments/${id}`, {
                 method: 'PATCH',
@@ -43,7 +44,7 @@
     }
 
     function deleteRow(id, name) {
-        let confirmed = confirm(`Удалить отдел ${name}?`);
+        let confirmed = confirm(`{{trans('main.users.delete_department_alert')}} ${name}?`);
 
         if (confirmed) {
             fetch(`/departments/${id}`, {
