@@ -25,14 +25,14 @@
 
     <script>
         function createDepartment() {
+        $('#departmentsModalHeader').text('{{ trans('main.users.add_department_header') }}');
+
             $.ajax({
                 method: 'GET',
                 url: "{{ route('departments.create') }}",
-                dataType: 'json',
                 success: function(data) {
-                    $('#addDepartmentModal').find('.form-group').empty().append(data)
+                    $('#addDepartmentModal').find('#form-placeholder').empty().append(data)
                     new bootstrap.Modal($('#addDepartmentModal')).show();
-                    //$('#addDepartmentModal').show()
                 }
             });
         }

@@ -6,58 +6,47 @@
         <p id="positionsModalHeader">{{ trans('main.users.add_position_header') }}</p>
     @endslot
 
-    <div>
-        <div class="form-group">
-            <form id="changePositionForm">
-                <input name="name" type="text" class="form-control" id="positionNameInput"
-                    placeholder="{{ trans('main.title_placeholder') }}">
-                <input name="method" type="hidden" id="positionMethodInput">
-                <input name="position_id" type="hidden" id="positionIdInput">
-                <p class="text-danger" id="positionNameError"></p>
-            </form>
-        </div>
-    </div>
-
-    @slot('footer')
-        <button id="confirmChangePositionButton" type="button" class="btn btn-primary w-100">
-            {{ trans('main.add_button') }}
-        </button>
-    @endslot
+    <span id="form-placeholder"></span>
 @endcomponent
 
-<script>
-    document.getElementById('confirmChangePositionButton').addEventListener('click', function() {
-        const form = document.getElementById('changePositionForm');
-        const formBody = new FormData(form);
+@push('scripts')
+    <script>
+        $(document).on('submit', '#changePositionForm', function(event) {
+            event.preventDefault();
 
-        let fetchUrl = '';
-        if (formBody.get('method') === 'POST') {
-            fetchUrl = '/positions';
-        } else {
-            formBody.append('_method', 'PATCH');
-            fetchUrl = `/positions/${formBody.get('position_id')}`;
-        }
-        formBody.delete('position_id')
-        formBody.delete('method');
+            const currentForm = $('#changePositionForm');
+            const formBody = new FormData(currentForm.get(0));
 
-        fetch(fetchUrl, {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                'Accept': 'application/json',
-            },
-            body: formBody
-        }).then(response => {
-            if (response.status === 200) {
-                document.getElementById('positionNameInput').value = '';
-                document.getElementById('positionNameError').textContent = '';
-                const table = window.LaravelDataTables['positions-table'];
-                table.ajax.reload();
-            } else if (response.status === 422) {
-                return response.json().then(data => {
-                    document.getElementById('positionNameError').textContent = data.message;
-                });
-            }
+            $.ajax({
+                method: 'POST',
+                url: currentForm.attr('action'),
+                processData: false,
+                contentType: false,
+                data: formBody,
+                success: function(data) {
+                    window.LaravelDataTables['positions-table'].ajax.reload();
+                    bootstrap.Modal.getInstance($('#addPositionModal')).hide();
+                },
+                error: function(jqXHR) {
+                    const errorsMessages = JSON.parse(jqXHR.responseText).errors;
+                    if (jqXHR.status === 422) {
+                        for (let fieldName in errorsMessages) {
+                            $('#changePositionForm')
+                                .find(`[data-field-${fieldName}]`)
+                                .find('p')
+                                .text(errorsMessages[fieldName])
+                            $('#changePositionForm')
+                                .find(`[data-field-${fieldName}]`)
+                                .find('input')
+                                .addClass('is-invalid')
+                        }
+                    } else if (jqXHR.status === 404) {
+                        alert('{{ trans('main.id_not_found') }}');
+                    } else {
+                        console.log(jqXHR);
+                    }
+                }
+            });
         });
-    });
-</script>
+    </script>
+@endpush

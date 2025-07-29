@@ -1,11 +1,5 @@
 <?php
 
-// только активные Users:all (scope)
-// enum genders
-// запрет удаления при связях
-// form ajax
-// soft delete
-
 use App\Models\User\Department;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;

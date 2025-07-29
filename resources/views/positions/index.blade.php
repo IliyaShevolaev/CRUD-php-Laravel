@@ -6,8 +6,7 @@
         </div>
         <div class="card-body">
             <div class="card-body">
-                <button onclick="createPosition()" type="button" class="btn btn-success" data-toggle="modal"
-                    data-target="#addPositionModal">
+                <button onclick="createPosition()" type="button" class="btn btn-success">
                     <i class="fas fa-plus mr-1"></i>
                 </button>
 
@@ -17,19 +16,25 @@
             </div>
         </div>
     </div>
+
     @include('positions.change')
 @endsection
 
 @push('scripts')
     {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
-@endpush
 
-<script>
-    function createPosition() {
-        document.getElementById('positionNameInput').value = '';
-        document.getElementById('positionMethodInput').value = 'POST';
-        document.getElementById('positionNameError').textContent = '';
-        document.getElementById('confirmChangePositionButton').textContent = '{{ trans('main.add_button') }}';
-        document.getElementById('positionsModalHeader').textContent = '{{ trans('main.users.add_position_header') }}';
-    }
-</script>
+    <script>
+        function createPosition() {
+        $('#positionsModalHeader').text('{{ trans('main.users.add_position_header') }}');
+
+            $.ajax({
+                method: 'GET',
+                url: "{{ route('positions.create') }}",
+                success: function(data) {
+                    $('#addPositionModal').find('#form-placeholder').empty().append(data)
+                    new bootstrap.Modal($('#addPositionModal')).show();
+                }
+            });
+        }
+    </script>
+@endpush

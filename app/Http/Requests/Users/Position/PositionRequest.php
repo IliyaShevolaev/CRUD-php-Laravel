@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Users\Position;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PositionRequest extends FormRequest
@@ -21,8 +22,15 @@ class PositionRequest extends FormRequest
      */
     public function rules(): array
     {
+        $positionId = $this->route('position')->id ?? null;
+
         return [
-            'name' => 'required|string|max:255|unique:positions,name'
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('positions')->ignore($positionId)
+            ]
         ];
     }
 }

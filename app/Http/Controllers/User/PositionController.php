@@ -15,6 +15,13 @@ class PositionController extends Controller
         return $positionsDataTable->render('positions.index');
     }
 
+    public function create()
+    {
+        return response()->json(view('positions.form')
+            ->with(['route' => route('positions.store')])
+            ->render());
+    }
+
     public function store(PositionRequest $positionRequest): JsonResponse
     {
         $data = $positionRequest->validated();
@@ -23,6 +30,16 @@ class PositionController extends Controller
 
         return response()->json(['message' => 'success']);
     }
+
+    public function edit(Position $position)
+    {
+        return response()->json(view('positions.form')
+            ->with([
+                'route' => route('positions.update', $position),
+                'element' => $position
+            ])->render());
+    }
+
 
     public function update(PositionRequest $positionRequest, Position $position): JsonResponse
     {

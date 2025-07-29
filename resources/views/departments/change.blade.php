@@ -6,45 +6,47 @@
         <p id="departmentsModalHeader">{{ trans('main.users.add_department_header') }}</p>
     @endslot
 
-    <div>
-        <div class="form-group">
-        </div>
-    </div>
+    <span id="form-placeholder"></span>
 @endcomponent
 
-{{-- <script>
-    document.getElementById('confirmChangeDepartmentButton').addEventListener('click', function() {
-        const form = document.getElementById('changeDepartmentForm');
-        const formBody = new FormData(form);
+@push('scripts')
+    <script>
+        $(document).on('submit', '#changeDepartmentForm', function(event) {
+            event.preventDefault();
 
-        let fetchUrl = '';
-        if (formBody.get('method') === 'POST') {
-            fetchUrl = '/departments';
-        } else {
-            formBody.append('_method', 'PATCH');
-            fetchUrl = `/departments/${formBody.get('department_id')}`;
-        }
-        formBody.delete('department_id')
-        formBody.delete('method');
+            const currentForm = $('#changeDepartmentForm');
+            const formBody = new FormData(currentForm.get(0));
 
-        fetch(fetchUrl, {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                'Accept': 'application/json',
-            },
-            body: formBody
-        }).then(response => {
-            if (response.status === 200) {
-                document.getElementById('departmentNameInput').value = '';
-                document.getElementById('departmentNameError').textContent = '';
-                const table = window.LaravelDataTables['departments-table'];
-                table.ajax.reload();
-            } else if (response.status === 422) {
-                return response.json().then(data => {
-                    document.getElementById('departmentNameError').textContent = data.message;
-                });
-            }
+            $.ajax({
+                method: 'POST',
+                url: currentForm.attr('action'),
+                processData: false,
+                contentType: false,
+                data: formBody,
+                success: function(data) {
+                    window.LaravelDataTables['departments-table'].ajax.reload();
+                    bootstrap.Modal.getInstance($('#addDepartmentModal')).hide();
+                },
+                error: function(jqXHR) {
+                    const errorsMessages = JSON.parse(jqXHR.responseText).errors;
+                    if (jqXHR.status === 422) {
+                        for (let fieldName in errorsMessages) {
+                            $('#changeDepartmentForm')
+                                .find(`[data-field-${fieldName}]`)
+                                .find('p')
+                                .text(errorsMessages[fieldName])
+                            $('#changeDepartmentForm')
+                                .find(`[data-field-${fieldName}]`)
+                                .find('input')
+                                .addClass('is-invalid')
+                        }
+                    } else if (jqXHR.status === 404) {
+                        alert('{{ trans('main.id_not_found') }}');
+                    } else {
+                        console.log(jqXHR);
+                    }
+                }
+            });
         });
-    });
-</script> --}}
+    </script>
+@endpush

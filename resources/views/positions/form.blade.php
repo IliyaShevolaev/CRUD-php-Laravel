@@ -1,4 +1,4 @@
-<form id="changeDepartmentForm" action="{{ $route }}" method="POST">
+<form id="changePositionForm" action="{{ $route }}" method="POST">
     @csrf
     @if (isset($element))
         @method('PATCH')
@@ -12,6 +12,6 @@
 
     <hr>
     <button class="btn btn-primary w-100" type="submit"
-        id="departmentSubmitBtn">{{ isset($element) ? trans('main.edit_button') : trans('main.add_button') }}
+        id="positionSubmitBtn">{{ isset($element) ? trans('main.edit_button') : trans('main.add_button') }}
     </button>
 </form>

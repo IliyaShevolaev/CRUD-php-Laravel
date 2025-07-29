@@ -1,6 +1,5 @@
 <div class="d-flex justify-content-between">
-    <button onclick="editPosition({{ $position->id }}, '{{ $position->name }}')" class="btn btn-sm btn-warning"
-        data-toggle="modal" data-target="#addPositionModal">
+    <button onclick="editPosition({{ $position->id }}, '{{ $position->name }}')" class="btn btn-sm btn-warning">
         <i class="fa fa-lg fa-fw fa-pen"></i>
     </button>
 
@@ -12,32 +11,48 @@
 
 <script>
     function editPosition(id, name) {
-        document.getElementById('positionNameInput').value = name;
-        document.getElementById('positionMethodInput').value = 'PATCH';
-        document.getElementById('positionIdInput').value = id;
-        document.getElementById('positionNameError').textContent = '';
-        document.getElementById('confirmChangePositionButton').textContent = '{{trans('main.edit_button')}}';
-        document.getElementById('positionsModalHeader').textContent = '{{trans('main.users.edit_position_header')}}';
+        $('#positionsModalHeader').text('{{ trans('main.users.edit_position_header') }}');
+
+        $.ajax({
+            method: 'GET',
+            url: '{{ route('positions.edit', ':id') }}'.replace(':id', id),
+            success: function(data) {
+                $('#addPositionModal').find('#form-placeholder').empty().append(data)
+                new bootstrap.Modal($('#addPositionModal')).show();
+            },
+            error: function(jqXHR) {
+                if (jqXHR.status === 404) {
+                    alert('{{ trans('main.id_not_found') }}');
+                } else {
+                    console.log(jqXHR);
+                }
+            }
+        });
     }
 
     function deleteRow(id, name) {
-        let confirmed = confirm(`{{trans('main.users.delete_position_alert')}} ${name}?`);
+        let confirmed = confirm(`{{ trans('main.users.delete_position_alert') }} ${name}?`);
 
         if (confirmed) {
-            fetch(`/positions/${id}`, {
+            $.ajax({
                 method: 'DELETE',
+                url: `{{ route('positions.destroy', ':id') }}`.replace(':id', id),
                 headers: {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}',
                     'Accept': 'application/json',
-                }
-            }).then(response => {
-                if (response.status === 200) {
+                },
+                success: function(data) {
                     const table = window.LaravelDataTables['positions-table'];
                     table.ajax.reload();
-                } else if (response.status === 409) {
-                    alert('{{trans('main.users.not_allowed_to_delete_position_alert')}}');
-                } else if (response.status === 404) {
-                    alert('{{ trans('main.id_not_found') }}');
+                },
+                error: function(jqXHR) {
+                    if (jqXHR.status === 409) {
+                        alert('{{ trans('main.users.not_allowed_to_delete_position_alert') }}');
+                    } else if (jqXHR.status === 404) {
+                        alert('{{ trans('main.id_not_found') }}');
+                    } else {
+                        console.log(jqXHR);
+                    }
                 }
             });
         }
