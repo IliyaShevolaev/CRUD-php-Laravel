@@ -3,6 +3,7 @@
     @if (isset($element))
         @method('PATCH')
     @endif
+    
     <div data-field-name="name" class="mb-3">
         <label class="form-label">{{str(trans('main.users.name'))->ucfirst()}}</label>
         <input name="name" type="text" class="form-control" placeholder="{{ trans('main.title_placeholder') }}"

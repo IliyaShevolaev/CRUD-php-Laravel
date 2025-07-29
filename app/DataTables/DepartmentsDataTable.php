@@ -9,6 +9,9 @@ use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
+/**
+ * Таблиа отделов пользователей
+ */
 class DepartmentsDataTable extends DataTable
 {
     /**

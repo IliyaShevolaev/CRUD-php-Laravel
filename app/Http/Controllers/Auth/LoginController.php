@@ -2,27 +2,49 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Models\User;
 
+/**
+ * Контроллер входа в систему
+ *
+ * @uses \App\Services\Auth\Service
+ */
 class LoginController extends BaseAuthController
 {
-    public function index()
+    /**
+     * Возвращает страницу входа в систему
+     *
+     * @return View
+     */
+    public function index(): View
     {
         return view('auth.login');
     }
 
-    public function store(LoginRequest $loginRequest)
+    /**
+     * Выполняет вход в систему и редирект на главную страницу при успешном входе
+     *
+     * @param LoginRequest $loginRequest
+     * @return RedirectResponse
+     */
+    public function store(LoginRequest $loginRequest): RedirectResponse
     {
         $data = $loginRequest->validated();
 
         return $this->service->LoginStore($loginRequest, $data);
     }
 
-    public function destroy(Request $request) 
+    /**
+     * Выполняет выход из системы и редирект на страницу входа
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function destroy(Request $request): RedirectResponse
     {
         Auth::logout();
 

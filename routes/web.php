@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\User\Department;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/register', 'App\Http\Controllers\Auth\RegisterController@index')->name('register');
@@ -11,9 +9,6 @@ Route::get('/login', 'App\Http\Controllers\Auth\LoginController@index')->name('l
 Route::post('/login', 'App\Http\Controllers\Auth\LoginController@store')->name('login.store');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/show-profile', 'App\Http\Controllers\Auth\ProfileController@index')->name('profile.index');
-    Route::get('/edit-profile/{owner}', 'App\Http\Controllers\Auth\ProfileController@edit')->name('profile.edit');
-    Route::patch('/edit-profile/{owner}', 'App\Http\Controllers\Auth\ProfileController@update')->name('profile.update');
     Route::post('/logout', 'App\Http\Controllers\Auth\LoginController@destroy')->name('login.logout');
 });
 

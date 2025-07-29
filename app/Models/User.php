@@ -43,15 +43,14 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    /**
+     * Приведение атрибутов в указаным типам
+     * @var array
+     */
     protected $casts = [
         'gender' => Gender::class,
         'status' => Status::class
     ];
-
-    public static function withoutScopeFind(int $id): User
-    {
-        return static::withoutGlobalScope(ActiveUserScope::class)->findOrFail($id);
-    }
 
     /**
      * Get the attributes that should be cast.
@@ -66,11 +65,29 @@ class User extends Authenticatable
         ];
     }
 
+    /**
+     * Получить пользователя не применяя Scope
+     * @param int $id
+     * @return User
+     */
+    public static function withoutScopeFind(int $id): User
+    {
+        return static::withoutGlobalScope(ActiveUserScope::class)->findOrFail($id);
+    }
+
+    /**
+     * Получить отдел пользователя
+     * @return HasOne<Department, User>
+     */
     public function department(): HasOne
     {
         return $this->hasOne(Department::class, 'id', 'department_id');
     }
 
+    /**
+     * Получить должность пользователя
+     * @return HasOne<Position, User>
+     */
     public function position(): HasOne
     {
         return $this->hasOne(Position::class, 'id', 'position_id');

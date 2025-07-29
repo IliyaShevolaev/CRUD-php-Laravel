@@ -8,13 +8,29 @@ use App\Models\User\Department;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Сервис для работы с пользователями
+ */
 class UserService
 {
+    /**
+     * Создает нового пользователя
+     *
+     * @param array $newData
+     * @return void
+     */
     public function create(array $newData) : void
     {
         User::create($newData);
     }
 
+    /**
+     * Обновляет данные о пользователе
+     *
+     * @param array $editedData
+     * @param User $user
+     * @return void
+     */
     public function update(array $editedData, User $user): void
     {
         if (array_key_exists('password', $editedData) && $editedData['password'] === null) {
@@ -24,6 +40,12 @@ class UserService
         $user->update($editedData);
     }
 
+    /**
+     * Удаляет данные о пользователе
+     *
+     * @param User $user
+     * @return void
+     */
     public function delete(User $user) : void
     {
         if (Auth::id() !== $user->id) {
@@ -31,6 +53,12 @@ class UserService
         }
     }
 
+    /**
+     * Подготавливает данные перед отображением формы создания/редактирования пользователя
+     *
+     * @param User|null $user
+     * @return array
+     */
     public function prepareViewData(User $user = null): array
     {
         $departments = Department::all();

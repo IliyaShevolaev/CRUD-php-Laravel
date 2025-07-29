@@ -4,6 +4,9 @@ namespace App\Http\Requests\Users;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Request для редактирования пользователя
+ */
 class EditRequest extends FormRequest
 {
     /**

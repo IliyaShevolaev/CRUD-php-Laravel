@@ -29,6 +29,7 @@
                 },
                 error: function(jqXHR) {
                     const errorsMessages = JSON.parse(jqXHR.responseText).errors;
+                    
                     if (jqXHR.status === 422) {
                         for (let fieldName in errorsMessages) {
                             $('#changeDepartmentForm')

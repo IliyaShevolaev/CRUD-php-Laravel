@@ -5,6 +5,9 @@ namespace App\Http\Requests\Users\Position;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Request для создания/редактирования должности
+ */
 class PositionRequest extends FormRequest
 {
     /**

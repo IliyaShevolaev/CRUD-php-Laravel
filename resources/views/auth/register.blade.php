@@ -27,9 +27,9 @@
         <div class="form-group mt-3">
             <label for="gender">{{ str(trans('main.users.gender'))->ucfirst() }}</label>
             <select class="form-control select2bs4" id="gender" name="gender">
-                @foreach ($genders as $gender)
+                @foreach (\App\Enums\User\Gender::cases() as $gender)
                     <option value="{{ $gender }}">
-                        {{ trans('main.users.genders.' . $gender) }}
+                        {{ trans('main.users.genders.' . $gender->value) }}
                     </option>
                 @endforeach
             </select>

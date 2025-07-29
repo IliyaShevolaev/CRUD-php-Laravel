@@ -8,13 +8,26 @@ use App\Models\User\Position;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 
+/**
+ * Контрллер должностей пользователей
+ */
 class PositionController extends Controller
 {
+    /**
+     * Отображает все должности через таблицу PositionsDataTable
+     *
+     * @param PositionsDataTable $positionsDataTable
+     */
     public function index(PositionsDataTable $positionsDataTable)
     {
         return $positionsDataTable->render('positions.index');
     }
 
+    /**
+     * Возвращает форму создания новой должности
+     *
+     * @return JsonResponse
+     */
     public function create()
     {
         return response()->json(view('positions.form')
@@ -22,6 +35,12 @@ class PositionController extends Controller
             ->render());
     }
 
+    /**
+     * Сохраняет новую должность
+     *
+     * @param PositionRequest $positionRequest
+     * @return JsonResponse 200 - {'message' => 'success'}
+     */
     public function store(PositionRequest $positionRequest): JsonResponse
     {
         $data = $positionRequest->validated();
@@ -31,6 +50,12 @@ class PositionController extends Controller
         return response()->json(['message' => 'success']);
     }
 
+    /**
+     * Возвращает форму редактирования передаваемой должности
+     *
+     * @param Position $position
+     * @return JsonResponse
+     */
     public function edit(Position $position)
     {
         return response()->json(view('positions.form')
@@ -40,7 +65,13 @@ class PositionController extends Controller
             ])->render());
     }
 
-
+    /**
+     * Обновляет должность
+     *
+     * @param PositionRequest $positionRequest
+     * @param Position $position
+     * @return JsonResponse 200 - {'message' => 'success'}
+     */
     public function update(PositionRequest $positionRequest, Position $position): JsonResponse
     {
         $data = $positionRequest->validated();
@@ -50,7 +81,12 @@ class PositionController extends Controller
         return response()->json(['message' => 'success']);
     }
 
-
+    /**
+     * Удаляет должность при отсутствии связей
+     *
+     * @param Position $position
+     * @return JsonResponse 200 - {'message' => 'success'} | 409 - {'message' => 'delete not allowed'}
+     */
     public function destroy(Position $position): JsonResponse
     {
         if ($position->users()->get()->isEmpty()) {

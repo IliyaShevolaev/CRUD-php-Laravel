@@ -4,6 +4,9 @@ namespace App\Http\Requests\Users;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Request для создания пользователя
+ */
 class CreateRequest extends FormRequest
 {
     /**

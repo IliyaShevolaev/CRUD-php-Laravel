@@ -9,6 +9,9 @@ use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 
+/**
+ * Таблица должностей пользователей
+ */
 class PositionsDataTable extends DataTable
 {
     /**

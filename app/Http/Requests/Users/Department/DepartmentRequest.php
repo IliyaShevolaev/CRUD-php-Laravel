@@ -5,6 +5,9 @@ namespace App\Http\Requests\Users\Department;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Request для создания/редактирования отдела
+ */
 class DepartmentRequest extends FormRequest
 {
     /**
