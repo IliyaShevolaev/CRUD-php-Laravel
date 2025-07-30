@@ -6,7 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class RegisterRequest extends FormRequest
 {
-
     public function authorize(): bool
     {
         return true;
@@ -29,7 +28,7 @@ class RegisterRequest extends FormRequest
 
     /**
      * Задает название возвращаемых атрибутов при ошибках валидации
-     * 
+     *
      * @return array<string, mixed>
      */
     public function attributes(): array

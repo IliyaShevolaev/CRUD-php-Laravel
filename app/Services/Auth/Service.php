@@ -18,7 +18,7 @@ class Service
      * @param array<string> $data
      * @return void
      */
-    public function RegisterStore(array $data): void
+    public function registerStore(array $data): void
     {
         /** @var User $user */
         $user = User::create([
@@ -40,7 +40,7 @@ class Service
      * @param array<string> $data
      * @return RedirectResponse
      */
-    public function LoginStore(LoginRequest $loginRequest, array $data): RedirectResponse
+    public function loginStore(LoginRequest $loginRequest, array $data): RedirectResponse
     {
         /** @var \Illuminate\Database\Eloquent\Builder <\App\Models\User> $query */
         $query = User::where('email', $data['email']);

@@ -13,7 +13,6 @@ use Illuminate\Http\RedirectResponse;
  */
 class RegisterController extends BaseAuthController
 {
-
     /**
      * Отображает страницу регистрации
      *
@@ -34,7 +33,7 @@ class RegisterController extends BaseAuthController
     {
         $data = $registerRequest->validated();
 
-        $this->service->RegisterStore($data);
+        $this->service->registerStore($data);
 
         return redirect()->route('users.index');
     }

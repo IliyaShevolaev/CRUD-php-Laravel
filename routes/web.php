@@ -1,6 +1,8 @@
 <?php
 
 // php vendor\bin\phpstan analyse -l 7 app
+// php vendor\bin\phpcs app
+// php vendor\bin\phpcbf app
 
 use Illuminate\Support\Facades\Route;
 
@@ -20,8 +22,4 @@ Route::middleware('auth')->group(function () {
     Route::resource('users', \App\Http\Controllers\User\UserController::class);
     Route::resource('departments', \App\Http\Controllers\User\DepartmentController::class);
     Route::resource('positions', \App\Http\Controllers\User\PositionController::class);
-});
-
-Route::get('/test', function() {
-
 });

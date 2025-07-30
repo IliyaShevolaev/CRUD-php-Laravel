@@ -9,6 +9,7 @@ use App\Models\User\Department;
 use Database\Factories\UserFactory;
 use App\Models\Scopes\ActiveUserScope;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -21,14 +22,15 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string $status статус активен/неактивен
  * @method static \Illuminate\Database\Eloquent\Builder<User> create(array<int|string, mixed> $attributes = [])
  * @method static User withoutScopeFind(int $id)
- * @method static \Illuminate\Database\Eloquent\Builder<User> where(\Closure|string|array<string, mixed>|\Illuminate\Contracts\Database\Query\Expression $column, mixed $operator = null, mixed $value = null, string $boolean = 'and')
+ * @method static Builder<User> where(mixed $operator = null, mixed $value = null, string $boolean = 'and')
  * @use HasFactory<UserFactory>
  */
 #[ScopedBy([ActiveUserScope::class])]
 class User extends Authenticatable
 {
     //@phpstan-ignore-next-line
-    use HasFactory, Notifiable;
+    use HasFactory;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.

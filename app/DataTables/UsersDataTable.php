@@ -110,7 +110,9 @@ class UsersDataTable extends DataTable
             ),
             Column::computed('actions')
                 ->title(
-                    is_array(__('main.users.actions_buttons')) ? '' : Str::of(__('main.users.actions_buttons'))->ucfirst()
+                    is_array(__('main.users.actions_buttons')) ?
+                    '' :
+                    Str::of(__('main.users.actions_buttons'))->ucfirst()
                 )
                 ->printable(false)
                 ->width(120)

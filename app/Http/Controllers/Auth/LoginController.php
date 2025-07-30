@@ -35,7 +35,7 @@ class LoginController extends BaseAuthController
     {
         $data = $loginRequest->validated();
 
-        return $this->service->LoginStore($loginRequest, $data);
+        return $this->service->loginStore($loginRequest, $data);
     }
 
     /**
@@ -54,4 +54,3 @@ class LoginController extends BaseAuthController
         return redirect()->route('login');
     }
 }
-

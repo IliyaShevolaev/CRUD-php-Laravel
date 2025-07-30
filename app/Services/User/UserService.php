@@ -19,7 +19,7 @@ class UserService
      * @param array<int, string> $newData
      * @return void
      */
-    public function create(array $newData) : void
+    public function create(array $newData): void
     {
         User::create($newData);
     }
@@ -46,7 +46,7 @@ class UserService
      * @param User $user
      * @return void
      */
-    public function delete(User $user) : void
+    public function delete(User $user): void
     {
         if (Auth::id() !== $user->id) {
             $user->delete();

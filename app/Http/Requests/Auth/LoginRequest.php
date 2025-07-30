@@ -27,5 +27,4 @@ class LoginRequest extends FormRequest
             'remember' => 'string'
         ];
     }
-
 }

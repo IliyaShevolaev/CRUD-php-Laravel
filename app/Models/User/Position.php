@@ -4,6 +4,7 @@ namespace App\Models\User;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
  * @property int $id Id
  * @property string $name Название
  * @method static \Illuminate\Database\Eloquent\Builder<Position> create(array<string, mixed> $attributes = [])
- * @property-read \Illuminate\Database\Eloquent\Collection<int, User>|null $users Пользоватили с должностью
+ * @property-read Collection<int, User>|null $users Пользоватили с должностью
  */
 class Position extends Model
 {
