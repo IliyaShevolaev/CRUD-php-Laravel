@@ -17,7 +17,7 @@ class UserService
     /**
      * Создает нового пользователя
      *
-     * @param array<int, string> $newData
+     * @param array<string, mixed> $newData
      * @return void
      */
     public function create(array $newData): void

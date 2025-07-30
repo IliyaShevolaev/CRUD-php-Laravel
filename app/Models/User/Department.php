@@ -24,7 +24,7 @@ class Department extends Model
     /**
      * Автозаполняемые атрибуты
      *
-     * @var array<int, string>
+     * @var list<string>
      */
     protected $fillable = [
         'name',

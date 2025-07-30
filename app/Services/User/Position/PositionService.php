@@ -24,7 +24,7 @@ class PositionService
     {
         $result = [];
 
-        if ($position->users()->get()->isEmpty()) {
+        if ($position->users()->exists()) {
             $position->delete();
 
             $result['message'] = 'success';

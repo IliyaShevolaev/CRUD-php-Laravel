@@ -24,7 +24,7 @@ class DepartmentService
     {
         $result = [];
 
-        if ($department->users()->get()->isEmpty()) {
+        if ($department->users()->exists()) {
             $department->delete();
 
             $result['message'] = 'success';
