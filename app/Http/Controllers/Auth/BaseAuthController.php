@@ -15,8 +15,8 @@ class BaseAuthController extends Controller
 {
     /**
      * Сервис авторизации
-     * 
-     * @var App\Services\Auth\Service $service
+     *
+     * @var \App\Services\Auth\Service $service
      */
     protected $service;
 

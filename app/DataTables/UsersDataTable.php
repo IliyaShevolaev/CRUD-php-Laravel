@@ -2,13 +2,14 @@
 
 namespace App\DataTables;
 
-use App\Models\Scopes\ActiveUserScope;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Builder as QueryBuilder;
-use Yajra\DataTables\EloquentDataTable;
-use Yajra\DataTables\Html\Builder as HtmlBuilder;
+use Illuminate\Support\Str;
 use Yajra\DataTables\Html\Column;
+use App\Models\Scopes\ActiveUserScope;
+use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Services\DataTable;
+use Yajra\DataTables\Html\Builder as HtmlBuilder;
+use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 
 /**
  * Таблица пользователей
@@ -17,6 +18,8 @@ class UsersDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
+     *
+     * @param QueryBuilder<User> $query Results from query() method.
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
@@ -48,6 +51,9 @@ class UsersDataTable extends DataTable
 
     /**
      * Get the query source of dataTable.
+     *
+     * @param User $model
+     * @return QueryBuilder<User>
      */
     public function query(User $model): QueryBuilder
     {
@@ -71,20 +77,44 @@ class UsersDataTable extends DataTable
 
     /**
      * Get the dataTable columns definition.
+     *
+     * @return Column[]
      */
     public function getColumns(): array
     {
         return [
             Column::make('id')->title('ID'),
-            Column::make('name')->title(str(trans('main.users.name'))->ucfirst()),
-            Column::make('email')->title(str(trans('main.users.email'))->ucfirst()),
-            Column::make('department_id')->title(str(trans('main.users.department'))->ucfirst()),
-            Column::make('position_id')->title(str(trans('main.users.position'))->ucfirst()),
-            Column::make('gender')->title(str(trans('main.users.gender'))->ucfirst()),
-            Column::make('status')->title(str(trans('main.users.status'))->ucfirst()),
-            Column::make('created_at')->title(str(trans('main.users.created'))->ucfirst()),
-            Column::make('updated_at')->title(str(trans('main.users.updated'))->ucfirst()),
-            Column::computed('actions')->title(str(trans('main.users.actions_buttons'))->ucfirst())->printable(false)->width(120)->addClass('text-center'),
+            Column::make('name')->title(
+                is_array(__('main.users.name')) ? '' : Str::of(__('main.users.name'))->ucfirst()
+            ),
+            Column::make('email')->title(
+                is_array(__('main.users.email')) ? '' : Str::of(__('main.users.email'))->ucfirst()
+            ),
+            Column::make('department_id')->title(
+                is_array(__('main.users.department')) ? '' : Str::of(__('main.users.department'))->ucfirst()
+            ),
+            Column::make('position_id')->title(
+                is_array(__('main.users.position')) ? '' : Str::of(__('main.users.position'))->ucfirst()
+            ),
+            Column::make('gender')->title(
+                is_array(__('main.users.gender')) ? '' : Str::of(__('main.users.gender'))->ucfirst()
+            ),
+            Column::make('status')->title(
+                is_array(__('main.users.status')) ? '' : Str::of(__('main.users.status'))->ucfirst()
+            ),
+            Column::make('created_at')->title(
+                is_array(__('main.users.created')) ? '' : Str::of(__('main.users.created'))->ucfirst()
+            ),
+            Column::make('updated_at')->title(
+                is_array(__('main.users.updated')) ? '' : Str::of(__('main.users.updated'))->ucfirst()
+            ),
+            Column::computed('actions')
+                ->title(
+                    is_array(__('main.users.actions_buttons')) ? '' : Str::of(__('main.users.actions_buttons'))->ucfirst()
+                )
+                ->printable(false)
+                ->width(120)
+                ->addClass('text-center'),
         ];
     }
 }

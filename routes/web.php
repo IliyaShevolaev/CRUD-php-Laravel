@@ -1,5 +1,7 @@
 <?php
 
+// php vendor\bin\phpstan analyse -l 7 app
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/register', 'App\Http\Controllers\Auth\RegisterController@index')->name('register');

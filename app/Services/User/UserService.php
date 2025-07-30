@@ -16,7 +16,7 @@ class UserService
     /**
      * Создает нового пользователя
      *
-     * @param array $newData
+     * @param array<int, string> $newData
      * @return void
      */
     public function create(array $newData) : void
@@ -27,7 +27,7 @@ class UserService
     /**
      * Обновляет данные о пользователе
      *
-     * @param array $editedData
+     * @param array<mixed> $editedData
      * @param User $user
      * @return void
      */
@@ -57,7 +57,7 @@ class UserService
      * Подготавливает данные перед отображением формы создания/редактирования пользователя
      *
      * @param User|null $user
-     * @return array
+     * @return array<mixed>
      */
     public function prepareViewData(User $user = null): array
     {

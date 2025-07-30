@@ -12,6 +12,11 @@ class RegisterRequest extends FormRequest
         return true;
     }
 
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, string>
+     */
     public function rules(): array
     {
         return [
@@ -22,6 +27,11 @@ class RegisterRequest extends FormRequest
         ];
     }
 
+    /**
+     * Задает название возвращаемых атрибутов при ошибках валидации
+     * 
+     * @return array<string, mixed>
+     */
     public function attributes(): array
     {
         return [

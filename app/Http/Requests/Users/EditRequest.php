@@ -35,6 +35,11 @@ class EditRequest extends FormRequest
         ];
     }
 
+    /**
+     * Задает название возвращаемых атрибутов при ошибках валидации
+     *
+     * @return array<string, mixed>
+     */
     public function attributes(): array
     {
         return [

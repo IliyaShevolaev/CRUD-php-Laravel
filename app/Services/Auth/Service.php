@@ -15,11 +15,12 @@ class Service
     /**
      * Регистрирует нового пользователя
      *
-     * @param array $data
+     * @param array<string> $data
      * @return void
      */
     public function RegisterStore(array $data): void
     {
+        /** @var User $user */
         $user = User::create([
             'name' => $data['userName'],
             'email' => $data['email'],
@@ -36,19 +37,23 @@ class Service
      * Возвращает на страницу входа с errors failed при неудачной попытке входа
      *
      * @param LoginRequest $loginRequest
-     * @param array $data
+     * @param array<string> $data
      * @return RedirectResponse
      */
     public function LoginStore(LoginRequest $loginRequest, array $data): RedirectResponse
     {
-        $userExists = User::where('email', $data['email'])->exists();
+        /** @var \Illuminate\Database\Eloquent\Builder <\App\Models\User> $query */
+        $query = User::where('email', $data['email']);
 
+        $userExists = $query->exists();
         if ($userExists) {
             $remember = isset($data['remember']);
             unset($data['remember']);
 
             if (Auth::attempt($data, $remember)) {
-                if (Auth::user()->status === 'unactive') {
+                /** @var User $user */
+                $user = Auth::user();
+                if ($user->status === 'unactive') {
                     return redirect()->route('login')->withInput()->withErrors(['failed' => __('auth.unactive')]);
                 }
 

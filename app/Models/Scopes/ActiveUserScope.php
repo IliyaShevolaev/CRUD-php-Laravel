@@ -2,6 +2,7 @@
 
 namespace App\Models\Scopes;
 
+use App\Models\User;
 use App\Enums\User\Status;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
@@ -12,8 +13,12 @@ use Illuminate\Database\Eloquent\Builder;
  */
 class ActiveUserScope implements Scope
 {
-    /**
+       /**
      * Apply the scope to a given Eloquent query builder.
+     *
+     * @param Builder<User> $builder
+     * @param Model $model
+     * @return void
      */
     public function apply(Builder $builder, Model $model): void
     {

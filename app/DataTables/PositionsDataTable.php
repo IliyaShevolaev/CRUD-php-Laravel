@@ -2,6 +2,7 @@
 
 namespace App\DataTables;
 
+use Illuminate\Support\Str;
 use App\Models\User\Position;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\EloquentDataTable;
@@ -17,7 +18,7 @@ class PositionsDataTable extends DataTable
     /**
      * Build the DataTable class.
      *
-     * @param QueryBuilder $query Results from query() method.
+     * @param QueryBuilder<Position> $query Results from query() method.
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
@@ -37,6 +38,9 @@ class PositionsDataTable extends DataTable
 
     /**
      * Get the query source of dataTable.
+     *
+     * @param Position $model
+     * @return QueryBuilder<Position>
      */
     public function query(Position $model): QueryBuilder
     {
@@ -58,17 +62,32 @@ class PositionsDataTable extends DataTable
             ->selectStyleSingle();
     }
 
+
     /**
      * Get the dataTable columns definition.
+     *
+     * @return Column[]
      */
     public function getColumns(): array
     {
         return [
             Column::make('id')->title('ID'),
-            Column::make('name')->title(str(trans('main.title'))->ucfirst()),
-            Column::make('created_at')->title(str(trans('main.users.created'))->ucfirst()),
-            Column::make('updated_at')->title(str(trans('main.users.updated'))->ucfirst()),
-            Column::computed('actions')->title(str(trans('main.users.actions_buttons'))->ucfirst())->printable(false)->width(120)->addClass('text-center'),
+            Column::make('name')->title(
+                is_array(__('main.title')) ? '' : Str::of(__('main.title'))->ucfirst()
+            ),
+            Column::make('created_at')->title(
+                is_array(__('main.users.created')) ? '' : Str::of(__('main.users.created'))->ucfirst()
+            ),
+            Column::make('updated_at')->title(
+                is_array(__('main.users.updated')) ? '' : Str::of(__('main.users.updated'))->ucfirst()
+            ),
+            Column::computed('actions')
+                ->title(
+                    is_array(__('main.users.actions_buttons')) ? '' : Str::of(__('main.users.actions_buttons'))->ucfirst()
+                )
+                ->printable(false)
+                ->width(120)
+                ->addClass('text-center'),
         ];
     }
 }

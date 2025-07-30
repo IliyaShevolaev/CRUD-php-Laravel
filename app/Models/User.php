@@ -6,6 +6,7 @@ use App\Enums\User\Gender;
 use App\Enums\User\Status;
 use App\Models\User\Position;
 use App\Models\User\Department;
+use Database\Factories\UserFactory;
 use App\Models\Scopes\ActiveUserScope;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -13,9 +14,20 @@ use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * Модель пользователя системы
+ *
+ * @property int $id
+ * @property string $status статус активен/неактивен
+ * @method static \Illuminate\Database\Eloquent\Builder<User> create(array<int|string, mixed> $attributes = [])
+ * @method static User withoutScopeFind(int $id)
+ * @method static \Illuminate\Database\Eloquent\Builder<User> where(\Closure|string|array<string, mixed>|\Illuminate\Contracts\Database\Query\Expression $column, mixed $operator = null, mixed $value = null, string $boolean = 'and')
+ * @use HasFactory<UserFactory>
+ */
 #[ScopedBy([ActiveUserScope::class])]
 class User extends Authenticatable
 {
+    //@phpstan-ignore-next-line
     use HasFactory, Notifiable;
 
     /**
@@ -44,15 +56,6 @@ class User extends Authenticatable
     ];
 
     /**
-     * Приведение атрибутов в указаным типам
-     * @var array
-     */
-    protected $casts = [
-        'gender' => Gender::class,
-        'status' => Status::class
-    ];
-
-    /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
@@ -60,6 +63,8 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
+            'gender' => Gender::class,
+            'status' => Status::class,
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
@@ -72,12 +77,12 @@ class User extends Authenticatable
      */
     public static function withoutScopeFind(int $id): User
     {
-        return static::withoutGlobalScope(ActiveUserScope::class)->findOrFail($id);
+        return static::query()->withoutGlobalScope(ActiveUserScope::class)->findOrFail($id);
     }
 
     /**
      * Получить отдел пользователя
-     * @return HasOne<Department, User>
+     * @return HasOne<Department, $this>
      */
     public function department(): HasOne
     {
@@ -86,7 +91,7 @@ class User extends Authenticatable
 
     /**
      * Получить должность пользователя
-     * @return HasOne<Position, User>
+     * @return HasOne<Position, $this>
      */
     public function position(): HasOne
     {

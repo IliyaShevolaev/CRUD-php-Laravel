@@ -5,23 +5,22 @@ namespace App\Models\User;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 /**
  * Модель должности пользвателя
  *
  * @property int $id Id
  * @property string $name Название
- * @property-read \Illuminate\Database\Eloquent\Collection<User>|null $users Пользоватили с должностью
+ * @method static \Illuminate\Database\Eloquent\Builder<Position> create(array<string, mixed> $attributes = [])
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, User>|null $users Пользоватили с должностью
  */
 class Position extends Model
 {
-    use HasFactory;
-
     /**
      * Автозаполняемые атрибуты
      *
-     * @var array<string>
+     * @var array<int, string>
      */
     protected $fillable = [
         'name',
@@ -30,7 +29,7 @@ class Position extends Model
     /**
      * Получить пользователей с этой должностью
      *
-     * @return HasMany<User, User\Position>
+     * @return HasMany<User, $this>
      */
     public function users(): HasMany
     {

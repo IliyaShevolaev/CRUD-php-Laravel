@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\User;
 
-use App\DataTables\PositionsDataTable;
-use App\Http\Requests\Users\Position\PositionRequest;
 use App\Models\User\Position;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
+use App\DataTables\PositionsDataTable;
+use App\Http\Requests\Users\Position\PositionRequest;
 
 /**
  * Контрллер должностей пользователей
@@ -17,8 +18,9 @@ class PositionController extends Controller
      * Отображает все должности через таблицу PositionsDataTable
      *
      * @param PositionsDataTable $positionsDataTable
+     * @return JsonResponse|View
      */
-    public function index(PositionsDataTable $positionsDataTable)
+    public function index(PositionsDataTable $positionsDataTable): JsonResponse | View
     {
         return $positionsDataTable->render('positions.index');
     }

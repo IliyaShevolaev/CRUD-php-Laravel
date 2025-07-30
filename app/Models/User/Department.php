@@ -12,16 +12,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property int $id Id
  * @property string $name Название
- * @property-read \Illuminate\Database\Eloquent\Collection<User>|null $users Пользоватили из отдела
+ * @method static \Illuminate\Database\Eloquent\Builder<Department> create(array<string, mixed> $attributes = [])
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, User>|null $users Пользоватили из отдела
  */
 class Department extends Model
 {
-    use HasFactory;
-    
     /**
      * Автозаполняемые атрибуты
      *
-     * @var array<string>
+     * @var array<int, string>
      */
     protected $fillable = [
         'name',
@@ -30,7 +29,7 @@ class Department extends Model
     /**
      * Получить пользователей из этого отдела
      *
-     * @return HasMany<User, User\Department>
+     * @return HasMany<User, $this>
      */
     public function users(): HasMany
     {

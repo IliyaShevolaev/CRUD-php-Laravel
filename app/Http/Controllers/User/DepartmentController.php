@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Models\User\Department;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use App\DataTables\DepartmentsDataTable;
 use App\Http\Requests\Users\Department\DepartmentRequest;
@@ -15,10 +16,11 @@ class DepartmentController extends Controller
 {
     /**
      * Отображает все отделы через таблицу DepartmentsDataTable
+     * @return JsonResponse|View
      *
      * @param DepartmentsDataTable $departmentsDataTable
      */
-    public function index(DepartmentsDataTable $departmentsDataTable)
+    public function index(DepartmentsDataTable $departmentsDataTable): JsonResponse | View
     {
         return $departmentsDataTable->render('departments.index');
     }

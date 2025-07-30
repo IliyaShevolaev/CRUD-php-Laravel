@@ -24,8 +24,9 @@ class UserController extends BaseUserController
      * Отображает всех пользователей через таблицу UserDataTable
      *
      * @param \App\DataTables\UsersDataTable $usersDataTable
+     * @return JsonResponse|View
      */
-    public function index(UsersDataTable $usersDataTable)
+    public function index(UsersDataTable $usersDataTable): JsonResponse | View
     {
         return $usersDataTable->render('users.table-index');
     }
