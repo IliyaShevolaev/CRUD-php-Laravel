@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Services\User\Department;
@@ -10,7 +11,6 @@ use App\Models\User\Department;
  */
 class DepartmentService
 {
-
     /**
      *  Удалить отдел
      *

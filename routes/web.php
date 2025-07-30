@@ -1,10 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
-// php vendor/bin/phpstan analyse -l 7 app
 // php vendor/bin/phpstan analyse -c phpstan.neon
-// php vendor/bin/phpcs --standard=PSR12 app
-
+// php vendor/bin/phpcs
 
 use Illuminate\Support\Facades\Route;
 

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Database\Seeders;
@@ -23,6 +24,5 @@ class DatabaseSeeder extends Seeder
         // Post::factory(20)->create();
 
         //User::factory(120)->create();
-
     }
 }
