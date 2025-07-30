@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\DataTables;
 
@@ -73,19 +74,19 @@ class PositionsDataTable extends DataTable
         return [
             Column::make('id')->title('ID'),
             Column::make('name')->title(
-                is_array(__('main.title')) ? '' : Str::of(__('main.title'))->ucfirst()
+                is_array(__('main.title')) ? '' : (string) Str::of(__('main.title'))->ucfirst()
             ),
             Column::make('created_at')->title(
-                is_array(__('main.users.created')) ? '' : Str::of(__('main.users.created'))->ucfirst()
+                is_array(__('main.users.created')) ? '' : (string) Str::of(__('main.users.created'))->ucfirst()
             ),
             Column::make('updated_at')->title(
-                is_array(__('main.users.updated')) ? '' : Str::of(__('main.users.updated'))->ucfirst()
+                is_array(__('main.users.updated')) ? '' : (string) Str::of(__('main.users.updated'))->ucfirst()
             ),
             Column::computed('actions')
                 ->title(
                     is_array(__('main.users.actions_buttons')) ?
                     '' :
-                    Str::of(__('main.users.actions_buttons'))->ucfirst()
+                    (string) Str::of(__('main.users.actions_buttons'))->ucfirst()
                 )
                 ->printable(false)
                 ->width(120)

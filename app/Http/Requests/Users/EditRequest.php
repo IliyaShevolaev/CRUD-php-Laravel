@@ -1,7 +1,11 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Requests\Users;
 
+use App\Enums\User\Gender;
+use App\Enums\User\Status;
+use Illuminate\Validation\Rules\Enum;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
@@ -28,10 +32,10 @@ class EditRequest extends FormRequest
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
             'password' => 'nullable|string|min:5|max:255|confirmed',
-            'department_id' => 'nullable|int',
-            'position_id' => 'nullable|int',
-            'gender' => 'required|string',
-            'status' => 'required|string'
+            'department_id' => 'nullable|int|exists:departments,id',
+            'position_id' => 'nullable|int|exists:positions,id',
+            'gender' => ['required', new Enum(Gender::class)],
+            'status' => ['required', new Enum(Status::class)]
         ];
     }
 

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\DataTables;
 
@@ -85,34 +86,34 @@ class UsersDataTable extends DataTable
         return [
             Column::make('id')->title('ID'),
             Column::make('name')->title(
-                is_array(__('main.users.name')) ? '' : Str::of(__('main.users.name'))->ucfirst()
+                is_array(__('main.users.name')) ? '' : (string) Str::of(__('main.users.name'))->ucfirst()
             ),
             Column::make('email')->title(
-                is_array(__('main.users.email')) ? '' : Str::of(__('main.users.email'))->ucfirst()
+                is_array(__('main.users.email')) ? '' : (string) Str::of(__('main.users.email'))->ucfirst()
             ),
             Column::make('department_id')->title(
-                is_array(__('main.users.department')) ? '' : Str::of(__('main.users.department'))->ucfirst()
+                is_array(__('main.users.department')) ? '' : (string) Str::of(__('main.users.department'))->ucfirst()
             ),
             Column::make('position_id')->title(
-                is_array(__('main.users.position')) ? '' : Str::of(__('main.users.position'))->ucfirst()
+                is_array(__('main.users.position')) ? '' : (string) Str::of(__('main.users.position'))->ucfirst()
             ),
             Column::make('gender')->title(
-                is_array(__('main.users.gender')) ? '' : Str::of(__('main.users.gender'))->ucfirst()
+                is_array(__('main.users.gender')) ? '' : (string) Str::of(__('main.users.gender'))->ucfirst()
             ),
             Column::make('status')->title(
-                is_array(__('main.users.status')) ? '' : Str::of(__('main.users.status'))->ucfirst()
+                is_array(__('main.users.status')) ? '' : (string) Str::of(__('main.users.status'))->ucfirst()
             ),
             Column::make('created_at')->title(
-                is_array(__('main.users.created')) ? '' : Str::of(__('main.users.created'))->ucfirst()
+                is_array(__('main.users.created')) ? '' : (string) Str::of(__('main.users.created'))->ucfirst()
             ),
             Column::make('updated_at')->title(
-                is_array(__('main.users.updated')) ? '' : Str::of(__('main.users.updated'))->ucfirst()
+                is_array(__('main.users.updated')) ? '' : (string) Str::of(__('main.users.updated'))->ucfirst()
             ),
             Column::computed('actions')
                 ->title(
                     is_array(__('main.users.actions_buttons')) ?
                     '' :
-                    Str::of(__('main.users.actions_buttons'))->ucfirst()
+                    (string) Str::of(__('main.users.actions_buttons'))->ucfirst()
                 )
                 ->printable(false)
                 ->width(120)

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Requests\Users\Department;
 
@@ -32,7 +33,9 @@ class DepartmentRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('departments')->ignore($departmentId)
+                isset($departmentId) ?
+                    'unique:departments,name,' . $departmentId . ',id,deleted_at,NULL' :
+                    'unique:departments,name,NULL,id,deleted_at,NULL'
             ]
         ];
     }

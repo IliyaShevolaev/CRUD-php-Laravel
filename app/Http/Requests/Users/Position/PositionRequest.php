@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Requests\Users\Position;
 
@@ -32,7 +33,9 @@ class PositionRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('positions')->ignore($positionId)
+                isset($positionId) ?
+                    'unique:positions,name,' . $positionId . ',deleted_at,NULL' :
+                    'unique:positions,name,deleted_at,NULL'
             ]
         ];
     }

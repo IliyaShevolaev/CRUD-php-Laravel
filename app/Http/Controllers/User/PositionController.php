@@ -1,8 +1,10 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers\User;
 
 use App\Models\User\Position;
+use App\Services\User\Position\PositionService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
@@ -11,16 +13,30 @@ use App\Http\Requests\Users\Position\PositionRequest;
 
 /**
  * Контрллер должностей пользователей
+ *
+ * @uses PositionService
  */
 class PositionController extends Controller
 {
+    /**
+     * Сервис для контроллера
+     *
+     * @var PositionService
+     */
+    private PositionService $service;
+
+    public function __construct(PositionService $service)
+    {
+        $this->service = $service;
+    }
+
     /**
      * Отображает все должности через таблицу PositionsDataTable
      *
      * @param PositionsDataTable $positionsDataTable
      * @return JsonResponse|View
      */
-    public function index(PositionsDataTable $positionsDataTable): JsonResponse | View
+    public function index(PositionsDataTable $positionsDataTable): JsonResponse|View
     {
         return $positionsDataTable->render('positions.index');
     }
@@ -91,11 +107,8 @@ class PositionController extends Controller
      */
     public function destroy(Position $position): JsonResponse
     {
-        if ($position->users()->get()->isEmpty()) {
-            $position->delete();
-            return response()->json(['message' => 'success']);
-        }
+        $deleteResult = $this->service->delete($position);
 
-        return response()->json(['message' => 'delete not allowed'], 409);
+        return response()->json(['message' => $deleteResult['message']], $deleteResult['code']);
     }
 }

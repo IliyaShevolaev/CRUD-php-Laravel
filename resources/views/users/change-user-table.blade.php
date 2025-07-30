@@ -6,8 +6,7 @@
                 <h3>{{ isset($user) ? trans('main.users.edit_header') : trans('main.users.add_header') }}</h3>
             </div>
             <div class="card-body">
-                <form action="{{ isset($user) ? route('users.update', $user->id) : route('users.store') }}"
-                    method="POST">
+                <form action="{{ isset($user) ? route('users.update', $user->id) : route('users.store') }}" method="POST">
                     @csrf
                     @isset($user)
                         @method('PATCH')
@@ -60,14 +59,18 @@
                         <select class="form-control select2bs4" id="department_id" name="department_id">
                             @foreach ($departments as $department)
                                 <option value="{{ $department->id }}"
-                                    {{ isset($user)  && $user->department_id == $department->id ? 'selected' : '' }}>
+                                    {{ isset($user) && $user->department_id == $department->id ? 'selected' : '' }}>
                                     {{ $department->name }}
                                 </option>
                             @endforeach
-                            <option {{!isset($user) || $user->department_id === null ? 'selected' : ''}} value="{{null}}">
-                                {{trans('main.users.without_department')}}
+                            <option {{ !isset($user) || $user->department_id === null ? 'selected' : '' }}
+                                value="{{ null }}">
+                                {{ trans('main.users.without_department') }}
                             </option>
                         </select>
+                        @error('department_id')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div class="form-group mt-3">
@@ -75,38 +78,48 @@
                         <select class="form-control select2bs4" id="position" name="position_id">
                             @foreach ($positions as $position)
                                 <option value="{{ $position->id }}"
-                                    {{ isset($user)  && $user->position_id == $position->id ? 'selected' : '' }}>
+                                    {{ isset($user) && $user->position_id == $position->id ? 'selected' : '' }}>
                                     {{ $position->name }}
                                 </option>
                             @endforeach
-                            <option {{!isset($user) || $user->position_id === null ? 'selected' : ''}} value="{{null}}">
-                                {{trans('main.users.without_position')}}
+                            <option {{ !isset($user) || $user->position_id === null ? 'selected' : '' }}
+                                value="{{ null }}">
+                                {{ trans('main.users.without_position') }}
                             </option>
                         </select>
+                        @error('position_id')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div class="form-group mt-3">
                         <label for="gender">{{ str(trans('main.users.gender'))->ucfirst() }}</label>
                         <select class="form-control select2bs4" id="gender" name="gender">
                             @foreach (\App\Enums\User\Gender::cases() as $gender)
-                                <option value="{{ $gender}}"
-                                    {{ isset($user)  && $user->gender == $gender ? 'selected' : '' }}>
+                                <option value="{{ $gender }}"
+                                    {{ isset($user) && $user->gender == $gender ? 'selected' : '' }}>
                                     {{ trans('main.users.genders.' . $gender->value) }}
                                 </option>
                             @endforeach
                         </select>
+                        @error('gender')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div class="form-group mt-3">
                         <label for="status">{{ str(trans('main.users.status'))->ucfirst() }}</label>
                         <select class="form-control select2bs4" id="status" name="status">
                             @foreach (\App\Enums\User\Status::cases() as $status)
-                                <option value="{{ $status}}"
-                                    {{ isset($user)  && $user->status == $status ? 'selected' : '' }}>
+                                <option value="{{ $status }}"
+                                    {{ isset($user) && $user->status == $status ? 'selected' : '' }}>
                                     {{ trans('main.users.statuses.' . $status->value) }}
                                 </option>
                             @endforeach
                         </select>
+                        @error('status')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div class="d-flex gap-1">

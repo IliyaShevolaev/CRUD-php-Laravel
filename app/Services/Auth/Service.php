@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Services\Auth;
 
@@ -12,6 +13,21 @@ use Illuminate\Support\Facades\Auth;
  */
 class Service
 {
+    /**
+     * Получить массив для дальнейшего редиректа
+     *
+     * @param string $route
+     * @param mixed $failedError
+     * @return array{failed: string, route: string}
+     */
+    private function getLoginResultInfo(string $route, mixed $failedError = ''): array
+    {
+        return [
+            'route' => $route,
+            'failed' => is_string($failedError) ? $failedError : ''
+        ];
+    }
+
     /**
      * Регистрирует нового пользователя
      *
@@ -38,10 +54,12 @@ class Service
      *
      * @param LoginRequest $loginRequest
      * @param array<string> $data
-     * @return RedirectResponse
+     * @return array{failed: string, route: string}
      */
-    public function loginStore(LoginRequest $loginRequest, array $data): RedirectResponse
+    public function loginStore(LoginRequest $loginRequest, array $data): array
     {
+        $result = [];
+
         /** @var \Illuminate\Database\Eloquent\Builder <\App\Models\User> $query */
         $query = User::where('email', $data['email']);
 
@@ -54,15 +72,17 @@ class Service
                 /** @var User $user */
                 $user = Auth::user();
                 if ($user->status === 'unactive') {
-                    return redirect()->route('login')->withInput()->withErrors(['failed' => __('auth.unactive')]);
+                    return $this->getLoginResultInfo('login', __('auth.unactive'));
                 }
 
                 $loginRequest->session()->regenerate();
 
-                return redirect()->route('users.index');
+                $result['route'] = 'users.index';
+                $result['failed'] = '';
+                return $this->getLoginResultInfo('users.index');
             }
         }
 
-        return redirect()->route('login')->withInput()->withErrors(['failed' => __('auth.failed')]);
+        return $this->getLoginResultInfo('login', __('auth.failed'));
     }
 }

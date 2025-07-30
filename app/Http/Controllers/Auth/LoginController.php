@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
 
@@ -35,7 +36,12 @@ class LoginController extends BaseAuthController
     {
         $data = $loginRequest->validated();
 
-        return $this->service->loginStore($loginRequest, $data);
+        $loginResult = $this->service->loginStore($loginRequest, $data);
+
+        return redirect()
+            ->route($loginResult['route'])
+            ->withInput()
+            ->withErrors(['failed' => $loginResult['failed']]);
     }
 
     /**

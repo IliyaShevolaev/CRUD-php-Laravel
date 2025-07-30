@@ -1,8 +1,10 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers\User;
 
 use App\Models\User\Department;
+use App\Services\User\Department\DepartmentService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
@@ -15,12 +17,24 @@ use App\Http\Requests\Users\Department\DepartmentRequest;
 class DepartmentController extends Controller
 {
     /**
+     * Сервис для контроллера
+     *
+     * @var DepartmentService
+     */
+    private DepartmentService $service;
+
+    public function __construct(DepartmentService $service)
+    {
+        $this->service = $service;
+    }
+
+    /**
      * Отображает все отделы через таблицу DepartmentsDataTable
      * @return JsonResponse|View
      *
      * @param DepartmentsDataTable $departmentsDataTable
      */
-    public function index(DepartmentsDataTable $departmentsDataTable): JsonResponse | View
+    public function index(DepartmentsDataTable $departmentsDataTable): JsonResponse|View
     {
         return $departmentsDataTable->render('departments.index');
     }
@@ -91,11 +105,8 @@ class DepartmentController extends Controller
      */
     public function destroy(Department $department): JsonResponse
     {
-        if ($department->users()->get()->isEmpty()) {
-            $department->delete();
-            return response()->json(['message' => 'success']);
-        }
+        $deleteResult = $this->service->delete($department);
 
-        return response()->json(['message' => 'delete not allowed'], 409);
+        return response()->json(['message' => $deleteResult['message']], $deleteResult['code']);
     }
 }
