@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\User;
 
-use App\DataTables\UsersDataTable;
-use App\Http\Requests\Users\CreateRequest;
-use App\Http\Requests\Users\EditRequest;
 use App\Models\User;
-use Illuminate\Contracts\View\View;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
+use App\DataTables\UsersDataTable;
+use App\Services\User\UserService;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\Users\EditRequest;
+use App\Http\Requests\Users\CreateRequest;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 /**
@@ -18,9 +20,21 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
  *
  * @uses \App\Services\User\UserService
  */
-class UserController extends BaseUserController
+class UserController extends Controller
 {
     use AuthorizesRequests;
+
+    /**
+     * Сервис пользователей
+     *
+     * @var UserService $service
+     */
+    protected $service;
+
+    public function __construct(UserService $service)
+    {
+        $this->service = $service;
+    }
 
     /**
      * Отображает всех пользователей через таблицу UserDataTable
@@ -48,7 +62,7 @@ class UserController extends BaseUserController
     /**
      * Сохраняет нового пользователя и редиректит на таблицу с пользователями
      *
-     * @param \App\Http\Requests\Users\CreateRequest $createRequest
+     * @param CreateRequest $createRequest
      * @return RedirectResponse
      */
     public function store(CreateRequest $createRequest): RedirectResponse
@@ -68,9 +82,7 @@ class UserController extends BaseUserController
      */
     public function edit(int $user_id): View
     {
-        $user = User::withoutScopeFind($user_id);
-
-        $data = $this->service->prepareViewData($user);
+        $data = $this->service->prepareViewData($user_id);
 
         return view('users.change-user-table', $data);
     }
@@ -78,17 +90,15 @@ class UserController extends BaseUserController
     /**
      * Обновляет данные о пользователе
      *
-     * @param \App\Http\Requests\Users\EditRequest $editRequest
+     * @param EditRequest $editRequest
      * @param int $user_id
      * @return RedirectResponse
      */
     public function update(EditRequest $editRequest, int $user_id): RedirectResponse
     {
-        $user = User::withoutScopeFind($user_id);
-
         $editedData = $editRequest->validated();
 
-        $this->service->update($editedData, $user);
+        $this->service->update($editedData, $user_id);
 
         return redirect()->route('users.index');
     }
@@ -96,13 +106,11 @@ class UserController extends BaseUserController
     /**
      * Удаляет пользователя
      *
-     * @param int $user_id
+     * @param User $user
      * @return JsonResponse
      */
-    public function destroy(int $user_id): JsonResponse
+    public function destroy(User $user): JsonResponse
     {
-        $user = User::withoutScopeFind($user_id);
-
         $this->service->delete($user);
 
         return response()->json([

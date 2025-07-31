@@ -95,7 +95,7 @@
                     <div class="form-group mt-3">
                         <label for="gender">{{ str(trans('main.users.gender'))->ucfirst() }}</label>
                         <select class="form-control select2bs4" id="gender" name="gender">
-                            @foreach (\App\Enums\User\Gender::cases() as $gender)
+                            @foreach (\App\Enums\User\GenderEnum::cases() as $gender)
                                 <option value="{{ $gender }}"
                                     {{ isset($user) && $user->gender == $gender ? 'selected' : '' }}>
                                     {{ trans('main.users.genders.' . $gender->value) }}
@@ -110,7 +110,7 @@
                     <div class="form-group mt-3">
                         <label for="status">{{ str(trans('main.users.status'))->ucfirst() }}</label>
                         <select class="form-control select2bs4" id="status" name="status">
-                            @foreach (\App\Enums\User\Status::cases() as $status)
+                            @foreach (\App\Enums\User\StatusEnum::cases() as $status)
                                 <option value="{{ $status }}"
                                     {{ isset($user) && $user->status == $status ? 'selected' : '' }}>
                                     {{ trans('main.users.statuses.' . $status->value) }}

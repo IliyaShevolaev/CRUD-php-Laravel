@@ -27,16 +27,12 @@ class PositionRequest extends FormRequest
      */
     public function rules(): array
     {
-        $positionId = $this->route('position')->id ?? null;
-
         return [
             'name' => [
                 'required',
                 'string',
                 'max:255',
-                isset($positionId) ?
-                    'unique:positions,name,' . $positionId . ',deleted_at,NULL' :
-                    'unique:positions,name,deleted_at,NULL'
+                Rule::unique('positions')->whereNull('deleted_at')->ignore($this->id)
             ]
         ];
     }

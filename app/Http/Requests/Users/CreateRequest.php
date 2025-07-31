@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Users;
 
-use App\Enums\User\Gender;
-use App\Enums\User\Status;
+use App\Enums\User\GenderEnum;
+use App\Enums\User\StatusEnum;
 use Illuminate\Validation\Rules\Enum;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -33,10 +33,10 @@ class CreateRequest extends FormRequest
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:5|max:255|confirmed',
-            'department_id' => 'nullable|int|exists:departments,id',
-            'position_id' => 'nullable|int|exists:positions,id',
-            'gender' => ['required', new Enum(Gender::class)],
-            'status' => ['required', new Enum(Status::class)]
+            'department_id' => 'nullable|int|exists:departments,id,deleted_at,NULL',
+            'position_id' => 'nullable|int|exists:positions,id,deleted_at,NULL',
+            'gender' => ['required', new Enum(GenderEnum::class)],
+            'status' => ['required', new Enum(StatusEnum::class)]
         ];
     }
 

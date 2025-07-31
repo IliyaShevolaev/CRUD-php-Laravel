@@ -64,7 +64,7 @@ class PositionController extends Controller
     {
         $data = $positionRequest->validated();
 
-        Position::create($data);
+        $this->service->create($data);
 
         return response()->json(['message' => 'success']);
     }
@@ -95,7 +95,7 @@ class PositionController extends Controller
     {
         $data = $positionRequest->validated();
 
-        $position->update($data);
+        $this->service->update($position, $data);
 
         return response()->json(['message' => 'success']);
     }

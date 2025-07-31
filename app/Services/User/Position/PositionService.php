@@ -11,6 +11,31 @@ use App\Models\User\Position;
  */
 class PositionService
 {
+
+
+    /**
+     * Создать отдел
+     *
+     * @param array<string, string> $data
+     * @return void
+     */
+    public function create(array $data): void
+    {
+        Position::create($data);
+    }
+
+    /**
+     * Обновить отдел
+     *
+     * @param Position $position
+     * @param array<string, string> $data
+     * @return void
+     */
+    public function update(Position $position, array $data): void
+    {
+        $position->update($data);
+    }
+
     /**
      *  Удалить должость
      *
@@ -24,7 +49,7 @@ class PositionService
     {
         $result = [];
 
-        if ($position->users()->exists()) {
+        if (!$position->users()->exists()) {
             $position->delete();
 
             $result['message'] = 'success';

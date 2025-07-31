@@ -31,6 +31,7 @@ class DepartmentController extends Controller
 
     /**
      * Отображает все отделы через таблицу DepartmentsDataTable
+     * 
      * @return JsonResponse|View
      *
      * @param DepartmentsDataTable $departmentsDataTable
@@ -62,7 +63,7 @@ class DepartmentController extends Controller
     {
         $data = $departmentRequest->validated();
 
-        Department::create($data);
+        $this->service->create($data);
 
         return response()->json(['message' => 'success']);
     }
@@ -93,7 +94,7 @@ class DepartmentController extends Controller
     {
         $data = $departmentRequest->validated();
 
-        $department->update($data);
+        $this->service->update($department, $data);
 
         return response()->json(['message' => 'success']);
     }

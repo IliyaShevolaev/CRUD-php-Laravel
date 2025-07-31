@@ -55,8 +55,7 @@ class LoginController extends BaseAuthController
     {
         Auth::logout();
 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+        $this->service->logoutUser($request);
 
         return redirect()->route('login');
     }

@@ -7,6 +7,7 @@ namespace App\Services\Auth;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -85,5 +86,17 @@ class Service
         }
 
         return $this->getLoginResultInfo('login', __('auth.failed'));
+    }
+
+    /**
+     * Выход пользователя из системы
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function logoutUser(Request $request): void
+    {
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
     }
 }

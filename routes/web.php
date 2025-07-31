@@ -5,6 +5,8 @@ declare(strict_types=1);
 // php vendor/bin/phpstan analyse -c phpstan.neon
 // php vendor/bin/phpcs
 
+use App\Enums\User\GenderEnum;
+use App\Enums\User\StatusEnum;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/register', 'App\Http\Controllers\Auth\RegisterController@index')->name('register');

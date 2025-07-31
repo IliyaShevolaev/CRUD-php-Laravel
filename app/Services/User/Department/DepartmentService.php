@@ -11,6 +11,30 @@ use App\Models\User\Department;
  */
 class DepartmentService
 {
+
+    /**
+     * Создать отдел
+     *
+     * @param array<string, string> $data
+     * @return void
+     */
+    public function create(array $data): void
+    {
+        Department::create($data);
+    }
+
+    /**
+     * Обновить отдел
+     *
+     * @param Department $department
+     * @param array<string, string> $data
+     * @return void
+     */
+    public function update(Department $department, array $data): void
+    {
+        $department->update($data);
+    }
+
     /**
      *  Удалить отдел
      *
@@ -24,7 +48,7 @@ class DepartmentService
     {
         $result = [];
 
-        if ($department->users()->exists()) {
+        if (!$department->users()->exists()) {
             $department->delete();
 
             $result['message'] = 'success';

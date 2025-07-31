@@ -30,11 +30,13 @@ class UserService
      * Обновляет данные о пользователе
      *
      * @param array<mixed> $editedData
-     * @param User $user
+     * @param int $user_id
      * @return void
      */
-    public function update(array $editedData, User $user): void
+    public function update(array $editedData, int $user_id): void
     {
+        $user = User::withoutScopeFind($user_id);
+
         if (array_key_exists('password', $editedData) && $editedData['password'] === null) {
             unset($editedData['password']);
         }
@@ -58,11 +60,13 @@ class UserService
     /**
      * Подготавливает данные перед отображением формы создания/редактирования пользователя
      *
-     * @param User|null $user
+     * @param int|null $user_id
      * @return array<mixed>
      */
-    public function prepareViewData(User $user = null): array
+    public function prepareViewData(int $user_id = null): array
     {
+        $user = isset($user_id) ? User::withoutScopeFind($user_id) : null;
+
         $departments = Department::all();
         $positions = Position::all();
 

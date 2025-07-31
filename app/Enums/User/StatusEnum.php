@@ -7,7 +7,7 @@ namespace App\Enums\User;
 /**
  * Enum статусов
  */
-enum Status : string
+enum StatusEnum : string
 {
     case Active = 'active';
     case Unactive = 'unactive';

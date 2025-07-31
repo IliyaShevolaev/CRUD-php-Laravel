@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Enums\User\Gender;
-use App\Enums\User\Status;
+use App\Enums\User\GenderEnum;
+use App\Enums\User\StatusEnum;
 use App\Models\User\Position;
 use App\Models\User\Department;
 use Database\Factories\UserFactory;
@@ -69,8 +69,8 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'gender' => Gender::class,
-            'status' => Status::class,
+            'gender' => GenderEnum::class,
+            'status' => StatusEnum::class,
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];

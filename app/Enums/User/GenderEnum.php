@@ -7,7 +7,7 @@ namespace App\Enums\User;
 /**
  * Enum полов
  */
-enum Gender : string
+enum GenderEnum : string
 {
     case Male = 'male';
     case Female = 'female';

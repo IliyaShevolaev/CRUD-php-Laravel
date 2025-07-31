@@ -34,9 +34,7 @@ class DepartmentRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                isset($departmentId) ?
-                    'unique:departments,name,' . $departmentId . ',id,deleted_at,NULL' :
-                    'unique:departments,name,NULL,id,deleted_at,NULL'
+                Rule::unique('departments')->whereNull('deleted_at')->ignore($this->id)
             ]
         ];
     }
