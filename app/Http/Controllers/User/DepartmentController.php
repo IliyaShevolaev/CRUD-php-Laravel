@@ -5,15 +5,19 @@ declare(strict_types=1);
 namespace App\Http\Controllers\User;
 
 use App\Models\User\Department;
-use App\Services\User\Department\DepartmentService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use App\DataTables\DepartmentsDataTable;
+use App\Services\User\Department\DepartmentService;
 use App\Http\Requests\Users\Department\DepartmentRequest;
+use App\Repositories\Interfaces\User\Department\DepartmentRepositoryInterface;
 
 /**
  * Контрллер отделов пользователей
+ *
+ * @uses DepartmentService
+ * @uses DepartmentRepositoryInterface
  */
 class DepartmentController extends Controller
 {
@@ -24,14 +28,22 @@ class DepartmentController extends Controller
      */
     private DepartmentService $service;
 
-    public function __construct(DepartmentService $service)
+    /**
+     * Реаозиторий для представления данных для отделов
+     *
+     * @var DepartmentRepositoryInterface
+     */
+    private DepartmentRepositoryInterface $repository;
+
+    public function __construct(DepartmentService $service, DepartmentRepositoryInterface $departmentRepository)
     {
         $this->service = $service;
+        $this->repository = $departmentRepository;
     }
 
     /**
      * Отображает все отделы через таблицу DepartmentsDataTable
-     * 
+     *
      * @return JsonResponse|View
      *
      * @param DepartmentsDataTable $departmentsDataTable
@@ -71,15 +83,17 @@ class DepartmentController extends Controller
     /**
      * Возвращает форму редактирования передаваемого отдела
      *
-     * @param \App\Models\User\Department $department
+     * @param int $department_id
      * @return JsonResponse
      */
-    public function edit(Department $department)
+    public function edit(int $department_id)
     {
+        $departmentToEdit = $this->repository->find($department_id);
+
         return response()->json(view('departments.form')
             ->with([
-                'route' => route('departments.update', $department),
-                'element' => $department
+                'route' => route('departments.update', $departmentToEdit),
+                'element' => $departmentToEdit
             ])->render());
     }
 
@@ -87,14 +101,14 @@ class DepartmentController extends Controller
      * Обновляет отдел
      *
      * @param DepartmentRequest $departmentRequest
-     * @param Department $department
+     * @param int $department_id
      * @return JsonResponse 200 - {'message' => 'success'}
      */
-    public function update(DepartmentRequest $departmentRequest, Department $department): JsonResponse
+    public function update(DepartmentRequest $departmentRequest, int $department_id): JsonResponse
     {
         $data = $departmentRequest->validated();
 
-        $this->service->update($department, $data);
+        $this->service->update($department_id, $data);
 
         return response()->json(['message' => 'success']);
     }
@@ -102,12 +116,12 @@ class DepartmentController extends Controller
     /**
      * Удаляет отдел при отсутствии связей
      *
-     * @param Department $department
+     * @param int $department_id
      * @return JsonResponse 200 - {'message' => 'success'} | 409 - {'message' => 'delete not allowed'}
      */
-    public function destroy(Department $department): JsonResponse
+    public function destroy(int $department_id): JsonResponse
     {
-        $deleteResult = $this->service->delete($department);
+        $deleteResult = $this->service->delete($department_id);
 
         return response()->json(['message' => $deleteResult['message']], $deleteResult['code']);
     }

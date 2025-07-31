@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Services\User\Position;
 
 use App\Models\User\Position;
+use App\Repositories\Interfaces\User\Position\PositionRepositoryInterface;
 
 /**
  * Сервис для работы с должностями пользователей
@@ -12,45 +13,56 @@ use App\Models\User\Position;
 class PositionService
 {
 
+    /**
+     * Реаозиторий для представления данных для должностей
+     *
+     * @var PositionRepositoryInterface
+     */
+    private PositionRepositoryInterface $repository;
+
+    public function __construct(PositionRepositoryInterface $positiionRepository)
+    {
+        $this->repository = $positiionRepository;
+    }
 
     /**
-     * Создать отдел
+     * Создать должность
      *
      * @param array<string, string> $data
      * @return void
      */
     public function create(array $data): void
     {
-        Position::create($data);
+        $this->repository->create($data);
     }
 
     /**
-     * Обновить отдел
+     * Обновить должность
      *
-     * @param Position $position
+     * @param int $position_id
      * @param array<string, string> $data
      * @return void
      */
-    public function update(Position $position, array $data): void
+    public function update(int $position_id, array $data): void
     {
-        $position->update($data);
+        $this->repository->update($position_id, $data);
     }
 
     /**
      *  Удалить должость
      *
-     * @param Position $position
+     * @param int $position_id
      * @return array{
      *     message: string,
      *     code: int,
      * }
      */
-    public function delete(Position $position): array
+    public function delete(int $position_id): array
     {
         $result = [];
 
-        if (!$position->users()->exists()) {
-            $position->delete();
+        if (!$this->repository->find($position_id)->users()->exists()) {
+            $this->repository->delete($position_id);
 
             $result['message'] = 'success';
             $result['code'] = 200;

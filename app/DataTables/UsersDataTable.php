@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\DataTables;
 
 use App\Models\User;
+use App\Repositories\Interfaces\User\UserRepositoryInterface;
 use Illuminate\Support\Str;
 use Yajra\DataTables\Html\Column;
-use App\Models\Scopes\ActiveUserScope;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -18,6 +18,19 @@ use Illuminate\Database\Eloquent\Builder as QueryBuilder;
  */
 class UsersDataTable extends DataTable
 {
+
+    /**
+     * Репозиторий для работы с данными
+     *
+     * @var UserRepositoryInterface
+     */
+    private UserRepositoryInterface $repository;
+
+    public function __construct(UserRepositoryInterface $userRepository)
+    {
+        $this->repository = $userRepository;
+    }
+
     /**
      * Build the DataTable class.
      *
@@ -54,12 +67,11 @@ class UsersDataTable extends DataTable
     /**
      * Get the query source of dataTable.
      *
-     * @param User $model
      * @return QueryBuilder<User>
      */
-    public function query(User $model): QueryBuilder
+    public function query(): QueryBuilder
     {
-        return $model->newQuery()->withoutGlobalScope(ActiveUserScope::class);
+        return $this->repository->allWithUnactive()->toQuery();
     }
 
     /**

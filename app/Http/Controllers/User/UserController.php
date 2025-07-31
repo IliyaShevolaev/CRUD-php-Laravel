@@ -39,7 +39,7 @@ class UserController extends Controller
     /**
      * Отображает всех пользователей через таблицу UserDataTable
      *
-     * @param \App\DataTables\UsersDataTable $usersDataTable
+     * @param UsersDataTable $usersDataTable
      * @return JsonResponse|View
      */
     public function index(UsersDataTable $usersDataTable): JsonResponse | View
@@ -106,12 +106,12 @@ class UserController extends Controller
     /**
      * Удаляет пользователя
      *
-     * @param User $user
+     * @param int $user_id
      * @return JsonResponse
      */
-    public function destroy(User $user): JsonResponse
+    public function destroy(int $user_id): JsonResponse
     {
-        $this->service->delete($user);
+        $this->service->delete($user_id);
 
         return response()->json([
             'message' => 'success',

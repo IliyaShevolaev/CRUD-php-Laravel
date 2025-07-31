@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\User;
 
-use App\Models\User\Position;
-use App\Services\User\Position\PositionService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use App\DataTables\PositionsDataTable;
+use App\Services\User\Position\PositionService;
 use App\Http\Requests\Users\Position\PositionRequest;
+use App\Repositories\Interfaces\User\Position\PositionRepositoryInterface;
 
 /**
  * Контрллер должностей пользователей
@@ -26,9 +26,17 @@ class PositionController extends Controller
      */
     private PositionService $service;
 
-    public function __construct(PositionService $service)
+    /**
+     * Реаозиторий для представления данных для отделов
+     *
+     * @var PositionRepositoryInterface
+     */
+    private PositionRepositoryInterface $repository;
+
+    public function __construct(PositionService $service, PositionRepositoryInterface $positionRepository)
     {
         $this->service = $service;
+        $this->repository = $positionRepository;
     }
 
     /**
@@ -72,15 +80,17 @@ class PositionController extends Controller
     /**
      * Возвращает форму редактирования передаваемой должности
      *
-     * @param Position $position
+     * @param int $position_id
      * @return JsonResponse
      */
-    public function edit(Position $position)
+    public function edit(int $position_id)
     {
+        $positionmentToEdit = $this->repository->find($position_id);
+
         return response()->json(view('positions.form')
             ->with([
-                'route' => route('positions.update', $position),
-                'element' => $position
+                'route' => route('positions.update', $positionmentToEdit),
+                'element' => $positionmentToEdit
             ])->render());
     }
 
@@ -88,14 +98,14 @@ class PositionController extends Controller
      * Обновляет должность
      *
      * @param PositionRequest $positionRequest
-     * @param Position $position
+     * @param int $position_id
      * @return JsonResponse 200 - {'message' => 'success'}
      */
-    public function update(PositionRequest $positionRequest, Position $position): JsonResponse
+    public function update(PositionRequest $positionRequest, int $position_id): JsonResponse
     {
         $data = $positionRequest->validated();
 
-        $this->service->update($position, $data);
+        $this->service->update($position_id, $data);
 
         return response()->json(['message' => 'success']);
     }
@@ -103,12 +113,12 @@ class PositionController extends Controller
     /**
      * Удаляет должность при отсутствии связей
      *
-     * @param Position $position
+     * @param int $position_id
      * @return JsonResponse 200 - {'message' => 'success'} | 409 - {'message' => 'delete not allowed'}
      */
-    public function destroy(Position $position): JsonResponse
+    public function destroy(int $position_id): JsonResponse
     {
-        $deleteResult = $this->service->delete($position);
+        $deleteResult = $this->service->delete($position_id);
 
         return response()->json(['message' => $deleteResult['message']], $deleteResult['code']);
     }

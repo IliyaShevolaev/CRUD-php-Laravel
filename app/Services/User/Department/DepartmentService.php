@@ -5,12 +5,24 @@ declare(strict_types=1);
 namespace App\Services\User\Department;
 
 use App\Models\User\Department;
+use App\Repositories\Interfaces\User\Department\DepartmentRepositoryInterface;
 
 /**
  * Сервис для работы с отделами пользователей
  */
 class DepartmentService
 {
+    /**
+     * Реаозиторий для представления данных для отделов
+     *
+     * @var DepartmentRepositoryInterface
+     */
+    private DepartmentRepositoryInterface $repository;
+
+    public function __construct(DepartmentRepositoryInterface $departmentRepository)
+    {
+        $this->repository = $departmentRepository;
+    }
 
     /**
      * Создать отдел
@@ -20,36 +32,36 @@ class DepartmentService
      */
     public function create(array $data): void
     {
-        Department::create($data);
+        $this->repository->create($data);
     }
 
     /**
      * Обновить отдел
      *
-     * @param Department $department
+     * @param int $department_id
      * @param array<string, string> $data
      * @return void
      */
-    public function update(Department $department, array $data): void
+    public function update(int $department_id, array $data): void
     {
-        $department->update($data);
+        $this->repository->update($department_id, $data);
     }
 
     /**
      *  Удалить отдел
      *
-     * @param Department $department
+     * @param int $department_id
      * @return array{
      *     message: string,
      *     code: int,
      * }
      */
-    public function delete(Department $department): array
+    public function delete(int $department_id): array
     {
         $result = [];
 
-        if (!$department->users()->exists()) {
-            $department->delete();
+        if (!$this->repository->find($department_id)->users()->exists()) {
+            $this->repository->delete($department_id);
 
             $result['message'] = 'success';
             $result['code'] = 200;

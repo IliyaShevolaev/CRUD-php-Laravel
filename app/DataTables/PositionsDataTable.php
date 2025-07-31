@@ -11,12 +11,26 @@ use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
+use App\Repositories\Interfaces\User\Position\PositionRepositoryInterface;
 
 /**
  * Таблица должностей пользователей
  */
 class PositionsDataTable extends DataTable
 {
+
+    /**
+     * Репозиторий для работы с данными
+     *
+     * @var PositionRepositoryInterface
+     */
+    private PositionRepositoryInterface $repository;
+
+    public function __construct(PositionRepositoryInterface $positionRepository)
+    {
+        $this->repository = $positionRepository;
+    }
+
     /**
      * Build the DataTable class.
      *
@@ -41,12 +55,11 @@ class PositionsDataTable extends DataTable
     /**
      * Get the query source of dataTable.
      *
-     * @param Position $model
      * @return QueryBuilder<Position>
      */
-    public function query(Position $model): QueryBuilder
+    public function query(): QueryBuilder
     {
-        return $model->newQuery();
+        return $this->repository->all()->toQuery();
     }
 
     /**

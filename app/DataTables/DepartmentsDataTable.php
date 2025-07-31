@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\DataTables;
 
+use App\Repositories\Interfaces\User\Department\DepartmentRepositoryInterface;
 use Illuminate\Support\Str;
 use App\Models\User\Department;
 use Yajra\DataTables\Html\Column;
@@ -17,6 +18,19 @@ use Illuminate\Database\Eloquent\Builder as QueryBuilder;
  */
 class DepartmentsDataTable extends DataTable
 {
+
+    /**
+     * Репозиторий для работы с данными
+     *
+     * @var DepartmentRepositoryInterface
+     */
+    private DepartmentRepositoryInterface $repository;
+
+    public function __construct(DepartmentRepositoryInterface $departmentRepository)
+    {
+        $this->repository = $departmentRepository;
+    }
+
     /**
      * Build the DataTable class.
      *
@@ -42,12 +56,11 @@ class DepartmentsDataTable extends DataTable
     /**
      * Get the query source of dataTable.
      *
-     * @param Department $model
      * @return QueryBuilder<Department>
      */
-    public function query(Department $model): QueryBuilder
+    public function query(): QueryBuilder
     {
-        return $model->newQuery();
+        return $this->repository->all()->toQuery();
     }
 
     /**

@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace App\Services\User;
 
-use App\Models\User;
-use App\Models\User\Position;
-use App\Models\User\Department;
-use Illuminate\Contracts\View\View;
+use App\Repositories\Interfaces\User\Department\DepartmentRepositoryInterface;
+use App\Repositories\Interfaces\User\Position\PositionRepositoryInterface;
+use App\Repositories\Interfaces\User\UserRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -16,6 +15,37 @@ use Illuminate\Support\Facades\Auth;
 class UserService
 {
     /**
+     * Реаозиторий для представления данных для пользователей
+     *
+     * @var UserRepositoryInterface
+     */
+    private UserRepositoryInterface $repository;
+
+    /**
+     * Реаозиторий для представления данных для отделов
+     *
+     * @var UserRepositoryInterface
+     */
+    private DepartmentRepositoryInterface $departmentRepository;
+
+    /**
+     * Реаозиторий для представления данных для должностей
+     *
+     * @var UserRepositoryInterface
+     */
+    private PositionRepositoryInterface $positionRepository;
+
+    public function __construct(
+        UserRepositoryInterface $userRepository,
+        DepartmentRepositoryInterface $departmentRepository,
+        PositionRepositoryInterface $positionRepository
+    ) {
+        $this->repository = $userRepository;
+        $this->departmentRepository = $departmentRepository;
+        $this->positionRepository = $positionRepository;
+    }
+
+    /**
      * Создает нового пользователя
      *
      * @param array<string, mixed> $newData
@@ -23,7 +53,7 @@ class UserService
      */
     public function create(array $newData): void
     {
-        User::create($newData);
+        $this->repository->create($newData);
     }
 
     /**
@@ -35,25 +65,23 @@ class UserService
      */
     public function update(array $editedData, int $user_id): void
     {
-        $user = User::withoutScopeFind($user_id);
-
         if (array_key_exists('password', $editedData) && $editedData['password'] === null) {
             unset($editedData['password']);
         }
 
-        $user->update($editedData);
+        $this->repository->update($user_id, $editedData);
     }
 
     /**
      * Удаляет данные о пользователе
      *
-     * @param User $user
+     * @param int $user_id
      * @return void
      */
-    public function delete(User $user): void
+    public function delete(int $user_id): void
     {
-        if (Auth::id() !== $user->id) {
-            $user->delete();
+        if (Auth::id() !== $user_id) {
+            $this->repository->delete($user_id);
         }
     }
 
@@ -65,10 +93,10 @@ class UserService
      */
     public function prepareViewData(int $user_id = null): array
     {
-        $user = isset($user_id) ? User::withoutScopeFind($user_id) : null;
+        $user = isset($user_id) ? $this->repository->withoutScopeFind($user_id) : null;
 
-        $departments = Department::all();
-        $positions = Position::all();
+        $departments = $this->departmentRepository->all();
+        $positions = $this->positionRepository->all();
 
         return compact('user', 'departments', 'positions');
     }
