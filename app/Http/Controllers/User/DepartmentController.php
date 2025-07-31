@@ -7,6 +7,7 @@ namespace App\Http\Controllers\User;
 use App\Models\User\Department;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\DataTables\DepartmentsDataTable;
 use App\Services\User\Department\DepartmentService;
@@ -23,22 +24,15 @@ class DepartmentController extends Controller
 {
     /**
      * Сервис для контроллера
-     *
      * @var DepartmentService
-     */
-    private DepartmentService $service;
-
-    /**
-     * Реаозиторий для представления данных для отделов
      *
+     * Реаозиторий для представления данных для отделов
      * @var DepartmentRepositoryInterface
      */
-    private DepartmentRepositoryInterface $repository;
-
-    public function __construct(DepartmentService $service, DepartmentRepositoryInterface $departmentRepository)
-    {
-        $this->service = $service;
-        $this->repository = $departmentRepository;
+    public function __construct(
+        private DepartmentService $service,
+        private DepartmentRepositoryInterface $repository
+    ) {
     }
 
     /**
@@ -92,7 +86,7 @@ class DepartmentController extends Controller
 
         return response()->json(view('departments.form')
             ->with([
-                'route' => route('departments.update', $departmentToEdit),
+                'route' => route('departments.update', $departmentToEdit->id),
                 'element' => $departmentToEdit
             ])->render());
     }
@@ -106,9 +100,9 @@ class DepartmentController extends Controller
      */
     public function update(DepartmentRequest $departmentRequest, int $department_id): JsonResponse
     {
-        $data = $departmentRequest->getDto();
+        $dto = $departmentRequest->getDto();
 
-        $this->service->update($department_id, $data);
+        $this->service->update($department_id, $dto);
 
         return response()->json(['message' => 'success']);
     }

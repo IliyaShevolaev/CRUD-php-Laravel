@@ -61,7 +61,7 @@ interface UserRepositoryInterface
      * Поиск без scope
      *
      * @param int $user_id
-     * @return User
+     * @return UserDTO
      */
-    public function withoutScopeFind(int $user_id): User;
+    public function withoutScopeFind(int $user_id): UserDTO;
 }

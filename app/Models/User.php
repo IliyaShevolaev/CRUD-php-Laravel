@@ -4,15 +4,17 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Models\User\Position;
 use App\Enums\User\GenderEnum;
 use App\Enums\User\StatusEnum;
-use App\Models\User\Position;
 use App\Models\User\Department;
 use Database\Factories\UserFactory;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Scopes\ActiveUserScope;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -23,6 +25,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  *
  * @property int $id
  * @property string $status статус активен/неактивен
+ * @property string $password пароль
  * @method static User create(array<int|string, mixed> $attributes = [])
  * @method static User withoutScopeFind(int $id)
  * @method static Builder<User> where(mixed $operator = null, mixed $value = null, string $boolean = 'and')
@@ -84,6 +87,13 @@ class User extends Authenticatable
     public static function withoutScopeFind(int $id): User
     {
         return static::query()->withoutGlobalScope(ActiveUserScope::class)->findOrFail($id);
+    }
+
+    protected function password(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string|null $value) => $value === null ? $this->password : Hash::make($value),
+        );
     }
 
     /**

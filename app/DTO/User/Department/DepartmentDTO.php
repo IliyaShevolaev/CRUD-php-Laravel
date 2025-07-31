@@ -6,5 +6,6 @@ namespace App\DTO\User\Department;
 
 class DepartmentDTO
 {
+    public string $id;
     public string $name;
 }

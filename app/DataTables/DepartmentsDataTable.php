@@ -60,7 +60,7 @@ class DepartmentsDataTable extends DataTable
      */
     public function query(): QueryBuilder
     {
-        return $this->repository->all()->toQuery();
+        return $this->repository->collection()->toQuery();
     }
 
     /**

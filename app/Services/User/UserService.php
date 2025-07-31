@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Services\User;
 
 use App\DTO\User\UserDTO;
+use App\DTO\User\UserRelatedDTO;
+use ClassTransformer\Hydrator;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\Interfaces\User\UserRepositoryInterface;
 use App\Repositories\Interfaces\User\Position\PositionRepositoryInterface;
@@ -17,33 +19,17 @@ class UserService
 {
     /**
      * Реаозиторий для представления данных для пользователей
-     *
      * @var UserRepositoryInterface
-     */
-    private UserRepositoryInterface $repository;
-
-    /**
-     * Реаозиторий для представления данных для отделов
-     *
+     * Репозиторий для представления данных для отделов
      * @var DepartmentRepositoryInterface
-     */
-    private DepartmentRepositoryInterface $departmentRepository;
-
-    /**
-     * Реаозиторий для представления данных для должностей
-     *
+     * Репозиторий для представления данных для должностей
      * @var PositionRepositoryInterface
      */
-    private PositionRepositoryInterface $positionRepository;
-
     public function __construct(
-        UserRepositoryInterface $userRepository,
-        DepartmentRepositoryInterface $departmentRepository,
-        PositionRepositoryInterface $positionRepository
+        private UserRepositoryInterface $repository,
+        private DepartmentRepositoryInterface $departmentRepository,
+        private PositionRepositoryInterface $positionRepository
     ) {
-        $this->repository = $userRepository;
-        $this->departmentRepository = $departmentRepository;
-        $this->positionRepository = $positionRepository;
     }
 
     /**
@@ -86,15 +72,19 @@ class UserService
      * Подготавливает данные перед отображением формы создания/редактирования пользователя
      *
      * @param int|null $user_id
-     * @return array<mixed>
+     * @return UserRelatedDTO
      */
-    public function prepareViewData(int $user_id = null): array
+    public function prepareViewData(int $user_id = null): UserRelatedDTO
     {
-        $user = isset($user_id) ? $this->repository->withoutScopeFind($user_id) : null;
+        $userDto = isset($user_id) ? $this->repository->withoutScopeFind($user_id) : null;
 
-        $departments = $this->departmentRepository->all();
-        $positions = $this->positionRepository->all();
+        $departmentsDto = $this->departmentRepository->all();
+        $positionsDto = $this->positionRepository->all();
 
-        return compact('user', 'departments', 'positions');
+        return Hydrator::init()->create(UserRelatedDTO::class, [
+            'userDTO' => $userDto,
+            'departments' => $departmentsDto,
+            'positions' => $positionsDto
+        ]);
     }
 }

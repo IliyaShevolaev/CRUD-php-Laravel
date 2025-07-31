@@ -6,5 +6,6 @@ namespace App\DTO\User\Position;
 
 class PositionDTO
 {
+    public string $id;
     public string $name;
 }

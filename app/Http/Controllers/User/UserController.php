@@ -29,11 +29,8 @@ class UserController extends Controller
      *
      * @var UserService $service
      */
-    protected $service;
-
-    public function __construct(UserService $service)
+    public function __construct(protected UserService $service)
     {
-        $this->service = $service;
     }
 
     /**
@@ -42,7 +39,7 @@ class UserController extends Controller
      * @param UsersDataTable $usersDataTable
      * @return JsonResponse|View
      */
-    public function index(UsersDataTable $usersDataTable): JsonResponse | View
+    public function index(UsersDataTable $usersDataTable): JsonResponse|View
     {
         return $usersDataTable->render('users.table-index');
     }
@@ -56,7 +53,10 @@ class UserController extends Controller
     {
         $data = $this->service->prepareViewData();
 
-        return view('users.change-user-table', $data);
+        return view('users.change-user-table', [
+            'departments' => $data->departments,
+            'positions' => $data->positions
+        ]);
     }
 
     /**
@@ -84,7 +84,11 @@ class UserController extends Controller
     {
         $data = $this->service->prepareViewData($user_id);
 
-        return view('users.change-user-table', $data);
+        return view('users.change-user-table', [
+            'user' => $data->userDTO,
+            'departments' => $data->departments,
+            'positions' => $data->positions
+        ]);
     }
 
     /**

@@ -6,6 +6,7 @@ namespace App\Repositories\User;
 
 use App\Models\User;
 use App\DTO\User\UserDTO;
+use ClassTransformer\Hydrator;
 use App\Models\Scopes\ActiveUserScope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -32,7 +33,7 @@ class UserRepository implements UserRepositoryInterface
     public function update(int $user_id, UserDTO $dto): void
     {
         $user = User::withoutScopeFind($user_id);
-        $user->update($dto->toArray());
+        $user->update((array) $dto);
     }
 
     public function delete(int $user_id): void
@@ -46,8 +47,9 @@ class UserRepository implements UserRepositoryInterface
         return User::findOrFail($user_id);
     }
 
-    public function withoutScopeFind(int $user_id): User
+    public function withoutScopeFind(int $user_id): UserDTO
     {
-        return User::withoutScopeFind($user_id);
+        //dd(User::withoutScopeFind($user_id)->toArray());
+        return Hydrator::init()->create(UserDTO::class, User::withoutScopeFind($user_id)->toArray());
     }
 }

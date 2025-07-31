@@ -18,11 +18,8 @@ class DepartmentService
      *
      * @var DepartmentRepositoryInterface
      */
-    private DepartmentRepositoryInterface $repository;
-
-    public function __construct(DepartmentRepositoryInterface $departmentRepository)
+    public function __construct(private DepartmentRepositoryInterface $repository)
     {
-        $this->repository = $departmentRepository;
     }
 
     /**
@@ -60,8 +57,8 @@ class DepartmentService
     public function delete(int $department_id): array
     {
         $result = [];
-
-        if (!$this->repository->find($department_id)->users()->exists()) {
+        
+        if (empty($this->repository->findRelatedUsers($department_id))) {
             $this->repository->delete($department_id);
 
             $result['message'] = 'success';

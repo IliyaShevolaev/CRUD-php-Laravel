@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Interfaces\User\Department;
 
+use App\DTO\User\UserDTO;
 use App\Models\User\Department;
 use App\DTO\User\Department\DepartmentDTO;
 use Illuminate\Database\Eloquent\Collection;
@@ -9,11 +10,18 @@ use Illuminate\Database\Eloquent\Collection;
 interface DepartmentRepositoryInterface
 {
     /**
-     * Получить все записи об отделах
+     * Получить массив из DTO
+     *
+     * @return array<DepartmentDTO>
+     */
+    public function all();
+
+    /**
+     * Получить все записи об отделах в виде eloquent коллекции
      *
      * @return Collection<int, Department>
      */
-    public function all(): Collection;
+    public function collection(): Collection;
 
     /**
      * Создать запись
@@ -44,7 +52,15 @@ interface DepartmentRepositoryInterface
      * Найти отдел по id
      *
      * @param int $department_id
-     * @return Department
+     * @return DepartmentDTO
      */
-    public function find(int $department_id): Department;
+    public function find(int $department_id): DepartmentDTO;
+
+    /**
+     * Найти пользователей по отделу
+     *
+     * @param int $department_id
+     * @return array<UserDTO>
+     */
+    public function findRelatedUsers(int $department_id): array;
 }

@@ -19,11 +19,8 @@ class PositionService
      *
      * @var PositionRepositoryInterface
      */
-    private PositionRepositoryInterface $repository;
-
-    public function __construct(PositionRepositoryInterface $positiionRepository)
+    public function __construct(private PositionRepositoryInterface $repository)
     {
-        $this->repository = $positiionRepository;
     }
 
     /**
@@ -62,7 +59,7 @@ class PositionService
     {
         $result = [];
 
-        if (!$this->repository->find($position_id)->users()->exists()) {
+        if (empty($this->repository->findRelatedUsers($position_id))) {
             $this->repository->delete($position_id);
 
             $result['message'] = 'success';

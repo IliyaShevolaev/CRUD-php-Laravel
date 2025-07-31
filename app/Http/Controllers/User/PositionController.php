@@ -21,22 +21,15 @@ class PositionController extends Controller
 {
     /**
      * Сервис для контроллера
-     *
      * @var PositionService
-     */
-    private PositionService $service;
-
-    /**
-     * Реаозиторий для представления данных для отделов
      *
+     * Реаозиторий для представления данных для отделов
      * @var PositionRepositoryInterface
      */
-    private PositionRepositoryInterface $repository;
-
-    public function __construct(PositionService $service, PositionRepositoryInterface $positionRepository)
-    {
-        $this->service = $service;
-        $this->repository = $positionRepository;
+    public function __construct(
+        private PositionService $service,
+        private PositionRepositoryInterface $repository
+    ) {
     }
 
     /**
@@ -89,7 +82,7 @@ class PositionController extends Controller
 
         return response()->json(view('positions.form')
             ->with([
-                'route' => route('positions.update', $positionmentToEdit),
+                'route' => route('positions.update', $positionmentToEdit->id),
                 'element' => $positionmentToEdit
             ])->render());
     }

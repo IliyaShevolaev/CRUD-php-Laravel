@@ -2,18 +2,26 @@
 
 namespace App\Repositories\Interfaces\User\Position;
 
-use App\DTO\User\Position\PositionDTO;
+use App\DTO\User\UserDTO;
 use App\Models\User\Position;
+use App\DTO\User\Position\PositionDTO;
 use Illuminate\Database\Eloquent\Collection;
 
 interface PositionRepositoryInterface
 {
     /**
-     * Получить все записи об должностях
+     * Получить массив из DTO
+     *
+     * @return array<PositionDTO>
+     */
+    public function all();
+
+    /**
+     * Получить все записи об отделах в виде eloquent коллекции
      *
      * @return Collection<int, Position>
      */
-    public function all(): Collection;
+    public function collection(): Collection;
 
     /**
      * Создать запись
@@ -44,7 +52,15 @@ interface PositionRepositoryInterface
      * Найти должность по id
      *
      * @param int $position_id
-     * @return Position
+     * @return PositionDTO
      */
-    public function find(int $position_id): Position;
+    public function find(int $position_id): PositionDTO;
+
+    /**
+     * Найти пользователей по должности
+     *
+     * @param int $position_id
+     * @return array<UserDTO>
+     */
+    public function findRelatedUsers(int $position_id): array;
 }

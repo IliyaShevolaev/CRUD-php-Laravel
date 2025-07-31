@@ -12,23 +12,24 @@ use App\Repositories\Interfaces\User\Department\DepartmentRepositoryInterface;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
+
+    /**
+     * Все связывания контейнера, которые должны быть зарегистрированы.
+     *
+     * @var array<mixed>
+     */
+    public $bindings = [
+        DepartmentRepositoryInterface::class => DepartmentRepository::class,
+        PositionRepositoryInterface::class => PositionRepository::class,
+        UserRepositoryInterface::class => UserRepository::class,
+    ];
+
     /**
      * Register services.
      */
     public function register(): void
     {
-        $this->app->bind(
-            DepartmentRepositoryInterface::class,
-            DepartmentRepository::class
-        );
-        $this->app->bind(
-            PositionRepositoryInterface::class,
-            PositionRepository::class
-        );
-        $this->app->bind(
-            UserRepositoryInterface::class,
-            UserRepository::class
-        );
+        //
     }
 
     /**
