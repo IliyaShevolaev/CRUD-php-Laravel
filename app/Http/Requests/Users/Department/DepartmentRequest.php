@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Users\Department;
 
+use ClassTransformer\Hydrator;
 use Illuminate\Validation\Rule;
+use App\DTO\User\Department\DepartmentDTO;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
@@ -27,8 +29,6 @@ class DepartmentRequest extends FormRequest
      */
     public function rules(): array
     {
-        $departmentId = $this->route('department')->id ?? null;
-
         return [
             'name' => [
                 'required',
@@ -37,5 +37,15 @@ class DepartmentRequest extends FormRequest
                 Rule::unique('departments')->whereNull('deleted_at')->ignore($this->id)
             ]
         ];
+    }
+
+    /**
+     * Получить DTO
+     *
+     * @return DepartmentDTO
+     */
+    public function getDto(): DepartmentDTO
+    {
+        return Hydrator::init()->create(DepartmentDTO::class, $this->validated());
     }
 }

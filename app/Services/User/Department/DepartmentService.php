@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\User\Department;
 
+use App\DTO\User\Department\DepartmentDTO;
 use App\Models\User\Department;
 use App\Repositories\Interfaces\User\Department\DepartmentRepositoryInterface;
 
@@ -13,7 +14,7 @@ use App\Repositories\Interfaces\User\Department\DepartmentRepositoryInterface;
 class DepartmentService
 {
     /**
-     * Реаозиторий для представления данных для отделов
+     * Репозиторий для представления данных для отделов
      *
      * @var DepartmentRepositoryInterface
      */
@@ -27,24 +28,24 @@ class DepartmentService
     /**
      * Создать отдел
      *
-     * @param array<string, string> $data
+     * @param DepartmentDTO $dto
      * @return void
      */
-    public function create(array $data): void
+    public function create(DepartmentDTO $dto): void
     {
-        $this->repository->create($data);
+        $this->repository->create($dto);
     }
 
     /**
      * Обновить отдел
      *
      * @param int $department_id
-     * @param array<string, string> $data
+     * @param DepartmentDTO $dto
      * @return void
      */
-    public function update(int $department_id, array $data): void
+    public function update(int $department_id, DepartmentDTO $dto): void
     {
-        $this->repository->update($department_id, $data);
+        $this->repository->update($department_id, $dto);
     }
 
     /**

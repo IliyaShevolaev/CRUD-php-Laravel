@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\User\Position;
 
+use App\DTO\User\Position\PositionDTO;
 use App\Models\User\Position;
 use App\Repositories\Interfaces\User\Position\PositionRepositoryInterface;
 
@@ -28,24 +29,24 @@ class PositionService
     /**
      * Создать должность
      *
-     * @param array<string, string> $data
+     * @param PositionDTO $dto
      * @return void
      */
-    public function create(array $data): void
+    public function create(PositionDTO $dto): void
     {
-        $this->repository->create($data);
+        $this->repository->create($dto);
     }
 
     /**
      * Обновить должность
      *
      * @param int $position_id
-     * @param array<string, string> $data
+     * @param PositionDTO $dto
      * @return void
      */
-    public function update(int $position_id, array $data): void
+    public function update(int $position_id, PositionDTO $dto): void
     {
-        $this->repository->update($position_id, $data);
+        $this->repository->update($position_id, $dto);
     }
 
     /**

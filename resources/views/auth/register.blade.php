@@ -17,9 +17,9 @@
         </div>
         <div class="mb-3">
             <label for="exampleInputName" class="form-label">Имя</label>
-            <input value="{{ old('userName') }}" name="userName" type="text" class="form-control" id="exampleInputName">
+            <input value="{{ old('name') }}" name="name" type="text" class="form-control" id="exampleInputName">
 
-            @error('userName')
+            @error('name')
                 <p class="text-danger">{{ $message }}</p>
             @enderror
         </div>

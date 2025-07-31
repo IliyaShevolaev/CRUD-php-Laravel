@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "da321e81e7e17b98529c9281f5276a4e",
+    "content-hash": "7bef2c16b65d5cbb63fb4252d2226b8c",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -6915,6 +6915,66 @@
                 }
             ],
             "time": "2025-01-21T03:15:46+00:00"
+        },
+        {
+            "name": "yzen.dev/plain-to-class",
+            "version": "3.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yzen-dev/plain-to-class.git",
+                "reference": "c094916743802e2bf025bda4623ebc6dbcabb3a1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yzen-dev/plain-to-class/zipball/c094916743802e2bf025bda4623ebc6dbcabb3a1",
+                "reference": "c094916743802e2bf025bda4623ebc6dbcabb3a1",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "1.5.1",
+                "phpbench/phpbench": "1.2.8",
+                "phpunit/phpunit": "10.2.1",
+                "roave/infection-static-analysis-plugin": "1.32",
+                "squizlabs/php_codesniffer": "3.7.1",
+                "symfony/var-dumper": "6.3",
+                "vimeo/psalm": "5.12.0"
+            },
+            "bin": [
+                "bin/plain-to-class-clear"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ClassTransformer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andey Iatsenko",
+                    "email": "yzen.dev@gmail.com"
+                }
+            ],
+            "description": "Class-transformer to transform your dataset into a structured object",
+            "keywords": [
+                "class",
+                "class-transformer",
+                "convert",
+                "object",
+                "php",
+                "transformer"
+            ],
+            "support": {
+                "issues": "https://github.com/yzen-dev/plain-to-class/issues",
+                "source": "https://github.com/yzen-dev/plain-to-class"
+            },
+            "time": "2023-11-15T15:32:39+00:00"
         }
     ],
     "packages-dev": [

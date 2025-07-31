@@ -33,9 +33,9 @@ class RegisterController extends BaseAuthController
      */
     public function store(RegisterRequest $registerRequest): RedirectResponse
     {
-        $data = $registerRequest->validated();
+        $dto = $registerRequest->getDto();
 
-        $this->service->registerStore($data);
+        $this->service->registerStore($dto);
 
         return redirect()->route('users.index');
     }

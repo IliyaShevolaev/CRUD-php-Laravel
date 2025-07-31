@@ -70,9 +70,9 @@ class PositionController extends Controller
      */
     public function store(PositionRequest $positionRequest): JsonResponse
     {
-        $data = $positionRequest->validated();
+        $dto = $positionRequest->getDto();
 
-        $this->service->create($data);
+        $this->service->create($dto);
 
         return response()->json(['message' => 'success']);
     }
@@ -103,9 +103,9 @@ class PositionController extends Controller
      */
     public function update(PositionRequest $positionRequest, int $position_id): JsonResponse
     {
-        $data = $positionRequest->validated();
+        $dto = $positionRequest->getDto();
 
-        $this->service->update($position_id, $data);
+        $this->service->update($position_id, $dto);
 
         return response()->json(['message' => 'success']);
     }

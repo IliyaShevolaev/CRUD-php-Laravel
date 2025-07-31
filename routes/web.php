@@ -5,8 +5,6 @@ declare(strict_types=1);
 // php vendor/bin/phpstan analyse -c phpstan.neon
 // php vendor/bin/phpcs
 
-use App\Enums\User\GenderEnum;
-use App\Enums\User\StatusEnum;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/register', 'App\Http\Controllers\Auth\RegisterController@index')->name('register');
@@ -26,3 +24,4 @@ Route::middleware('auth')->group(function () {
     Route::resource('departments', \App\Http\Controllers\User\DepartmentController::class);
     Route::resource('positions', \App\Http\Controllers\User\PositionController::class);
 });
+

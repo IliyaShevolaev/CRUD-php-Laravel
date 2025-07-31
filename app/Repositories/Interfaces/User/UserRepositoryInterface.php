@@ -3,6 +3,8 @@
 namespace App\Repositories\Interfaces\User;
 
 use App\Models\User;
+use App\DTO\User\UserDTO;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
 interface UserRepositoryInterface
@@ -24,19 +26,19 @@ interface UserRepositoryInterface
     /**
      * Создать запись
      *
-     * @param array<string, string> $data
-     * @return void
+     * @param UserDTO $dto
+     * @return User
      */
-    public function create(array $data): void;
+    public function create(UserDTO $dto): User;
 
     /**
      * Обновить должность
      *
      * @param int $user_id
-     * @param array<string, string> $data
+     * @param UserDTO $dto
      * @return void
      */
-    public function update(int $user_id, array $data): void;
+    public function update(int $user_id, UserDTO $dto): void;
 
     /**
      * Удалить должность
@@ -57,7 +59,7 @@ interface UserRepositoryInterface
 
     /**
      * Поиск без scope
-     * 
+     *
      * @param int $user_id
      * @return User
      */

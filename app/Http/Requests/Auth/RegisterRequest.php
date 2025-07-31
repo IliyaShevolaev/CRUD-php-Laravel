@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Auth;
 
+use App\DTO\User\UserDTO;
+use ClassTransformer\Hydrator;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RegisterRequest extends FormRequest
@@ -22,7 +24,7 @@ class RegisterRequest extends FormRequest
     {
         return [
             'email' => 'required|string|email|unique:users|max:255',
-            'userName' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'password' => 'required|confirmed|string|min:5|max:255',
             'gender' => 'required|string',
         ];
@@ -38,5 +40,15 @@ class RegisterRequest extends FormRequest
         return [
             'email' => 'email',
         ];
+    }
+
+        /**
+     * Получить DTO
+     *
+     * @return UserDTO
+     */
+    public function getDto(): UserDTO
+    {
+        return Hydrator::init()->create(UserDTO::class, $this->validated());
     }
 }

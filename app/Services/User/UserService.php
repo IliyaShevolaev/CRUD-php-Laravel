@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Services\User;
 
-use App\Repositories\Interfaces\User\Department\DepartmentRepositoryInterface;
-use App\Repositories\Interfaces\User\Position\PositionRepositoryInterface;
-use App\Repositories\Interfaces\User\UserRepositoryInterface;
+use App\DTO\User\UserDTO;
 use Illuminate\Support\Facades\Auth;
+use App\Repositories\Interfaces\User\UserRepositoryInterface;
+use App\Repositories\Interfaces\User\Position\PositionRepositoryInterface;
+use App\Repositories\Interfaces\User\Department\DepartmentRepositoryInterface;
 
 /**
  * Сервис для работы с пользователями
@@ -24,14 +25,14 @@ class UserService
     /**
      * Реаозиторий для представления данных для отделов
      *
-     * @var UserRepositoryInterface
+     * @var DepartmentRepositoryInterface
      */
     private DepartmentRepositoryInterface $departmentRepository;
 
     /**
      * Реаозиторий для представления данных для должностей
      *
-     * @var UserRepositoryInterface
+     * @var PositionRepositoryInterface
      */
     private PositionRepositoryInterface $positionRepository;
 
@@ -48,28 +49,24 @@ class UserService
     /**
      * Создает нового пользователя
      *
-     * @param array<string, mixed> $newData
+     * @param UserDTO $dto
      * @return void
      */
-    public function create(array $newData): void
+    public function create(UserDTO $dto): void
     {
-        $this->repository->create($newData);
+        $this->repository->create($dto);
     }
 
     /**
      * Обновляет данные о пользователе
      *
-     * @param array<mixed> $editedData
+     * @param UserDTO $editedData
      * @param int $user_id
      * @return void
      */
-    public function update(array $editedData, int $user_id): void
+    public function update(UserDTO $dto, int $user_id): void
     {
-        if (array_key_exists('password', $editedData) && $editedData['password'] === null) {
-            unset($editedData['password']);
-        }
-
-        $this->repository->update($user_id, $editedData);
+        $this->repository->update($user_id, $dto);
     }
 
     /**

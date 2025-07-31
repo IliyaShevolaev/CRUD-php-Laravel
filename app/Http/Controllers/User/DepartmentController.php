@@ -73,9 +73,9 @@ class DepartmentController extends Controller
      */
     public function store(DepartmentRequest $departmentRequest): JsonResponse
     {
-        $data = $departmentRequest->validated();
+        $dto = $departmentRequest->getDto();
 
-        $this->service->create($data);
+        $this->service->create($dto);
 
         return response()->json(['message' => 'success']);
     }
@@ -106,7 +106,7 @@ class DepartmentController extends Controller
      */
     public function update(DepartmentRequest $departmentRequest, int $department_id): JsonResponse
     {
-        $data = $departmentRequest->validated();
+        $data = $departmentRequest->getDto();
 
         $this->service->update($department_id, $data);
 

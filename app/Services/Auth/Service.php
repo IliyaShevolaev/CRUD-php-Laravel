@@ -4,17 +4,30 @@ declare(strict_types=1);
 
 namespace App\Services\Auth;
 
-use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
-use Illuminate\Http\RedirectResponse;
+use App\DTO\User\UserDTO;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Auth\LoginRequest;
+use App\Repositories\Interfaces\User\UserRepositoryInterface;
 
 /**
  * Сервис для автризации
  */
 class Service
 {
+    /**
+     * Реаозиторий для представления данных для пользователей
+     *
+     * @var UserRepositoryInterface
+     */
+    private UserRepositoryInterface $repository;
+
+    public function __construct(UserRepositoryInterface $userRepository)
+    {
+        $this->repository = $userRepository;
+    }
+
     /**
      * Получить массив для дальнейшего редиректа
      *
@@ -33,18 +46,14 @@ class Service
     /**
      * Регистрирует нового пользователя
      *
-     * @param array<string> $data
+     * @param UserDTO $dto
      * @return void
      */
-    public function registerStore(array $data): void
+    public function registerStore(UserDTO $dto): void
     {
         /** @var User $user */
-        $user = User::create([
-            'name' => $data['userName'],
-            'email' => $data['email'],
-            'password' => $data['password'],
-            'gender' => $data['gender']
-        ]);
+
+        $user = $this->repository->create($dto);
 
         Auth::login($user);
     }

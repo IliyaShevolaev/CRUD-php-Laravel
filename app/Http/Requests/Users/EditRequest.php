@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Users;
 
+use App\DTO\User\UserDTO;
 use App\Enums\User\GenderEnum;
 use App\Enums\User\StatusEnum;
+use ClassTransformer\Hydrator;
 use Illuminate\Validation\Rules\Enum;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -50,5 +52,15 @@ class EditRequest extends FormRequest
         return [
             'name' => trans('main.users.name'),
         ];
+    }
+
+    /**
+     * Получить DTO
+     *
+     * @return UserDTO
+     */
+    public function getDto(): UserDTO
+    {
+        return Hydrator::init()->create(UserDTO::class, $this->validated());
     }
 }

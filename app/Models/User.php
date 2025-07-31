@@ -23,7 +23,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  *
  * @property int $id
  * @property string $status статус активен/неактивен
- * @method static \Illuminate\Database\Eloquent\Builder<User> create(array<int|string, mixed> $attributes = [])
+ * @method static User create(array<int|string, mixed> $attributes = [])
  * @method static User withoutScopeFind(int $id)
  * @method static Builder<User> where(mixed $operator = null, mixed $value = null, string $boolean = 'and')
  * @use HasFactory<UserFactory>

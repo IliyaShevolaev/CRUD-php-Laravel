@@ -67,9 +67,9 @@ class UserController extends Controller
      */
     public function store(CreateRequest $createRequest): RedirectResponse
     {
-        $newUserData = $createRequest->validated();
+        $dto = $createRequest->getDto();
 
-        $this->service->create($newUserData);
+        $this->service->create($dto);
 
         return redirect()->route('users.index');
     }
@@ -96,9 +96,9 @@ class UserController extends Controller
      */
     public function update(EditRequest $editRequest, int $user_id): RedirectResponse
     {
-        $editedData = $editRequest->validated();
+        $dto = $editRequest->getDto();
 
-        $this->service->update($editedData, $user_id);
+        $this->service->update($dto, $user_id);
 
         return redirect()->route('users.index');
     }

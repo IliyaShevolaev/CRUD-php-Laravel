@@ -3,6 +3,7 @@
 namespace App\Repositories\Interfaces\User\Department;
 
 use App\Models\User\Department;
+use App\DTO\User\Department\DepartmentDTO;
 use Illuminate\Database\Eloquent\Collection;
 
 interface DepartmentRepositoryInterface
@@ -17,19 +18,19 @@ interface DepartmentRepositoryInterface
     /**
      * Создать запись
      *
-     * @param array<string, string> $data
+     * @param DepartmentDTO $dto
      * @return void
      */
-    public function create(array $data): void;
+    public function create(DepartmentDTO $dto): void;
 
     /**
      * Обновить отдел
      *
      * @param int $department_id
-     * @param array<string, string> $data
+     * @param DepartmentDTO $dto
      * @return void
      */
-    public function update(int $department_id, array $data): void;
+    public function update(int $department_id, DepartmentDTO $dto): void;
 
     /**
      * Удалить отдел
