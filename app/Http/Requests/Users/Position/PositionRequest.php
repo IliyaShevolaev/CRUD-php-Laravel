@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Users\Position;
 
-use ClassTransformer\Hydrator;
 use Illuminate\Validation\Rule;
-use App\DTO\User\Position\PositionDTO;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
@@ -37,15 +35,5 @@ class PositionRequest extends FormRequest
                 Rule::unique('positions')->whereNull('deleted_at')->ignore($this->id)
             ]
         ];
-    }
-
-    /**
-     * Получить DTO
-     *
-     * @return PositionDTO
-     */
-    public function getDto(): PositionDTO
-    {
-        return Hydrator::init()->create(PositionDTO::class, $this->validated());
     }
 }

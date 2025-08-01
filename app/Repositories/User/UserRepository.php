@@ -26,13 +26,13 @@ class UserRepository implements UserRepositoryInterface
 
     public function create(UserDTO $dto): User
     {
-        return User::create((array) $dto);
+        return User::create($dto->all());
     }
 
     public function update(int $user_id, UserDTO $dto): void
     {
         $user = User::withoutScopeFind($user_id);
-        $user->update((array) $dto);
+        $user->update($dto->all());
     }
 
     public function delete(int $user_id): void
@@ -48,7 +48,6 @@ class UserRepository implements UserRepositoryInterface
 
     public function withoutScopeFind(int $user_id): UserDTO
     {
-        //dd(User::withoutScopeFind($user_id)->toArray());
-        return Hydrator::init()->create(UserDTO::class, User::withoutScopeFind($user_id)->toArray());
+        return UserDTO::from(User::withoutScopeFind($user_id)->toArray());
     }
 }

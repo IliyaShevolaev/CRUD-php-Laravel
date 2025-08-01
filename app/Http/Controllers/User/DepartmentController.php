@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\User;
 
+use App\DTO\User\Department\DepartmentDTO;
 use App\Models\User\Department;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\View\View;
@@ -67,7 +68,7 @@ class DepartmentController extends Controller
      */
     public function store(DepartmentRequest $departmentRequest): JsonResponse
     {
-        $dto = $departmentRequest->getDto();
+        $dto = DepartmentDTO::from($departmentRequest->validated());
 
         $this->service->create($dto);
 
@@ -100,7 +101,7 @@ class DepartmentController extends Controller
      */
     public function update(DepartmentRequest $departmentRequest, int $department_id): JsonResponse
     {
-        $dto = $departmentRequest->getDto();
+        $dto = DepartmentDTO::from($departmentRequest->validated());
 
         $this->service->update($department_id, $dto);
 

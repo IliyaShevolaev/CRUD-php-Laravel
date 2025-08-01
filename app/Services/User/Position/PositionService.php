@@ -58,7 +58,7 @@ class PositionService
     {
         $result = [];
 
-        if (empty($this->repository->findRelatedUsers($position_id))) {
+        if ($this->repository->findRelatedUsers($position_id)->isEmpty()) {
             $this->repository->delete($position_id);
 
             $result['message'] = 'success';
@@ -68,6 +68,6 @@ class PositionService
             $result['code'] = 409;
         }
 
-        return Hydrator::init()->create(MessageDTO::class, $result);
+        return MessageDTO::from($result);
     }
 }

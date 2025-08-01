@@ -4,13 +4,16 @@
 // мутаторы модели убрать toArray +
 // новый синтаксис конструктора +
 // отдавать данные в дтошках на компакт +
-// поля классов Dto camelCase +
+// поля классов Dto camelCase
 
 declare(strict_types=1);
 
 // php vendor/bin/phpstan analyse -c phpstan.neon
 // php vendor/bin/phpcs
 
+use App\DTO\User\UserDTO;
+use App\Repositories\User\Department\DepartmentRepository;
+use ClassTransformer\Hydrator;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/register', 'App\Http\Controllers\Auth\RegisterController@index')->name('register');
@@ -31,4 +34,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('positions', \App\Http\Controllers\User\PositionController::class);
 });
 
-
+Route::get('test', function(DepartmentRepository $departmentRepository) {
+    dd($departmentRepository->all()[0]->all());
+});

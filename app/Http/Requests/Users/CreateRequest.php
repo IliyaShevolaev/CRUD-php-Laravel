@@ -53,14 +53,4 @@ class CreateRequest extends FormRequest
             'name' => trans('main.users.name'),
         ];
     }
-
-    /**
-     * Получить DTO
-     *
-     * @return UserDTO
-     */
-    public function getDto(): UserDTO
-    {
-        return Hydrator::init()->create(UserDTO::class, $this->validated());
-    }
 }

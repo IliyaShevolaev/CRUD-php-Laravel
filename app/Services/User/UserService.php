@@ -81,10 +81,10 @@ class UserService
         $departmentsDto = $this->departmentRepository->all();
         $positionsDto = $this->positionRepository->all();
 
-        return Hydrator::init()->create(UserRelatedDTO::class, [
+        return UserRelatedDTO::from([
             'userDTO' => $userDto,
             'departments' => $departmentsDto,
-            'positions' => $positionsDto
+            'positions' => $positionsDto,
         ]);
     }
 }

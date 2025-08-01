@@ -57,7 +57,7 @@ class DepartmentService
     {
         $result = [];
 
-        if (empty($this->repository->findRelatedUsers($department_id))) {
+        if ($this->repository->findRelatedUsers($department_id)->isEmpty()) {
             $this->repository->delete($department_id);
 
             $result['message'] = 'success';
@@ -67,7 +67,6 @@ class DepartmentService
             $result['code'] = 409;
         }
 
-        return Hydrator::init()->create(MessageDTO::class, $result);
-
+        return MessageDTO::from($result);
     }
 }

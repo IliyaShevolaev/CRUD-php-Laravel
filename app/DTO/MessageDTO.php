@@ -2,8 +2,13 @@
 
 namespace App\DTO;
 
-class MessageDTO
+use Spatie\LaravelData\Data;
+
+class MessageDTO extends Data
 {
-    public int $code;
-    public string $message;
+    public function __construct(
+        public int $code,
+        public string $message
+    ) {
+    }
 }

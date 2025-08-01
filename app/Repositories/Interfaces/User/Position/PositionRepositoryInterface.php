@@ -10,18 +10,11 @@ use Illuminate\Database\Eloquent\Collection;
 interface PositionRepositoryInterface
 {
     /**
-     * Получить массив из DTO
+     * Получить коллекцию отделов DTO
      *
-     * @return array<PositionDTO>
+     * @return Collection
      */
-    public function all();
-
-    /**
-     * Получить все записи об отделах в виде eloquent коллекции
-     *
-     * @return Collection<int, Position>
-     */
-    public function collection(): Collection;
+    public function all(): Collection;
 
     /**
      * Создать запись
@@ -60,7 +53,7 @@ interface PositionRepositoryInterface
      * Найти пользователей по должности
      *
      * @param int $position_id
-     * @return array<UserDTO>
+     * @return Collection
      */
-    public function findRelatedUsers(int $position_id): array;
+    public function findRelatedUsers(int $position_id): Collection;
 }

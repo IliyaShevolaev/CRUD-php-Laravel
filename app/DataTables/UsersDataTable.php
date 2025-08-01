@@ -71,7 +71,7 @@ class UsersDataTable extends DataTable
      */
     public function query(): QueryBuilder
     {
-        return $this->repository->allWithUnactive()->toQuery();
+        return User::query();
     }
 
     /**

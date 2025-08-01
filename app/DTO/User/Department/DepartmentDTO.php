@@ -4,8 +4,13 @@ declare(strict_types=1);
 
 namespace App\DTO\User\Department;
 
-class DepartmentDTO
+use Spatie\LaravelData\Data;
+
+class DepartmentDTO extends Data
 {
-    public string $id;
-    public string $name;
+    public function __construct(
+        public ?string $id = null,
+        public string $name,
+    ) {
+    }
 }

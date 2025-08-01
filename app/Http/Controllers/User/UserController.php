@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\User;
 
-use App\Models\User;
-use App\Http\Controllers\Controller;
+use App\DTO\User\UserDTO;
 use Illuminate\Http\JsonResponse;
 use App\DataTables\UsersDataTable;
 use App\Services\User\UserService;
 use Illuminate\Contracts\View\View;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Users\EditRequest;
 use App\Http\Requests\Users\CreateRequest;
@@ -67,7 +67,7 @@ class UserController extends Controller
      */
     public function store(CreateRequest $createRequest): RedirectResponse
     {
-        $dto = $createRequest->getDto();
+        $dto = UserDTO::from($createRequest->validated());
 
         $this->service->create($dto);
 
@@ -100,7 +100,7 @@ class UserController extends Controller
      */
     public function update(EditRequest $editRequest, int $user_id): RedirectResponse
     {
-        $dto = $editRequest->getDto();
+        $dto =  UserDTO::from($editRequest->validated());
 
         $this->service->update($dto, $user_id);
 

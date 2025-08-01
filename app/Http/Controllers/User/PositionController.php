@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\User;
 
+use App\DTO\User\Position\PositionDTO;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
@@ -63,7 +64,7 @@ class PositionController extends Controller
      */
     public function store(PositionRequest $positionRequest): JsonResponse
     {
-        $dto = $positionRequest->getDto();
+        $dto = PositionDTO::from($positionRequest->validated());
 
         $this->service->create($dto);
 
@@ -96,7 +97,7 @@ class PositionController extends Controller
      */
     public function update(PositionRequest $positionRequest, int $position_id): JsonResponse
     {
-        $dto = $positionRequest->getDto();
+        $dto = PositionDTO::from($positionRequest->validated());
 
         $this->service->update($position_id, $dto);
 

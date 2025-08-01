@@ -2,19 +2,18 @@
 
 namespace App\DTO\User;
 
-class UserRelatedDTO
+use Spatie\LaravelData\Data;
+
+class UserRelatedDTO extends Data
 {
-    public ?UserDTO $userDTO = null;
+    public function __construct(
+        public ?UserDTO $userDTO = null,
 
-    /**
-     * Dto отделов
-     * @var \App\DTO\User\Department\DepartmentDTO[]
-     */
-    public array $departments;
+        /** @var \App\DTO\User\Department\DepartmentDTO[] */
+        public array $departments,
 
-    /**
-     * Dto должностей
-     * @var \App\DTO\User\Position\PositionDTO[]
-     */
-    public array $positions;
+        /** @var \App\DTO\User\Position\PositionDTO[] */
+        public array $positions,
+        ){
+    }
 }

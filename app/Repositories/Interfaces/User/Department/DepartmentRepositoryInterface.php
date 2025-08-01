@@ -10,18 +10,11 @@ use Illuminate\Database\Eloquent\Collection;
 interface DepartmentRepositoryInterface
 {
     /**
-     * Получить массив из DTO
+     * Получить колликцию элементов DTO
      *
-     * @return array<DepartmentDTO>
+     * @return Collection
      */
-    public function all();
-
-    /**
-     * Получить все записи об отделах в виде eloquent коллекции
-     *
-     * @return Collection<int, Department>
-     */
-    public function collection(): Collection;
+    public function all(): Collection;
 
     /**
      * Создать запись
@@ -60,7 +53,7 @@ interface DepartmentRepositoryInterface
      * Найти пользователей по отделу
      *
      * @param int $department_id
-     * @return array<UserDTO>
+     * @return Collection
      */
-    public function findRelatedUsers(int $department_id): array;
+    public function findRelatedUsers(int $department_id): Collection;
 }

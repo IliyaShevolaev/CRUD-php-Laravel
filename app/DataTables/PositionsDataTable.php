@@ -59,7 +59,7 @@ class PositionsDataTable extends DataTable
      */
     public function query(): QueryBuilder
     {
-        return $this->repository->collection()->toQuery();
+        return Position::query();
     }
 
     /**

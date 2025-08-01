@@ -14,32 +14,20 @@ use App\Repositories\Interfaces\User\Department\DepartmentRepositoryInterface;
 class DepartmentRepository implements DepartmentRepositoryInterface
 {
 
-    public function all(): array
+    public function all(): Collection
     {
-        $departments = Department::all();
-        $departmentsDto = [];
-
-        foreach($departments as $department) {
-            $departmentsDto[] = Hydrator::init()->create(DepartmentDTO::class, $department->toArray());
-        }
-
-        return $departmentsDto;
-    }
-
-    public function collection(): Collection
-    {
-        return Department::all();
+        return DepartmentDTO::collect(Department::all());
     }
 
     public function create(DepartmentDTO $dto): void
     {
-        Department::create((array) $dto);
+        Department::create($dto->all());
     }
 
     public function update(int $department_id, DepartmentDTO $dto): void
     {
         $department = Department::findOrFail($department_id);
-        $department->update((array) $dto);
+        $department->update($dto->all());
     }
 
     public function delete(int $department_id): void
@@ -50,18 +38,13 @@ class DepartmentRepository implements DepartmentRepositoryInterface
 
     public function find(int $department_id): DepartmentDTO
     {
-        return Hydrator::init()->create(DepartmentDTO::class, Department::findOrFail($department_id)->toArray());
+        return DepartmentDTO::from(Department::findOrFail($department_id));
     }
 
-    public function findRelatedUsers(int $department_id): array
+    public function findRelatedUsers(int $department_id): Collection
     {
         $users = Department::findOrFail($department_id)->users()->get();
-        $usersDto = [];
 
-        foreach($users as $user) {
-            $usersDto[] = Hydrator::init()->create(UserDTO::class, $user->toArray());
-        }
-
-        return $usersDto;
+        return UserDTO::collect($users);
     }
 }
