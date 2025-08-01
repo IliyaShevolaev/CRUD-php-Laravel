@@ -82,12 +82,12 @@ class UserController extends Controller
      */
     public function edit(int $user_id): View
     {
-        $data = $this->service->prepareViewData($user_id);
+        $dto = $this->service->prepareViewData($user_id);
 
         return view('users.change-user-table', [
-            'user' => $data->userDTO,
-            'departments' => $data->departments,
-            'positions' => $data->positions
+            'user' => $dto->userDTO,
+            'departments' => $dto->departments,
+            'positions' => $dto->positions
         ]);
     }
 

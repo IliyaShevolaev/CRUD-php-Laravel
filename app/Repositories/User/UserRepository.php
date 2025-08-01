@@ -8,7 +8,6 @@ use App\Models\User;
 use App\DTO\User\UserDTO;
 use ClassTransformer\Hydrator;
 use App\Models\Scopes\ActiveUserScope;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use App\Repositories\Interfaces\User\UserRepositoryInterface;
 

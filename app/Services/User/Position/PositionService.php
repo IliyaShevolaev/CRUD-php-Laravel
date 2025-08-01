@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Services\User\Position;
 
+use App\DTO\MessageDTO;
 use App\DTO\User\Position\PositionDTO;
 use App\Models\User\Position;
 use App\Repositories\Interfaces\User\Position\PositionRepositoryInterface;
+use ClassTransformer\Hydrator;
 
 /**
  * Сервис для работы с должностями пользователей
@@ -50,12 +52,9 @@ class PositionService
      *  Удалить должость
      *
      * @param int $position_id
-     * @return array{
-     *     message: string,
-     *     code: int,
-     * }
+     * @return MessageDTO
      */
-    public function delete(int $position_id): array
+    public function delete(int $position_id): MessageDTO
     {
         $result = [];
 
@@ -69,6 +68,6 @@ class PositionService
             $result['code'] = 409;
         }
 
-        return $result;
+        return Hydrator::init()->create(MessageDTO::class, $result);
     }
 }

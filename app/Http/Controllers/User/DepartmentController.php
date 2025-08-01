@@ -117,6 +117,6 @@ class DepartmentController extends Controller
     {
         $deleteResult = $this->service->delete($department_id);
 
-        return response()->json(['message' => $deleteResult['message']], $deleteResult['code']);
+        return response()->json(['message' => $deleteResult->message], $deleteResult->code);
     }
 }

@@ -113,6 +113,6 @@ class PositionController extends Controller
     {
         $deleteResult = $this->service->delete($position_id);
 
-        return response()->json(['message' => $deleteResult['message']], $deleteResult['code']);
+        return response()->json(['message' => $deleteResult->message], $deleteResult->code);
     }
 }

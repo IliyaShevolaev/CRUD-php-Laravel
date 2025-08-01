@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Services\User\Department;
 
-use App\DTO\User\Department\DepartmentDTO;
+use App\DTO\MessageDTO;
+use ClassTransformer\Hydrator;
 use App\Models\User\Department;
+use App\DTO\User\Department\DepartmentDTO;
 use App\Repositories\Interfaces\User\Department\DepartmentRepositoryInterface;
 
 /**
@@ -49,15 +51,12 @@ class DepartmentService
      *  Удалить отдел
      *
      * @param int $department_id
-     * @return array{
-     *     message: string,
-     *     code: int,
-     * }
+     * @return MessageDTO
      */
-    public function delete(int $department_id): array
+    public function delete(int $department_id): MessageDTO
     {
         $result = [];
-        
+
         if (empty($this->repository->findRelatedUsers($department_id))) {
             $this->repository->delete($department_id);
 
@@ -68,6 +67,7 @@ class DepartmentService
             $result['code'] = 409;
         }
 
-        return $result;
+        return Hydrator::init()->create(MessageDTO::class, $result);
+
     }
 }
