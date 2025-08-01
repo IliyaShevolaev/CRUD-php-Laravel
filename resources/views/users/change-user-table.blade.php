@@ -57,16 +57,16 @@
                     <div class="form-group mt-3">
                         <label for="department">{{ str(trans('main.users.department'))->ucfirst() }}</label>
                         <select class="form-control select2bs4" id="department_id" name="department_id">
+                            <option value=""
+                                {{ old('department_id', isset($user) ? $user->departmentId : null) === null ? 'selected' : '' }}>
+                                {{ trans('main.users.without_department') }}
+                            </option>
                             @foreach ($departments as $department)
                                 <option value="{{ $department->id }}"
-                                    {{ isset($user) && $user->department_id == $department->id ? 'selected' : '' }}>
+                                    {{ old('department_id', isset($user) ? $user->departmentId : null) == $department->id ? 'selected' : '' }}>
                                     {{ $department->name }}
                                 </option>
                             @endforeach
-                            <option {{ !isset($user) || $user->department_id === null ? 'selected' : '' }}
-                                value="{{ null }}">
-                                {{ trans('main.users.without_department') }}
-                            </option>
                         </select>
                         @error('department_id')
                             <p class="text-danger">{{ $message }}</p>
@@ -76,16 +76,16 @@
                     <div class="form-group mt-3">
                         <label for="position">{{ str(trans('main.users.position'))->ucfirst() }}</label>
                         <select class="form-control select2bs4" id="position" name="position_id">
+                            <option value=""
+                                {{ old('position_id', isset($user) ? $user->positionId : null) === null ? 'selected' : '' }}>
+                                {{ trans('main.users.without_position') }}
+                            </option>
                             @foreach ($positions as $position)
                                 <option value="{{ $position->id }}"
-                                    {{ isset($user) && $user->position_id == $position->id ? 'selected' : '' }}>
+                                    {{ old('position_id', isset($user) ? $user->positionId : null) == $position->id ? 'selected' : '' }}>
                                     {{ $position->name }}
                                 </option>
                             @endforeach
-                            <option {{ !isset($user) || $user->position_id === null ? 'selected' : '' }}
-                                value="{{ null }}">
-                                {{ trans('main.users.without_position') }}
-                            </option>
                         </select>
                         @error('position_id')
                             <p class="text-danger">{{ $message }}</p>
@@ -96,8 +96,8 @@
                         <label for="gender">{{ str(trans('main.users.gender'))->ucfirst() }}</label>
                         <select class="form-control select2bs4" id="gender" name="gender">
                             @foreach (\App\Enums\User\GenderEnum::cases() as $gender)
-                                <option value="{{ $gender }}"
-                                    {{ isset($user) && $user->gender == $gender ? 'selected' : '' }}>
+                                <option value="{{ $gender->value }}"
+                                    {{ old('gender', isset($user) ? $user->gender?->value : null) == $gender->value ? 'selected' : '' }}>
                                     {{ trans('main.users.genders.' . $gender->value) }}
                                 </option>
                             @endforeach
@@ -111,8 +111,8 @@
                         <label for="status">{{ str(trans('main.users.status'))->ucfirst() }}</label>
                         <select class="form-control select2bs4" id="status" name="status">
                             @foreach (\App\Enums\User\StatusEnum::cases() as $status)
-                                <option value="{{ $status }}"
-                                    {{ isset($user) && $user->status == $status ? 'selected' : '' }}>
+                                <option value="{{ $status->value }}"
+                                    {{ old('status', isset($user) ? $user->status?->value : null) == $status->value ? 'selected' : '' }}>
                                     {{ trans('main.users.statuses.' . $status->value) }}
                                 </option>
                             @endforeach

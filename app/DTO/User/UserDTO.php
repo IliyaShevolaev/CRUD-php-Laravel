@@ -12,13 +12,13 @@ class UserDTO extends Data
 {
     public function __construct(
         public ?int $id = null,
+        
         public string $name,
         public string $email,
         public ?string $password = null,
 
-        public ?int $department_id = null,
-
-        public ?int $position_id = null,
+        public ?int $departmentId = null,
+        public ?int $positionId = null,
 
         public GenderEnum $gender,
         public StatusEnum $status

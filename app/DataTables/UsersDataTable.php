@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace App\DataTables;
 
 use App\Models\User;
-use App\Repositories\Interfaces\User\UserRepositoryInterface;
 use Illuminate\Support\Str;
 use Yajra\DataTables\Html\Column;
+use App\Models\Scopes\ActiveUserScope;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
+use App\Repositories\Interfaces\User\UserRepositoryInterface;
 
 /**
  * Таблица пользователей
@@ -71,7 +72,7 @@ class UsersDataTable extends DataTable
      */
     public function query(): QueryBuilder
     {
-        return User::query();
+        return User::query()->withoutGlobalScope(ActiveUserScope::class);
     }
 
     /**
